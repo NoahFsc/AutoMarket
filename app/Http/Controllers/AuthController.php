@@ -26,7 +26,7 @@ class AuthController extends Controller
 
         $remember = $request->filled('remember');
 
-        if(Auth::attempt($validated, $remember)) {
+        if (Auth::attempt($validated, $remember)) {
             $request->session()->regenerate();
 
             return redirect()->intended(route('home'));
@@ -42,7 +42,7 @@ class AuthController extends Controller
         Auth::logout();
 
         $request->session()->invalidate();
- 
+
         $request->session()->regenerateToken();
 
         return redirect(route('home'));
@@ -86,8 +86,8 @@ class AuthController extends Controller
         );
 
         return $status === Password::RESET_LINK_SENT
-                    ? back()->with(['status' => __($status)])
-                    : back()->withErrors(['email' => __($status)]);
+            ? back()->with(['status' => __($status)])
+            : back()->withErrors(['email' => __($status)]);
     }
 
     public function showResetForm($token)
@@ -117,7 +117,7 @@ class AuthController extends Controller
         );
 
         return $status === Password::PASSWORD_RESET
-                    ? redirect()->route('auth.login')->with('status', __($status))
-                    : back()->withErrors(['email' => [__($status)]]);
+            ? redirect()->route('auth.login')->with('status', __($status))
+            : back()->withErrors(['email' => [__($status)]]);
     }
 }
