@@ -4,20 +4,13 @@
 
 @section('contenu')
 
-<div class="flex flex-col mx-8">
-    <div class="w-full mb-1 text-2xl font-bold text-center">Définir un nouveau mot de passe</div>
+<div class="flex flex-col mx-8 md:w-1/3 md:mx-auto">
+    <div class="w-full mb-1 text-2xl font-bold text-center md:text-4xl">Définir un nouveau mot de passe</div>
     <div class="w-full text-base text-center text-gray-500">Doit faire au minimum 8 caractères dont un spécial</div>
-    <form method="POST" action="{{ route('password.update') }}" class="flex flex-col w-full gap-4 mt-4">
+    <form method="POST" action="{{ route('password.update') }}" class="flex flex-col w-full gap-2 mt-4 md:mt-6">
         @csrf
         <input type="hidden" name="token" value="{{ $token }}">
-
-        <div class="flex flex-col">
-            <label for="email" class="mb-1 text-sm text-gray-500">Adresse e-mail</label>
-            <input type="email" name="email" id="email" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Entrez votre email" required>
-            @error('email')
-                <div class="text-error-500">{{ $message }}</div>
-            @enderror
-        </div>
+        <input type="hidden" name="email" value="{{ $email ?? old('email') }}">
 
         <div class="flex flex-col">
             <label for="password" class="mb-1 text-sm text-gray-500">Mot de passe</label>
@@ -26,7 +19,7 @@
                 <i class="absolute text-gray-500 transform -translate-y-1/2 cursor-pointer fa-regular fa-eye right-3 top-1/2" id="togglePassword"></i>
             </div>
             @error('password')
-                <div class="text-error-500">{{ $message }}</div>
+                <div class="text-sm text-error-500">{{ $message }}</div>
             @enderror
         </div>
 

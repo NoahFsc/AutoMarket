@@ -6,8 +6,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
-Route::post('/register', [AuthController::class, 'doRegister']);
+Route::get('register', [AuthController::class, 'register'])->name('auth.register');
+Route::post('register', [AuthController::class, 'doRegister'])->name('auth.register');
+
+Route::get('register/step2', [AuthController::class, 'showRegisterStep2'])->name('auth.register.step2');
+Route::post('register/step2', [AuthController::class, 'doRegisterStep2'])->name('auth.register.step2');
 
 Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
 Route::post('/login', [AuthController::class, 'doLogin']);
@@ -19,6 +22,4 @@ Route::post('password/email', [AuthController::class, 'sendResetLinkEmail'])->na
 Route::get('password/reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
 Route::post('password/reset', [AuthController::class, 'reset'])->name('password.update');
 
-Route::middleware('auth')->group(function () {
-    
-});
+Route::middleware('auth')->group(function () {});

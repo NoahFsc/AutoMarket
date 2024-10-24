@@ -4,9 +4,9 @@
 
 @section('contenu')
 
-<div class="flex flex-col mx-8">
-    <div class="w-full text-2xl font-bold">Connexion</div>
-    <form action="{{ route('auth.login') }}" method="POST" class="flex flex-col w-full gap-4">
+<div class="flex flex-col mx-8 md:w-1/3 md:mx-auto">
+    <div class="w-full text-2xl font-bold md:text-4xl">Connexion</div>
+    <form action="{{ route('auth.login') }}" method="POST" class="flex flex-col w-full gap-4 md:gap-7">
 
         @csrf
 
@@ -15,35 +15,54 @@
             <a href="{{ route('auth.register') }}" class="underline text-info-500">S'inscrire</a>
         </div>
 
-        <div class="flex flex-col">
-            <label for="email" class="mb-1 text-sm text-gray-500">Adresse e-mail</label>
-            <input type="email" name="email" id="email" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Entrez un email">
-            @error('email')
-                <div class="text-error-500">{{ $message }}</div>
-            @enderror
-        </div>
-
-        <div class="flex flex-col">
-            <label for="password" class="mb-1 text-sm text-gray-500">Mot de passe</label>
-            <div class="relative">
-                <input type="password" name="password" id="password" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Entrez un mot de passe">
-                <i class="absolute text-gray-500 transform -translate-y-1/2 cursor-pointer fa-regular fa-eye right-3 top-1/2" id="togglePassword"></i>
+        <div class="flex flex-col md:gap-3">
+            <div class="flex flex-col">
+                <label for="email" class="mb-1 text-sm text-gray-500">Adresse e-mail</label>
+                <input type="email" name="email" id="email" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Entrez un email">
+                @error('email')
+                    <div class="text-sm text-error-500">{{ $message }}</div>
+                @enderror
             </div>
-            @error('password')
-                <div class="text-red-500">{{ $message }}</div>
-            @enderror
-            <div class="flex items-center justify-between w-full mt-2">
-                <div class="flex items-center gap-2">
-                    <input type="checkbox" name="remember" id="remember" class="size-4">
-                    <label for="remember" class="text-sm">Se souvenir de moi</label>
+    
+            <div class="flex flex-col">
+                <label for="password" class="mb-1 text-sm text-gray-500">Mot de passe</label>
+                <div class="relative">
+                    <input type="password" name="password" id="password" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Entrez un mot de passe">
+                    <i class="absolute text-gray-500 transform -translate-y-1/2 cursor-pointer fa-regular fa-eye right-3 top-1/2" id="togglePassword"></i>
                 </div>
-                <a href="{{ route('password.request') }}" class="text-sm underline text-info-500">Mot de passe oublié ?</a>
+                @error('password')
+                    <div class="text-sm text-red-500">{{ $message }}</div>
+                @enderror
+                <div class="flex items-center justify-between w-full mt-2">
+                    <div class="flex items-center gap-2">
+                        <input type="checkbox" name="remember" id="remember" class="size-4">
+                        <label for="remember" class="text-sm">Se souvenir de moi</label>
+                    </div>
+                    <a href="{{ route('password.request') }}" class="text-sm underline text-info-500">Mot de passe oublié ?</a>
+                </div>
             </div>
         </div>
 
         <button type="submit" class="px-4 py-2 text-sm text-white rounded-md md:duration-300 md:transition-all bg-primary-500 md:hover:bg-primary-400 focus:outline-none">Se connecter</button>
 
     </form>
+    
+    <!-- Séparateur -->
+    <div class="flex items-center my-4">
+        <div class="flex-grow border-t-2 border-gray-300"></div>
+        <span class="mx-2 text-sm text-gray-500">Ou</span>
+        <div class="flex-grow border-t-2 border-gray-300"></div>
+    </div>
+
+    <!-- Boutons de connexion sociale -->
+    <div class="flex gap-2">
+        <a href="{{ route('auth.login', ['provider' => 'google']) }}" class="flex items-center justify-center w-full px-4 py-2 text-sm text-white bg-red-500 rounded-md md:duration-300 md:transition-all md:hover:bg-red-400 focus:outline-none">
+            <i class="mr-2 fab fa-google"></i> Google
+        </a>
+        <a href="{{ route('auth.login', ['provider' => 'apple']) }}" class="flex items-center justify-center w-full px-4 py-2 text-sm text-white bg-black rounded-md md:duration-300 md:transition-all md:hover:bg-gray-800 focus:outline-none">
+            <i class="mr-2 fab fa-apple"></i> Apple
+        </a>
+    </div>
 </div>
 
 {{-- Gestion du champ mdp --}}
