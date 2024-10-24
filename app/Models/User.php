@@ -19,6 +19,7 @@ class User extends Authenticatable
         'carte_identite',
         'localisation',
         'telephone',
+        'photo_de_profil',
     ];
 
     protected $hidden = [

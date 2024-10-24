@@ -52,15 +52,15 @@
                 @php
                     $links = [
                         ['route' => 'home', 'icon' => 'fa-house', 'label' => 'Accueil'],
-                        ['route' => 'home', 'icon' => 'fa-shopping-cart', 'label' => 'Acheter'],
+                        ['route' => 'home', 'icon' => 'fa-car-side', 'label' => 'Acheter'],
                         ['route' => 'home', 'icon' => 'fa-building-columns', 'label' => 'Enchérir'],
                         ['route' => 'home', 'icon' => 'fa-messages', 'label' => 'Messagerie'],
-                        ['route' => auth()->check() ? 'home' : 'auth.login', 'icon' => 'fa-user', 'label' => 'Profil'],
+                        ['route' => auth()->check() ? 'user.index' : 'auth.login', 'icon' => 'fa-user', 'label' => 'Profil'],
                     ];
                 @endphp
         
                 @foreach ($links as $link)
-                    <a href="{{ route($link['route']) }}" class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is($link['route']) ? 'text-primary-500' : 'text-gray-500' }}">
+                    <a href="{{ route($link['route']) }}" class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is($link['route']) ? 'text-primary-500' : '' }}">
                         <i class="fa-regular {{ $link['icon'] }} fa-xl"></i>
                         <span class="text-sm">{{ $link['label'] }}</span>
                     </a>
