@@ -10,6 +10,13 @@
             <h3 class="mb-4 text-lg font-semibold">Filtres</h3>
             <form>
                 <div class="mb-4">
+                    <label for="annee_min" class="block text-base opacity-50">Année</label>
+                    <div class="flex space-x-2">
+                        <input type="text" id="annee_min" name="annee_min" placeholder="Min" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <input type="text" id="annee_max" name="annee_max" placeholder="Max" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                    </div>
+                </div>
+                <div class="mb-4">
                     <label for="kilometrage_min" class="block text-base opacity-50">Kilométrage</label>
                     <div class="flex space-x-2">
                         <input type="text" id="kilometrage_min" name="kilometrage_min" placeholder="Min" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
