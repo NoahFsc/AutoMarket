@@ -4,23 +4,27 @@
 
 @section('contenu')
 
-<a href="{{ route('home') }}" class="px-4 py-2 text-white rounded-md bg-slate-600 hover:bg-slate-500 focus:outline-none">Retour</a>
+<div class="flex flex-col mx-8">
+    <div class="w-full text-2xl font-bold text-center">Vous avez oublié votre mot de passe ?</div>
+    <div class="text-base text-center text-gray-500">Pas de problème, nous vous enverrons les instructions par e-mail.</div>
+    <form method="POST" action="{{ route('password.email') }}" class="flex flex-col w-full gap-4 mt-4">
+        @csrf
 
-<div class="mt-4 text-2xl">Réinitialiser le mot de passe</div>
-<form method="POST" action="{{ route('password.email') }}" class="flex flex-col gap-3 mt-4">
-    @csrf
+        <div class="flex flex-col">
+            <label for="email" class="mb-1 text-sm text-gray-500">Adresse e-mail</label>
+            <input type="email" name="email" id="email" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Entrez votre email" required>
+            @error('email')
+                <div class="text-error-500">{{ $message }}</div>
+            @enderror
+        </div>
 
-    <div class="flex flex-col mt-2 mb-2">
-        <label for="email" class="mb-2 text-sm font-medium text-white">Adresse e-mail</label>
-        <input type="email" name="email" id="email" class="w-64 px-3 py-2 text-black rounded-md focus:outline-none" placeholder="Entrez votre email" required>
-        @error('email')
-            <div class="text-red-500">{{ $message }}</div>
-        @enderror
+        <button type="submit" class="px-4 py-2 text-sm text-white rounded-md md:duration-300 md:transition-all bg-primary-500 md:hover:bg-primary-400 focus:outline-none">Envoyer le lien de réinitialisation</button>
+    </form>
+    <div class="mt-2 text-center">
+        <a href="{{ route('auth.login') }}" class="text-sm text-gray-400 hover:text-gray-500">
+            <i class="mr-1 fa-solid fa-arrow-left fa-sm"></i> Retour vers la connexion
+        </a>
     </div>
-
-    <div>
-        <button type="submit" class="px-4 py-2 text-white rounded-md bg-slate-600 hover:bg-slate-500 focus:outline-none">Envoyer le lien de réinitialisation</button>
-    </div>
-</form>
+</div>
 
 @endsection

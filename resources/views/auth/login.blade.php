@@ -4,42 +4,62 @@
 
 @section('contenu')
 
-<a href="{{ route('home') }}" class="px-4 py-2 text-white rounded-md bg-slate-600 hover:bg-slate-500 focus:outline-none">Retour</a>
+<div class="flex flex-col mx-8">
+    <div class="w-full text-2xl font-bold">Connexion</div>
+    <form action="{{ route('auth.login') }}" method="POST" class="flex flex-col w-full gap-4">
 
-<div class="mt-4 text-2xl">Se connecter</div>
-<form action="{{ route('auth.login') }}" method="POST" class="flex flex-col gap-3">
+        @csrf
 
-    @csrf
-
-    <div class="flex flex-col mt-2 mb-2">
-        <label for="email" class="mb-2 text-sm font-medium text-white">Adresse e-mail</label>
-        <input type="email" name="email" id="email" class="w-64 px-3 py-2 text-black rounded-md focus:outline-none" placeholder="Entrez un email">
-        @error('email')
-            <div class="text-red-500">{{ $message }}</div>
-        @enderror
-    </div>
-
-    <div class="flex flex-col">
-        <label for="password" class="mb-2 text-sm font-medium text-white">Mot de passe</label>
-        <input type="password" name="password" id="password" class="w-64 px-3 py-2 text-black rounded-md focus:outline-none" placeholder="Entrez un mot de passe">
-        @error('password')
-            <div class="text-red-500">{{ $message }}</div>
-        @enderror
-        <div class="flex justify-between w-64 mt-2">
-            <a href="{{ route('password.request') }}" class="text-blue-500 underline">Mot de passe oublié ?</a>
-            <a href="{{ route('auth.register') }}" class="text-blue-500 underline">S'inscrire</a>
+        <div>
+            <span class="text-gray-500">Vous n'avez pas de compte ?</span>
+            <a href="{{ route('auth.register') }}" class="underline text-info-500">S'inscrire</a>
         </div>
-    </div>
 
-    <div class="flex items-center mb-2">
-        <input type="checkbox" name="remember" id="remember" class="mr-2">
-        <label for="remember" class="text-sm text-white">Se souvenir de moi</label>
-    </div>
+        <div class="flex flex-col">
+            <label for="email" class="mb-1 text-sm text-gray-500">Adresse e-mail</label>
+            <input type="email" name="email" id="email" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Entrez un email">
+            @error('email')
+                <div class="text-error-500">{{ $message }}</div>
+            @enderror
+        </div>
 
-    <div>
-        <button type="submit" class="px-4 py-2 text-white rounded-md bg-slate-600 hover:bg-slate-500 focus:outline-none">Se connecter</button>
-    </div>
+        <div class="flex flex-col">
+            <label for="password" class="mb-1 text-sm text-gray-500">Mot de passe</label>
+            <div class="relative">
+                <input type="password" name="password" id="password" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Entrez un mot de passe">
+                <i class="absolute text-gray-500 transform -translate-y-1/2 cursor-pointer fa-regular fa-eye right-3 top-1/2" id="togglePassword"></i>
+            </div>
+            @error('password')
+                <div class="text-red-500">{{ $message }}</div>
+            @enderror
+            <div class="flex items-center justify-between w-full mt-2">
+                <div class="flex items-center gap-2">
+                    <input type="checkbox" name="remember" id="remember" class="size-4">
+                    <label for="remember" class="text-sm">Se souvenir de moi</label>
+                </div>
+                <a href="{{ route('password.request') }}" class="text-sm underline text-info-500">Mot de passe oublié ?</a>
+            </div>
+        </div>
 
-</form>
+        <button type="submit" class="px-4 py-2 text-sm text-white rounded-md md:duration-300 md:transition-all bg-primary-500 md:hover:bg-primary-400 focus:outline-none">Se connecter</button>
+
+    </form>
+</div>
+
+{{-- Gestion du champ mdp --}}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const togglePassword = document.getElementById('togglePassword');
+        if (togglePassword) {
+            togglePassword.addEventListener('click', function () {
+                const passwordField = document.getElementById('password');
+                const type = passwordField.getAttribute('type') === 'password' ? 'text' : 'password';
+                passwordField.setAttribute('type', type);
+                this.classList.toggle('fa-eye');
+                this.classList.toggle('fa-eye-slash');
+            });
+        }
+    });
+</script>
 
 @endsection
