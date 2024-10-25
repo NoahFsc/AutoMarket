@@ -9,7 +9,7 @@
     {{-- Entête --}}
     <div>
         <div class="flex gap-4">
-            <img src="{{ Auth::user()->photo_de_profil ? asset('storage/' . Auth::user()->photo_de_profil) : asset('assets/default_pfp.png') }}" alt="Avatar" class="border-4 border-white rounded-full size-20">
+            <img src="{{ Auth::user()->photo_de_profil ? asset('storage/' . Auth::user()->photo_de_profil) : asset('assets/default_pfp.png') }}" alt="Avatar" class="border border-white rounded-full size-20">
             <div class="flex flex-col w-full">
                 <span class="w-full text-2xl font-bold md:text-4xl">{{Auth::user()->prenom . ' ' . Auth::user()->nom }}</span>
                 <span class="text-base text-gray-500">{{ '@' . strtolower(Auth::user()->prenom . Auth::user()->nom) }} </span>
