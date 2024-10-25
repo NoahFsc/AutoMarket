@@ -4,30 +4,30 @@
 
 @section('contenu')
 <div class="container mx-auto mt-2">
-    <div class="z-10 flex">
+    <div class="flex">
         {{-- Menu de filtre --}}
-        <div class="fixed left-0 max-h-screen p-4 pt-24 overflow-y-auto border-r top-8 w-52 border-r-black border-opacity-20">
+        <div class="sticky top-0 items-center max-h-screen border-r w-52 border-opacity-20">
             <h3 class="mb-4 text-2xl font-semibold">Filtres</h3>
             <form>
                 <div class="mb-4">
                     <label for="annee_min" class="block text-base opacity-50">Année</label>
                     <div class="flex space-x-2">
-                        <input type="text" id="annee_min" name="annee_min" placeholder="Min" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        <input type="text" id="annee_max" name="annee_max" placeholder="Max" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <input type="text" id="annee_min" name="annee_min" placeholder="Min" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm h-9 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm pl-[5px]">
+                        <input type="text" id="annee_max" name="annee_max" placeholder="Max" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm h-9 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm pl-[5px]">
                     </div>
                 </div>
                 <div class="mb-4">
                     <label for="kilometrage_min" class="block text-base opacity-50">Kilométrage</label>
                     <div class="flex space-x-2">
-                        <input type="text" id="kilometrage_min" name="kilometrage_min" placeholder="Min" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        <input type="text" id="kilometrage_max" name="kilometrage_max" placeholder="Max" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <input type="text" id="kilometrage_min" name="kilometrage_min" placeholder="Min" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm h-9 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm pl-[5px]">
+                        <input type="text" id="kilometrage_max" name="kilometrage_max" placeholder="Max" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm h-9 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm pl-[5px]">
                     </div>
                 </div>
                 <div class="mb-4">
                     <label for="price_min" class="block text-base opacity-50">Prix</label>
                     <div class="flex space-x-2">
-                        <input type="text" id="price_min" name="price_min" placeholder="Min" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
-                        <input type="text" id="price_max" name="price_max" placeholder="Max" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                        <input type="text" id="price_min" name="price_min" placeholder="Min" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm h-9 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm pl-[5px]">
+                        <input type="text" id="price_max" name="price_max" placeholder="Max" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm h-9 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm pl-[5px]">
                     </div>
                 </div>
                 <div>
@@ -70,6 +70,18 @@
                         <input type="checkbox" name="verifie" id="verifie" class="mr-2 bg-transparent">
                         <label for="verifie" class="ml-2">Vérifié</label>
                     </div>
+                    <div class="mb-4">
+                        <label for="portes" class="block text-base opacity-50">Portes</label>
+                        <div class="flex space-x-2">
+                            <input type="text" id="portes" name="portes" placeholder="Entrez un nombre" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm h-9 focus:border-indigo-500 pl-[5px] focus:ring-indigo-500 sm:text-sm">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="sieges" class="block text-base opacity-50">Sièges</label>
+                        <div class="flex space-x-2">
+                            <input type="text" id="sieges" name="sieges" placeholder="Entrez un nombre" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm h-9 focus:border-indigo-500 pl-[5px] focus:ring-indigo-500 sm:text-sm">
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>
@@ -79,7 +91,7 @@
             <div class="grid grid-cols-3 gap-4">
                 {{-- Début de la boucle de création des cartes --}}
                 @for ($i = 0; $i < 12;$i++)
-                    <div class="overflow-hidden rounded-lg " style="width: 330px; height: 270px;">
+                    <div class="overflow-hidden transition-transform transform rounded-lg shadow-md hover:scale-105" style="width: 330px; height: 270px;">
                         <img src="https://images.caradisiac.com/logos/3/9/2/7/283927/S8-tesla-model-y-alors-fiable-en-occasion-ou-pas-210209.jpg" alt="Image" class="object-cover" style="width: 330px; height: 200px;">
                         <div class="p-2" style="width: 330px;">
                             <h2 class="text-lg font-semibold">Tesla Model Y</h2>
