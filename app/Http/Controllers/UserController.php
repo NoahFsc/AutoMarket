@@ -22,18 +22,29 @@ class UserController extends Controller
 
     public function update(Request $request)
     {
-        $request->validate([
-            'photo_de_profil' => 'nullable|file|mimes:webp,png,jpg,jpeg|max:2048',
+        $donnees = $request->validate([
+            'profile_picture' => 'nullable|file|mimes:webp,png,jpg,jpeg|max:2048',
+            'first_name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:1000',
+            'email' => 'required|email|max:255',
+            'birth_date' => 'nullable|date',
+            'identity_card' => 'nullable|file|mimes:pdf,jpg,jpeg|max:2048',
+            'adresse' => 'nullable|string|max:255',
+            'telephone' => 'nullable|string|max:20',
         ]);
 
         $user = User::find(Auth::user()->id);
 
-        if ($request->hasFile('photo_de_profil')) {
-            $path = $request->file('photo_de_profil')->store('photos_de_profil', 'public');
-            $user->photo_de_profil = $path;
+        if ($request->hasFile('profile_picture')) {
+            $donnees['profile_picture'] = $request->file('profile_picture')->store('profile_pictures', 'public');
         }
 
-        $user->save();
+        if ($request->hasFile('identity_card')) {
+            $donnees['identity_card'] = $request->file('identity_card')->store('identity_cards', 'public');
+        }
+
+        $user->update($donnees);
 
         return redirect()->route('user.index')->with('status', 'Profil mis à jour avec succès.');
     }

@@ -9,10 +9,10 @@
     {{-- Entête --}}
     <div>
         <div class="flex gap-4">
-            <img src="{{ Auth::user()->photo_de_profil ? asset('storage/' . Auth::user()->photo_de_profil) : asset('assets/default_pfp.png') }}" alt="Avatar" class="border border-white rounded-full size-20">
+            <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('assets/default_pfp.png') }}" alt="Avatar" class="border border-white rounded-full size-20">
             <div class="flex flex-col w-full">
-                <span class="w-full text-2xl font-bold md:text-4xl">{{Auth::user()->prenom . ' ' . Auth::user()->nom }}</span>
-                <span class="text-base text-gray-500">{{ '@' . strtolower(Auth::user()->prenom . Auth::user()->nom) }} </span>
+                <span class="w-full text-2xl font-bold md:text-4xl">{{Auth::user()->first_name . ' ' . Auth::user()->last_name }}</span>
+                <span class="text-base text-gray-500">{{ '@' . strtolower(Auth::user()->first_name . Auth::user()->last_name) }} </span>
                 <div class="flex items-baseline justify-end w-full gap-1">
                     <i class="text-yellow-400 fa-solid fa-star"></i>
                     <span class="text-sm font-bold">5.0</span> {{-- A changer par moyenne avis bdd --}}
@@ -49,7 +49,7 @@
     <div class="flex justify-between w-full">
         <div>
             <i class="text-gray-500 fa-regular fa-location-dot fa-sm"></i>
-            <span class="text-sm text-gray-500">{{ \Illuminate\Support\Str::after(Auth::user()->localisation, ',') }}</span>
+            <span class="text-sm text-gray-500">{{ \Illuminate\Support\Str::after(Auth::user()->adresse, ',') }}</span>
         </div>
         <div>
             <i class="text-gray-500 fa-regular fa-calendar fa-sm"></i>
