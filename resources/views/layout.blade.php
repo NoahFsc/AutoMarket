@@ -15,6 +15,7 @@
         @wireUiScripts
         <script src="//unpkg.com/alpinejs" defer></script>
         <script src="{{ asset('assets/fontawesome.js') }}" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2" defer></script>
     </head>
     <body class="flex flex-col min-h-screen bg-background">
 
