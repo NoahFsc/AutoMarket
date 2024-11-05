@@ -195,7 +195,7 @@
         {{-- Menu Préférences --}}
         <div id="tab3" class="hidden mt-4 tab-content">
             <div class="flex flex-col gap-4">
-                <div class="flex flex-col">
+                <div class="flex flex-col gap-2">
                     <span class="text-gray-500">Notifications</span>
                     <div class="flex flex-col">
                         <div class="flex items-center justify-between">
@@ -219,7 +219,7 @@
                     </div>
                 </div>
 
-                <div class="flex flex-col">
+                <div class="flex flex-col gap-2">
                     <span class="text-gray-500">Statut</span>
                     <div class="flex flex-col">
                         <div class="flex items-center justify-between">
@@ -247,7 +247,7 @@
                     <span class="text-gray-500">Archivage</span>
                     <div class="flex items-center justify-between">
                         <label for="archive_duration" class="text-sm">Durée d'inactivité avant archivage</label>
-                        <select name="archive_duration" id="archive_duration" class="p-1 text-sm border border-gray-200 rounded-md focus:outline-none">
+                        <select name="archive_duration" id="archive_duration" class="w-1/4 px-3 py-1 text-sm border border-gray-200 rounded-md focus:outline-none">
                             <option value="1_month">1 mois</option>
                             <option value="3_months">3 mois</option>
                             <option value="6_months">6 mois</option>
