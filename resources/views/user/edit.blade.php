@@ -4,25 +4,25 @@
 
 @section('contenu')
 
-<div class="flex flex-col gap-3 mx-8 md:w-1/3 md:mx-auto">
+<div class="flex flex-col gap-3 mx-8 md:w-3/4 md:mx-auto">
 
     {{-- Entête --}}
     <form action="{{ route('user.update') }}" method="POST" enctype="multipart/form-data" class="flex flex-col">
         @csrf
         
         <div class="relative flex items-center justify-between w-full">
-            <a href="{{ route('user.index') }}" class="absolute left-0 text-sm text-gray-400 hover:text-gray-500">
+            <a href="{{ route('user.index') }}" class="absolute left-0 text-sm text-gray-400 md:hidden hover:text-gray-500">
                 <i class="fa-solid fa-chevron-left"></i> Retour
             </a>
     
-            <span class="mx-auto font-medium">Edition</span>
+            <span class="mx-auto font-medium md:hidden">Edition</span>
         
-            <button type="submit" class="absolute right-0 font-medium text-primary-500">Enregistrer</button>
+            <button type="submit" class="absolute right-0 font-medium md:hidden text-primary-500">Enregistrer</button>
         </div>
 
-        <div class="flex flex-col items-center gap-4 mt-8">
+        <div class="relative flex flex-col items-center gap-4 mt-8 md:mt-0 md:flex-row">
             <div class="relative">
-                <img id="imageProfil" src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('assets/default_pfp.png') }}" alt="Avatar" class="rounded-full size-20">
+                <img id="imageProfil" src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('assets/default_pfp.png') }}" alt="Avatar" class="rounded-full size-20 md:size-24">
                 <button type="button" class="absolute flex items-center justify-center size-8" style="bottom: -5px; right: -5px;">
                     <span class="fa-stack fa-1x">
                         <i class="fa fa-circle fa-stack-2x text-primary-500"></i>
@@ -31,9 +31,15 @@
                 </button>
                 <input type="file" name="profile_picture" class="hidden" id="profile_picture">
             </div>
-            <div class="flex flex-col items-center">                
+            <div class="flex flex-col items-center md:items-start">                
                 <span class="text-2xl font-bold md:text-4xl">{{Auth::user()->first_name . ' ' . Auth::user()->last_name }}</span>
                 <span class="text-base text-gray-500">{{ '@' . strtolower(Auth::user()->first_name . Auth::user()->last_name) }} </span>
+            </div>
+            <div class="absolute right-0 items-center hidden md:flex">
+                <a href="{{ route('user.index') }}" class="hidden mr-4 text-sm text-gray-400 md:block hover:text-gray-500">
+                    Annuler 
+                </a>
+                <button type="submit" class="hidden px-4 py-2 text-sm text-center text-white rounded-lg md:block md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Enregistrer</button>
             </div>
         </div>
 

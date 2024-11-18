@@ -64,22 +64,21 @@
         {{-- Mobile --}}
         <div class="fixed bottom-0 left-0 right-0 md:hidden">
             <div class="flex items-end justify-around pb-2 bg-white min-h-[64px]">
-                @php
-                    $links = [
-                        ['route' => 'home', 'icon' => 'fa-house', 'label' => 'Accueil'],
-                        ['route' => 'home', 'icon' => 'fa-car-side', 'label' => 'Acheter'],
-                        ['route' => 'home', 'icon' => 'fa-building-columns', 'label' => 'Enchérir'],
-                        ['route' => 'home', 'icon' => 'fa-messages', 'label' => 'Messagerie'],
-                        ['route' => auth()->check() ? 'user.index' : 'auth.login', 'icon' => 'fa-user', 'label' => 'Profil'],
-                    ];
-                @endphp
-        
-                @foreach ($links as $link)
-                    <a href="{{ route($link['route']) }}" class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is($link['route']) ? 'text-primary-500' : '' }}">
-                        <i class="fa-regular {{ $link['icon'] }} fa-xl"></i>
-                        <span class="text-sm">{{ $link['label'] }}</span>
-                    </a>
-                @endforeach
+                <a href="{{ route('home') }}" class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary-500' : 'text-gray-400' }}">
+                    <i class="fa-regular fa-house fa-xl"></i><span class="text-sm">Accueil</span>
+                </a>
+                <a href="{{ route('home') }}" class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary-500' : 'text-gray-400' }}">
+                    <i class="fa-regular fa-car-side fa-xl"></i><span class="text-sm">Acheter</span>
+                </a>
+                <a href="{{ route('home') }}" class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary-500' : 'text-gray-400' }}">
+                    <i class="fa-regular fa-building-columns fa-xl"></i><span class="text-sm">Enchérir</span>
+                </a>
+                <a href="{{ route('home') }}" class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary-500' : 'text-gray-400' }}">
+                    <i class="fa-regular fa-messages fa-xl"></i><span class="text-sm">Messagerie</span>
+                </a>
+                <a href="{{ route(auth()->check() ? 'user.index' : 'auth.login') }}" class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is(auth()->check() ? ['user.index', 'user.edit'] : 'auth.login') ? 'text-primary-500' : ' text-gray-400' }}">
+                    <i class="fa-regular fa-user fa-xl"></i><span class="text-sm">Profil</span>
+                </a>
             </div>
         </div>
 
