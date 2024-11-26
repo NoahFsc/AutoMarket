@@ -16,7 +16,7 @@
         <script src="//unpkg.com/alpinejs" defer></script>
         <script src="{{ asset('assets/fontawesome.js') }}" crossorigin="anonymous"></script>
     </head>
-    <body class="min-h-screen bg-background">
+    <body class="flex flex-col min-h-screen bg-background">
 
         {{-- Ordinateur --}}
         <nav class="p-8 bg-background">
@@ -82,7 +82,7 @@
             </div>
         </div>
 
-        <div class="h-[90vh] md:mx-16 md:my-16">
+        <div class="flex-grow md:mx-16 md:my-16">
 
             @yield('contenu')
             

@@ -43,14 +43,14 @@
             </div>
         </div>
 
-        <div class="flex flex-wrap px-1 py-1 mt-4 bg-gray-200 rounded-lg tab-section">
+        <div class="flex flex-wrap px-1 py-1 mt-4 bg-gray-200 rounded-lg tab-section md:hidden">
             <button type="button" class="flex-grow p-1 font-medium text-gray-700 rounded-lg" data-tab-target="#tab1">Profil</button>
             <button type="button" class="flex-grow p-1 font-medium text-gray-700 rounded-lg" data-tab-target="#tab2">Compte</button>
             <button type="button" class="flex-grow p-1 font-medium text-gray-700 rounded-lg" data-tab-target="#tab3">Préferences</button>
         </div>
 
         {{-- Menu Profil --}}
-        <div id="tab1" class="hidden mt-4 tab-content">
+        <div id="tab1" class="hidden mt-4 tab-content md:block">
             <div class="flex flex-col gap-4">
                 <div class="flex flex-col">
                     <label for="first_name" class="mb-1 text-gray-500">Prénom</label>
@@ -79,7 +79,7 @@
         </div>
 
         {{-- Menu Compte --}}
-        <div id="tab2" class="hidden mt-4 mb-24 tab-content">
+        <div id="tab2" class="hidden mt-4 tab-content md:block">
             <div class="flex flex-col gap-4">
                 <div class="flex flex-col">
                     <label for="email" class="mb-1 text-gray-500">Adresse e-mail</label>
@@ -199,7 +199,7 @@
         </div>
         
         {{-- Menu Préférences --}}
-        <div id="tab3" class="hidden mt-4 tab-content">
+        <div id="tab3" class="hidden mt-4 tab-content md:block">
             <div class="flex flex-col gap-4">
                 <div class="flex flex-col gap-2">
                     <span class="text-gray-500">Notifications</span>
