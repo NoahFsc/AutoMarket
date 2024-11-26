@@ -56,8 +56,8 @@ class AuthController extends Controller
     public function doRegister(Request $request)
     {
         $validated = $request->validate([
-            'nom' => 'required|string|min:3|max:255',
-            'prenom' => 'required|string|min:3|max:255',
+            'last_name' => 'required|string|min:3|max:255',
+            'first_name' => 'required|string|min:3|max:255',
             'email' => 'required|email|unique:users',
             'password' => 'required|min:4|confirmed',
         ]);
@@ -76,9 +76,9 @@ class AuthController extends Controller
     public function doRegisterStep2(Request $request)
     {
         $validated = $request->validate([
-            'date_naissance' => 'required|date',
-            'carte_identite' => 'required|file|mimes:pdf,jpg,jpeg|max:2048',
-            'localisation' => 'required|string|max:255',
+            'birth_date' => 'required|date',
+            'identity_card' => 'required|file|mimes:pdf,jpg,jpeg|max:2048',
+            'adresse' => 'required|string|max:255',
             'telephone' => 'required|string|max:20',
         ]);
 
@@ -87,13 +87,13 @@ class AuthController extends Controller
 
         // Créer l'utilisateur
         $user = User::create([
-            'nom' => $registerData['nom'],
-            'prenom' => $registerData['prenom'],
+            'last_name' => $registerData['last_name'],
+            'first_name' => $registerData['first_name'],
             'email' => $registerData['email'],
             'password' => Hash::make($registerData['password']),
-            'date_naissance' => $validated['date_naissance'],
-            'carte_identite' => $request->file('carte_identite')->store('cartes_identite'),
-            'localisation' => $validated['localisation'],
+            'birth_date' => $validated['birth_date'],
+            'identity_card' => $request->file('identity_card')->store('identity_card'),
+            'adresse' => $validated['adresse'],
             'telephone' => $validated['telephone'],
         ]);
 

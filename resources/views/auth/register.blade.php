@@ -18,17 +18,17 @@
         <div class="flex flex-col md:gap-3">
             <div class="flex flex-col md:flex-row md:gap-3">
                 <div class="flex flex-col w-full md:w-1/2">
-                    <label for="prenom" class="mb-1 text-sm text-gray-500">Prénom</label>
-                    <input type="text" name="prenom" id="prenom" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Entrez votre prénom">
-                    @error('prenom')
+                    <label for="first_name" class="mb-1 text-sm text-gray-500">Prénom</label>
+                    <input type="text" name="first_name" id="first_name" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Entrez votre prénom">
+                    @error('first_name')
                         <div class="text-sm text-red-500">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="flex flex-col w-full md:w-1/2">
-                    <label for="nom" class="mb-1 text-sm text-gray-500">Nom</label>
-                    <input type="text" name="nom" id="nom" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Entrez votre nom">
-                    @error('nom')
+                    <label for="last_name" class="mb-1 text-sm text-gray-500">Nom</label>
+                    <input type="text" name="last_name" id="last_name" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Entrez votre nom">
+                    @error('last_name')
                         <div class="text-sm text-red-500">{{ $message }}</div>
                     @enderror
                 </div>

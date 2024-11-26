@@ -9,6 +9,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
+            $table->renameColumn('name', 'nom');
             $table->string('prenom')->after('nom');
             $table->date('date_naissance')->nullable()->after('email');
             $table->string('carte_identite')->nullable()->after('date_naissance');
