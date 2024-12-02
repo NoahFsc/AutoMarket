@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Car;
+
 class HomeController extends Controller
 {
     public function index()
     {
-        $cars = Car::all(); // Modèle pour les voitures
-        $auctions = Auction::active()->get(); // Modèle pour les enchères actives
-        $testimonials = Testimonial::all();
-
-        return view('home', compact('cars', 'auctions', 'testimonials'));
+        $cars = Car::with('imageDocument', 'carModel')->get();
+        return view('home', compact('cars'));
     }
 }
