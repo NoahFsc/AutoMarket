@@ -8,7 +8,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $cars = Car::with('imageDocument', 'carModel')->get();
+        $cars = Car::all();
         return view('home', compact('cars'));
     }
 }
