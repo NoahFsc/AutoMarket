@@ -108,6 +108,35 @@
         </ul>
     </div>
 
+    <div class="w-5/6 p-4 mx-auto mt-4 bg-white rounded-lg shadow-lg">
+        <div class="relative">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-regular fa-briefcase"></i>
+                    <h2 class="text-lg font-medium">Équipement</h2>
+                </div>
+                <a href="#" class="text-xs text-blue-500 hover:underline">Voir plus</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="w-5/6 p-4 mx-auto mt-4 bg-white rounded-lg shadow-lg">
+        <div class="relative">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <i class="fa-regular fa-message"></i>
+                    <h2 class="text-lg font-medium">Commentaire du vendeur</h2>
+                </div>
+                <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gray-300 opacity-50"></div>
+            </div>
+        </div>
+        <div class="mt-4">
+            <p class="text-sm text-gray-700">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+            </p>
+        </div>
+    </div>
+
 </div>
 
 @endsection
