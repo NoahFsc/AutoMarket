@@ -6,7 +6,7 @@
 <div class="container mx-auto mt-2">
     <div class="flex">
         {{-- Menu de filtre --}}
-        <div class="sticky top-0 max-h-screen p-4 border-r w-52 border-opacity-20">
+        <div class="sticky top-0 max-h-screen p-4 overflow-y-auto border-r w-52 border-opacity-20">
             <h3 class="mb-4 text-2xl font-semibold">Filtres</h3>
             <form>
                 <div class="mb-4">
@@ -83,9 +83,9 @@
                         <input type="text" id="sieges" name="sieges" placeholder="Entrez un nombre" class="block w-full mt-1 border-gray-300 rounded-md shadow-sm h-9 focus:border-indigo-500 pl-[5px] focus:ring-indigo-500 sm:text-sm">
                     </div>
                 </div>
-                <div class="relative mb-4 group">
+                <div x-data="{ open: false }" class="relative mb-4 group" @mouseenter="open = true" @mouseleave="open = false">
                     <label for="type_vehicule" class="block text-base opacity-50 cursor-pointer">Type de véhicule</label>
-                    <div class="absolute hidden p-4 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg left-full group-hover:block">
+                    <div x-show="open" class="absolute z-10 hidden p-4 ml-2 bg-white border border-gray-300 rounded-lg shadow-lg left-full group-hover:block">
                         <label for="type_vehicule_search" class="block text-sm font-medium text-gray-700">Rechercher</label>
                         <input type="text" id="type_vehicule_search" name="type_vehicule_search" placeholder="Rechercher" class="block w-full mt-1 mb-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                         <div class="grid grid-cols-2 gap-2">
@@ -101,9 +101,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="relative mb-4 group">
+                <div x-data="{ open: false }" class="relative mb-4 group" @mouseenter="open = true" @mouseleave="open = false">
                     <label for="marque" class="block text-base opacity-50 cursor-pointer">Marque</label>
-                    <div class="absolute hidden p-4 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg left-full group-hover:block">
+                    <div x-show="open" class="absolute z-10 hidden p-4 ml-2 bg-white border border-gray-300 rounded-lg shadow-lg left-full group-hover:block">
                         <label for="marque_search" class="block text-sm font-medium text-gray-700">Rechercher</label>
                         <input type="text" id="marque_search" name="marque_search" placeholder="Rechercher" class="block w-full mt-1 mb-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                         <div class="grid grid-cols-2 gap-2">
@@ -119,9 +119,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="relative mb-4 group">
+                <div x-data="{ open: false }" class="relative mb-4 group" @mouseenter="open = true" @mouseleave="open = false">
                     <label for="modele" class="block text-base opacity-50 cursor-pointer">Modèle</label>
-                    <div class="absolute hidden p-4 mt-2 bg-white border border-gray-300 rounded-lg shadow-lg left-full group-hover:block">
+                    <div x-show="open" class="absolute z-10 hidden p-4 ml-2 bg-white border border-gray-300 rounded-lg shadow-lg left-full group-hover:block">
                         <label for="modele_search" class="block text-sm font-medium text-gray-700">Rechercher</label>
                         <input type="text" id="modele_search" name="modele_search" placeholder="Rechercher" class="block w-full mt-1 mb-2 border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                         <div class="grid grid-cols-2 gap-2">
@@ -139,8 +139,9 @@
                 </div>
             </form>
         </div>
+
         {{-- Grille des cartes --}}
-        <div class="flex flex-col w-full ml-52">
+        <div class="flex flex-col w-full">
             <div class="mb-4" x-show="selectedFilters.length > 0">
                 <template x-for="(filter, index) in selectedFilters" :key="index">
                     <div class="inline-flex items-center px-3 py-1 mr-2 text-sm font-medium text-white bg-blue-500 rounded-full">
@@ -149,21 +150,24 @@
                     </div>
                 </template>
             </div>
-        <div class="flex justify-center w-full ml-52">
-            <div class="grid grid-cols-3 gap-4">
-                {{-- Début de la boucle de création des cartes --}}
-                @for ($i = 0; $i < 12;$i++)
-                    <div class="overflow-hidden transition-transform transform rounded-lg shadow-md hover:scale-105" style="width: 330px; height: 270px;">
-                        <img src="https://images.caradisiac.com/logos/3/9/2/7/283927/S8-tesla-model-y-alors-fiable-en-occasion-ou-pas-210209.jpg" alt="Image" class="object-cover" style="width: 330px; height: 200px;">
-                        <div class="p-2" style="width: 330px;">
-                            <h2 class="text-lg font-semibold">Tesla Model Y</h2>
-                            <div class="flex justify-between mt-1 text-gray-600">
-                                <p class="text-sm">John Doe</p>
-                                <p class="text-lg font-medium">37.850€</p>
+            <div class="mb-14">
+                <h2 class="text-2xl font-semibold">Véhicules - XXX Annonces</h2>
+            </div>
+            <div class="flex justify-center w-full mb-4">
+                <div class="grid grid-cols-3 gap-4">
+                    {{-- Début de la boucle de création des cartes --}}
+                    @for ($i = 0; $i < 12;$i++)
+                        <div class="overflow-hidden transition-transform transform rounded-lg shadow-md hover:scale-105" style="width: 330px; height: 270px;">
+                            <img src="https://images.caradisiac.com/logos/3/9/2/7/283927/S8-tesla-model-y-alors-fiable-en-occasion-ou-pas-210209.jpg" alt="Image" class="object-cover" style="width: 330px; height: 200px;">
+                            <div class="p-2" style="width: 330px;">
+                                <h2 class="text-lg font-semibold">Tesla Model Y</h2>
+                                <div class="flex justify-between mt-1 text-gray-600">
+                                    <p class="text-sm">John Doe</p>
+                                    <p class="text-lg font-medium">37.850€</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endfor
+                    @endfor
                 {{-- Fin de la boucle de création des cartes --}}
             </div>
         </div>
