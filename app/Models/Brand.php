@@ -14,4 +14,10 @@ class Brand extends Model
     ];
 
     public $timestamps = false;
+
+    // Tous les modèles de la marque
+    public function models()
+    {
+        return $this->hasMany(CarModel::class);
+    }
 }

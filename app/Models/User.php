@@ -35,4 +35,40 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Voitures mises en vente par l'utilisateur
+    public function cars()
+    {
+        return $this->hasMany(Car::class);
+    }
+
+    // Prix sur une enchère proposé par l'utilisateur
+    public function bids()
+    {
+        return $this->hasMany(Bid::class);
+    }
+
+    // Offres faites par l'utilisateur sur une voiture (message envoyé au vendeur)
+    public function offers()
+    {
+        return $this->hasMany(Offer::class);
+    }
+
+    // Avis du site laissés par l'utilisateur
+    public function websiteReviews()
+    {
+        return $this->hasMany(WebsiteReview::class);
+    }
+
+    // Avis reçus sur l'utilisateur par d'autres utilisateurs
+    public function userReviewsReceived()
+    {
+        return $this->hasMany(UserReview::class, 'user_id_receiver');
+    }
+
+    // Avis laissés par l'utilisateur sur d'autres utilisateurs
+    public function userReviewsWritten()
+    {
+        return $this->hasMany(UserReview::class, 'user_id_writer');
+    }
 }

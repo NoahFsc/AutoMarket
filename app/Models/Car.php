@@ -33,12 +33,31 @@ class Car extends Model
         'deadline' => 'datetime',
     ];
 
+    public $timestamps = false;
+
+    const CREATED_AT = 'created_at';
+
+    // Utilisateur ayant mis en vente la voiture
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    public $timestamps = false;
+    // Tous les documents de la voiture (carte grise, images...)
+    public function documents()
+    {
+        return $this->hasMany(Document::class);
+    }
 
-    const CREATED_AT = 'created_at';
+    // Récupérer l'image de couverture de la voiture (la première image)
+    public function imageDocument()
+    {
+        return $this->hasOne(Document::class)->where('document_type', 'image');
+    }
+
+    // Récupérer le modèle de la voiture
+    public function carModel()
+    {
+        return $this->belongsTo(CarModel::class, 'model_id');
+    }
 }
