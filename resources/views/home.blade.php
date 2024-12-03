@@ -17,15 +17,17 @@
 
   <!-- Search Form -->
   <form class="mt-8 flex justify-center items-center">
-    <select name="brand" class="border px-4 py-2 rounded-l">
+    <select name="brand" id="brand" class="border px-4 py-2 rounded-l">
       <option value="">Marque</option>
-      <option value="Renault">Renault</option>
-      <option value="Peugeot">Peugeot</option>
+      @foreach ($brands as $brand)
+      <option value="{{ $brand->id }}">{{ $brand->brand_name }}</option>
+      @endforeach
     </select>
-    <select name="model" class="border-t border-b border-r px-4 py-2">
+    <select name="carModel" id="carModel" class="border px-4 py-2">
       <option value="">Modèle</option>
-      <option value="Twingo">Twingo</option>
-      <option value="Clio">Clio</option>
+      @foreach ($carModels as $carModel)
+      <option value="{{ $carModel->id }}">{{ $carModel->model_name }}</option>
+      @endforeach
     </select>
     <input type="number" placeholder="Kilométrage max" class="border-t border-b border-r px-4 py-2" />
     <input type="text" placeholder="Code Postal" class="border-t border-b border-r px-4 py-2" />
@@ -49,52 +51,32 @@
   </section>
 
   <!-- Popular Categories -->
-  <section class="categories py-8 mx-auto">
+  <section class="py-8 mx-auto">
     <h2 class="text-2xl font-bold mb-4">Catégories populaires</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       @foreach ($cars->take(6) as $car)
-      <div class="bg-gray-100 rounded-lg shadow-md position-transform transform hover:squale 105"
-        style="max-width: 310px; width: 100%;">
-        @if ($car->imageDocument)
-        <img src="{{ $car->imageDocument->document_content }}" alt="{{ $car->carModel->model_name }}"
-          class="w-[310px] h-[210px] object-cover mx-auto rounded-t-lg" />
-        @endif
-        <div class="p-4">
-          <h3 class="font-bold text-lg">{{ $car->brand }} {{ $car->carModel->model_name }}</h3>
-          <p class="text-gray-600">Vendu par {{ $car->user->first_name . ' ' . $car->user->last_name }}</p>
-          <p class="text-lg font-bold mt-2">{{ $car->selling_price }}€</p>
-        </div>
-      </div>
+      @livewire('selling-card', ['car' => $car])
       @endforeach
     </div>
   </section>
 
   <!-- Enchères en cours -->
-  <section class="categories py-8">
+  <section class="py-8">
     <h2 class="text-2xl font-bold mb-4">Enchères en cours</h2>
-    <div class="flex flex-wrap gap-4 overflow-x-auto">
+    <div class="flex gap-4">
       @foreach ($cars->take(3) as $car)
-      <div class="card bg-gray-100 p-4 rounded shadow w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/6">
-        @if ($car->imageDocument)
-        <img src="{{ $car->imageDocument->document_content }}" alt="{{ $car->carModel->model_name }}"
-          class="rounded w-full" style="width: 310px; height: 200px; object-fit: cover;" />
-        @endif
-        <h3 class="font-bold mt-4">{{ $car->brand }} {{ $car->model }}</h3>
-        <p class="text-gray-600">Fin dans {{ $car->user->name }}</p>
-        <p class="text-lg font-bold mt-2">{{ \Carbon\Carbon::parse($car->deadline)->diffForHumans(\Carbon\Carbon::now(),
-          ['parts' => 2]); }}</p>
-        <p class="text-gray-600">Vendu par {{ $car->user->first_name . $car->user->last_name }}</p>
-        <p class="text-lg font-bold mt-2">{{ $car->selling_price }}€</p>
-      </div>
+      @livewire('auction-card', ['car' => $car])
       @endforeach
     </div>
   </section>
 
   <!-- Avis -->
-  <section class="testimonials py-8">
+  <section class="py-8">
     <h2 class="text-2xl font-bold mb-4">Ce que nos clients disent de nous...</h2>
-    <div class="flex gap-4 overflow-x-auto">
-
+    <div class="flex gap-4 flex-start">
+      @foreach ($review->take(3) as $review)
+      @livewire('review-card', ['review' => $review])
+      @endforeach
     </div>
   </section>
 </div>

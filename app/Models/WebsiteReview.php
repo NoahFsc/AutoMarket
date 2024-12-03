@@ -9,6 +9,7 @@ class WebsiteReview extends Model
     protected $fillable = [
         'comment',
         'user_id',
+        'nb_of_star'
     ];
 
     public $timestamps = false;
