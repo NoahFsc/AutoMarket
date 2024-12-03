@@ -13,6 +13,7 @@ class Car extends Model
         'type_of_car',
         'car_year',
         'mileage',
+        'postal_code',
         'consommation',
         'nb_door',
         'provenance',
@@ -59,5 +60,11 @@ class Car extends Model
     public function carModel()
     {
         return $this->belongsTo(CarModel::class, 'model_id');
+    }
+
+    // Récupérer la dernière enchère de la voiture (une seule uniquement)
+    public function lastBid()
+    {
+        return $this->hasMany(Bid::class)->latest();
     }
 }

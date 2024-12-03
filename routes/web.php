@@ -23,6 +23,7 @@ Route::get('/password/reset', [AuthController::class, 'showLinkRequestForm'])->n
 Route::post('/password/email', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('/password/reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [AuthController::class, 'reset'])->name('password.update');
+
 Route::get('/acheter', [AcheterController::class, 'index'])->name('acheter.index');
 
 Route::middleware('auth')->group(function () {
