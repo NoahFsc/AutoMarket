@@ -123,4 +123,3 @@ CREATE TABLE CARS_EQUIPMENTS (
 
 SET FOREIGN_KEY_CHECKS = 1;
 
-requetes d'insertion
