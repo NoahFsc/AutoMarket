@@ -2,7 +2,7 @@
     <div class="w-full">
         <label for="brand" class="text-gray-500 text-xs md:block">Marque</label>
         <select wire:model.live="marqueSelectionnee"
-            class="border px-4 py-2 md:rounded-l-lg rounded-t-lg md:rounded-t-none w-full">
+            class="border px-4 py-2 md:rounded-l-lg rounded-t-lg md:rounded-tr-none w-full">
             <option value="" disabled {{ empty($marqueSelectionnee) ? 'selected' : '' }}>Sélectionnez une marque
             </option>
             @foreach ($brands as $brand)

@@ -17,7 +17,8 @@
         <p>{{ $review->comment }}</p>
     </div>
     <div class="flex items-center gap-1">
-        <img src="{{ $review->user->profile_picture }}" alt="Avatar" class="rounded-full size-8">
+        <img src="{{ $review->user->profile_picture ? asset('storage/' . $review->user->profile_picture) : asset('assets/default_pfp.png')
+        }}" alt="Avatar" class="rounded-full size-8">
         <p class="text-sm">{{ $review->user->first_name . ' ' . $review->user->last_name }}</p>
     </div>
 </div>
