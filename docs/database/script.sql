@@ -71,7 +71,7 @@ CREATE TABLE CARS (
     deadline DATE,
     crit_air INT,
     co2_emission FLOAT,
-    commentaire_vendeur VARCHAR(255),
+    commentaire_vendeur TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id INT,
     model_id INT,
