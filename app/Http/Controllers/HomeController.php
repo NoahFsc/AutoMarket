@@ -6,16 +6,16 @@ use App\Models\Car;
 use App\Models\WebsiteReview;
 use App\Models\Brand;
 use App\Models\CarModel;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        $cars = Car::all();
+        $sells = Car::where('vente_enchere', 0)->get();
+        $auctions = Car::where('vente_enchere', 1)->get();
         $review = WebsiteReview::all();
-        $carModels = CarModel::all();
-        $brands = Brand::with('models')->get();
 
-        return view('home', compact('cars', 'review', 'carModels', 'brands'));
+        return view('home', compact('sells', 'auctions', 'review'));
     }
 }
