@@ -22,6 +22,7 @@ CREATE TABLE users (
 
 CREATE TABLE WEBSITE_REVIEWS (
     id INT PRIMARY KEY AUTO_INCREMENT,
+    nb_of_star INT NOT NULL,
     comment VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id INT,
@@ -56,6 +57,7 @@ CREATE TABLE CARS (
     type_of_car VARCHAR(50),
     car_year VARCHAR(4),
     mileage FLOAT,
+    postal_code VARCHAR(5),
     consommation FLOAT,
     nb_door INT,
     provenance VARCHAR(50),
