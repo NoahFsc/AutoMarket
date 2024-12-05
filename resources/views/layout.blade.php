@@ -21,7 +21,7 @@
 
 <body class="flex flex-col min-h-screen bg-background">
     <livewire:scripts />
-    
+
     {{-- Ordinateur --}}
     <nav class="p-8 bg-background">
         <div class="flex items-center mx-auto md:justify-between">
@@ -33,9 +33,11 @@
             </a>
             <div class="items-center hidden gap-12 md:flex">
                 <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">Accueil</a>
-                <a href="{{ route('acheter.index') }}" class="nav-link {{ Route::is('acheter.index') ? 'active' : '' }}">Acheter</a>
+                <a href="{{ route('acheter.index') }}"
+                    class="nav-link {{ Route::is('acheter.index') ? 'active' : '' }}">Acheter</a>
                 <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">Enchérir</a>
-                <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">Vendre</a>
+                <a href="{{ route('vendre.index') }}"
+                    class="nav-link {{ Route::is('home') ? 'active' : '' }}">Vendre</a>
 
                 @auth
                 {{-- Composant WireUI Dropdown --}}
@@ -92,8 +94,8 @@
                 class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary-500' : 'text-gray-400' }}">
                 <i class="fa-regular fa-building-columns fa-xl"></i><span class="text-sm">Enchérir</span>
             </a>
-            <a href="{{ route('home') }}"
-                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary-500' : 'text-gray-400' }}">
+            <a href="{{ route('vendre.index') }}"
+                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('vendre.index') ? 'text-primary-500' : 'text-gray-400' }}">
                 <i class="fa-regular fa-messages fa-xl"></i><span class="text-sm">Messagerie</span>
             </a>
             <a href="{{ route(auth()->check() ? 'user.index' : 'auth.login') }}"
