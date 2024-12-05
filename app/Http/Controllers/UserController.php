@@ -10,9 +10,16 @@ use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index($id = null)
     {
-        return view('user.index');
+        if ($id === null || $id == Auth::id()) {
+            $id = Auth::id();
+        }
+
+        $user = User::findOrFail($id);
+        $cars = $user->cars;
+        $reviews = $user->userReviewsReceived;
+        return view('user.index', compact('user', 'cars', 'reviews'));
     }
 
     public function edit()

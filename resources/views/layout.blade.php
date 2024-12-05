@@ -8,7 +8,7 @@
     <title>AutoMarket - @yield('titre')</title>
 
     @vite('resources/css/app.css')
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/logo.ico') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/logo_automarket.ico') }}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
@@ -26,8 +26,8 @@
     <nav class="p-8 bg-background">
         <div class="flex items-center mx-auto md:justify-between">
             <a href="{{ route('home') }}">
-                <div class="flex items-center gap-2">
-                    <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="h-12 mb-2">
+                <div class="flex items-center">
+                    <img src="{{ asset('assets/logo_automarket.webp') }}" alt="Logo" class="h-24 mb-2">
                     <span class="text-2xl font-medium">AutoMarket</span>
                 </div>
             </a>
