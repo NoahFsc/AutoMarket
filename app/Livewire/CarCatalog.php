@@ -6,6 +6,7 @@ use Livewire\Component;
 use App\Models\Car;
 use App\Models\Brand;
 use App\Models\CarModel;
+use Livewire\Attributes\On;
 use Livewire\WithPagination;
 
 class CarCatalog extends Component
@@ -29,14 +30,26 @@ class CarCatalog extends Component
     public bool $non_verifie = false;
     public bool $verifie = false;
 
+    // Champs de recherche et de tri
     public string $search = '';
     public string $sortDirection = '';
 
+    // Champs de sélection de marque
     public array $brands = [];
     public string $selectedBrand = '';
 
+    // Champs de sélection de modèle
     public array $carModels = [];
     public string $selectedCarModel = '';
+
+    #[On('sendFilters')]
+    public function applyFilters($filtres)
+    {
+        $this->selectedBrand = $filtres['marque'];
+        $this->selectedCarModel = $filtres['modele'];
+        $this->kilometrage_max = $filtres['kmMax'];
+        $this->postal_code = $filtres['codePostal'];
+    }
 
     // Récupération des marques et modèles de voitures au chargement du composant
     public function mount()

@@ -14,6 +14,12 @@ export default {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        'auto-fit-card': 'repeat(auto-fit, minmax(300px, 1fr))',
+      },
+      maxWidth: {
+        'card': '330px',
+      },
       colors: {
         'background': '#F5F3F0',
         primary: {
