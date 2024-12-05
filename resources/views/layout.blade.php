@@ -25,10 +25,12 @@
     {{-- Ordinateur --}}
     <nav class="p-8 bg-background">
         <div class="flex items-center mx-auto md:justify-between">
-            <div class="flex items-center gap-2">
-                <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="h-12 mb-2">
-                <span class="text-2xl font-medium">AutoMarket</span>
-            </div>
+            <a href="{{ route('home') }}">
+                <div class="flex items-center gap-2">
+                    <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="h-12 mb-2">
+                    <span class="text-2xl font-medium">AutoMarket</span>
+                </div>
+            </a>
             <div class="items-center hidden gap-12 md:flex">
                 <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">Accueil</a>
                 <a href="{{ route('acheter.index') }}" class="nav-link {{ Route::is('acheter.index') ? 'active' : '' }}">Acheter</a>

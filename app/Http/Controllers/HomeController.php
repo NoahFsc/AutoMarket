@@ -14,8 +14,8 @@ class HomeController extends Controller
     {
         $sells = Car::where('vente_enchere', 0)->get();
         $auctions = Car::where('vente_enchere', 1)->get();
-        $review = WebsiteReview::all();
+        $reviews = WebsiteReview::all();
 
-        return view('home', compact('sells', 'auctions', 'review'));
+        return view('home', compact('sells', 'auctions', 'reviews'));
     }
 }

@@ -15,7 +15,7 @@ export default {
   theme: {
     extend: {
       gridTemplateColumns: {
-        'auto-fit-card': 'repeat(auto-fit, minmax(300px, 1fr))',
+        'auto-fit-card': 'repeat(auto-fit, minmax(250px, 1fr))',
       },
       maxWidth: {
         'card': '330px',

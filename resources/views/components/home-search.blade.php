@@ -1,38 +1,29 @@
-<div class="mt-8 flex-col flex justify-center items-center md:flex-row">
-    <div class="w-full">
-        <label for="brand" class="text-gray-500 text-xs md:block">Marque</label>
-        <select wire:model.live="marqueSelectionnee"
-            class="border px-4 py-2 md:rounded-l-lg rounded-t-lg md:rounded-tr-none w-full">
-            <option value="" disabled {{ empty($marqueSelectionnee) ? 'selected' : '' }}>Sélectionnez une marque
-            </option>
+<div class="flex flex-col items-center justify-center mt-8 md:flex-row">
+    <div class="flex flex-col w-full bg-white border border-gray-300 rounded-t-md md:rounded-l-md md:rounded-tr-none">
+        <p class="mt-1 ml-4 text-sm opacity-50">Marque</p>
+        <select wire:model.live="marqueSelectionnee" class="px-4 py-1 border-none md:rounded-l-md no-outline">
+            <option value="" disabled>Sélectionnez une marque</option>
             @foreach ($brands as $brand)
-            <option value="{{ $brand['id'] }}">{{$brand['brand_name']}}
-            </option>
+            <option value="{{ $brand['id'] }}">{{$brand['brand_name']}}</option>
             @endforeach
         </select>
     </div>
-    <div class="w-full flex flex-col">
-        <label for="carModel" class="text-gray-500 text-xs">Modèle</label>
-        <select wire:model.live="modeleSelectionne" class="border px-4 py-2">
-            <option value="" disabled {{ empty($modeleSelectionne) ? 'selected' : '' }}>Sélectionnez un modèle</option>
+    <div class="flex flex-col w-full bg-white border border-gray-300">
+        <p class="mt-1 ml-4 text-sm opacity-50">Modèle</p>
+        <select wire:model.live="modeleSelectionne" class="px-4 py-1 border-none no-outline">
+            <option value="" disabled>Sélectionnez un modèle</option>
             @foreach ($carModels as $carModel)
             <option value="{{ $carModel['id'] }}">{{$carModel['model_name']}}</option>
             @endforeach
         </select>
     </div>
-    <div class="w-full">
-        <p class="text-gray-500 text-xs">Kilométrage max</p>
-        <input type="number" placeholder="Kilométrage max" wire:model.live="kmMax"
-            class="border-t border-b border-r px-4 py-2 w-full" />
+    <div class="flex flex-col w-full bg-white border border-gray-300">
+        <p class="mt-1 ml-4 text-sm opacity-50">Kilométrage</p>
+        <input type="number" placeholder="Kilométrage max" wire:model.live="kmMax" class="w-full px-4 py-1 border-none no-outline" />
     </div>
-    <div class="w-full">
-        <p class="text-gray-500 text-xs">Code Postal</p>
-        <input type="text" placeholder="Entrez un code postal" wire:model.live="codePostal"
-            class="border-t border-b border-r px-4 py-2 w-full" />
+    <div class="flex flex-col w-full bg-white border border-gray-300">
+        <p class="mt-1 ml-4 text-sm opacity-50">Code Postal</p>
+        <input type="text" placeholder="Entrez un code postal" wire:model.live="codePostal" class="w-full px-4 py-1 border-none no-outline" />
     </div>
-    <div class="w-full">
-        <label for="price" class="text-background text-xs hidden md:block">eqzhgf</label>
-        <button wire:click="sendFilters"
-            class="bg-blue-500 text-white px-4 py-2 md:rounded-r-lg rounded-b-lg md:rounded-bl-none w-full">Parcourir</button>
-    </div>
+    <button wire:click="sendFilters" class="w-full px-8 py-3 text-white border-4 rounded-b-md md:w-auto border-primary-500 bg-primary-500 md:rounded-r-lg md:rounded-bl-none">Parcourir</button>
 </div>
