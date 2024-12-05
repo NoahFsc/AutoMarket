@@ -4,6 +4,7 @@ use App\Http\Controllers\AcheterController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProduitController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -23,6 +24,8 @@ Route::get('/password/reset', [AuthController::class, 'showLinkRequestForm'])->n
 Route::post('/password/email', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('/password/reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [AuthController::class, 'reset'])->name('password.update');
+
+Route::get('/produit/{id}', [ProduitController::class, 'index'])->name('produit.index');
 
 Route::get('/acheter', [AcheterController::class, 'index'])->name('acheter.index');
 
