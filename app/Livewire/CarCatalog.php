@@ -42,20 +42,22 @@ class CarCatalog extends Component
     public array $carModels = [];
     public string $selectedCarModel = '';
 
-    #[On('sendFilters')]
-    public function applyFilters($filtres)
-    {
-        $this->selectedBrand = $filtres['marque'];
-        $this->selectedCarModel = $filtres['modele'];
-        $this->kilometrage_max = $filtres['kmMax'];
-        $this->postal_code = $filtres['codePostal'];
-    }
-
     // Récupération des marques et modèles de voitures au chargement du composant
     public function mount()
     {
         $this->brands = Brand::all()->toArray();
         $this->carModels = CarModel::all()->toArray();
+
+        // Récupérer les filtres de la session
+        $filters = session()->get('filters', []);
+
+        $this->selectedBrand = $filters['marque'] ?? '';
+        $this->selectedCarModel = $filters['modele'] ?? '';
+        $this->kilometrage_max = $filters['kmMax'] ?? null;
+        $this->postal_code = $filters['codePostal'] ?? '';
+
+        // Supprimer les filtres de la session
+        session()->forget('filters');
     }
 
     // Mise à jour des modèles de voitures en fonction de la marque sélectionnée

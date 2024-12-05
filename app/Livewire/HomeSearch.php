@@ -32,14 +32,14 @@ class HomeSearch extends Component
 
     public function sendFilters()
     {
-        $this->dispatch('sendFilters', [
+        session()->put('filters', [
             'marque' => $this->marqueSelectionnee,
             'modele' => $this->modeleSelectionne,
             'kmMax' => $this->kmMax,
             'codePostal' => $this->codePostal,
         ]);
 
-        return redirect()->route('acheter');
+        return redirect()->route('acheter.index');
     }
 
     public function render()
