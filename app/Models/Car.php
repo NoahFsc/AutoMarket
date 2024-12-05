@@ -27,6 +27,7 @@ class Car extends Model
         'crit_air',
         'co2_emission',
         'status',
+        'commentaire_vendeur',
     ];
 
     protected $casts = [

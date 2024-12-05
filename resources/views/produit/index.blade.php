@@ -4,7 +4,13 @@
 
 @section('contenu')
 
-<body class="bg-gray-100">
+<div class="mx-8 bg-gray-100 md:mx-0" x-data="{ showEquipments: false, showCarousel: false, currentPhoto: 0, photos: [
+    @foreach($car->documents as $document)
+        @if($document->document_type == 'image')
+            { src: '{{ asset('storage/' . $document->document_content) }}', alt: 'Car Image' },
+        @endif
+    @endforeach
+]}">
     <div x-data="photoCarousel()" class="max-w-5xl mx-auto mt-10">
         <!-- Conteneur principal -->
         <div class="flex flex-col md:flex-row">
@@ -22,23 +28,53 @@
                     </div>
                 </div>
                 <!-- Images secondaires pour l'interface PC -->
-                <div class="relative hidden w-full mt-4 space-x-1 md:w-full md:flex md:flex-row md:space-x-1 ">
-                    <!-- Première image prenant 50% de l'espace -->
-                    <div class="w-[400px] h-[350px]">
-                        <img class="object-cover w-full h-full rounded-lg" src="{{ asset('assets/teslay.jpg') }}" alt="Tesla Model Y">
-                    </div>
-                    <!-- Deux autres images en colonne prenant chacune 50% de l'espace restant -->
-                    <div class="flex flex-col justify-between w-[400px] space-y-1 relative">
-                        <img class="object-cover w-full h-[173px] rounded-lg" src="{{ asset('assets/teslay.jpg') }}" alt="Tesla Model Y">
-                        <div class="relative">
-                            <img class="object-cover w-full h-[173px] rounded-lg" src="{{ asset('assets/teslay.jpg') }}" alt="Tesla Model Y">
-                            <!-- Bouton pour voir plus de photos -->
-                            <div class="absolute bottom-0 right-0 hidden mb-4 mr-4 md:block">
-                                <button @click="showAllPhotos = !showAllPhotos" class="relative px-4 py-2 text-sm text-white bg-black bg-opacity-50 rounded-lg">
-                                    <span class="relative z-10 opacity-100" x-show="!showAllPhotos">Voir les 14 photos</span>
-                                    <span class="relative z-10 opacity-100" x-show="showAllPhotos">Voir moins</span>
-                                </button>
-                            </div>
+                <div class="relative hidden w-full mt-4 space-x-1 md:w-full md:flex md:flex-row md:space-x-1">
+                    @foreach($car->documents as $index => $document)
+                        @if($document->document_type == 'image')
+                            @if($index == 0)
+                                <div class="w-1/2 h-[350px]">
+                                    <img src="{{ $document->document_content ? asset('storage/' . $document->document_content) : asset('assets/default_pfp.png') }}" alt="Car Image" class="object-cover w-full h-full rounded-lg">
+                                </div>
+                            @elseif($index == 1 || $index == 2)
+                                @if($index == 1)
+                                    <div class="flex flex-col w-1/2 space-y-1">
+                                @endif
+                                <div class="relative w-full h-[175px]">
+                                    <img src="{{ $document->document_content ? asset('storage/' . $document->document_content) : asset('assets/default_pfp.png') }}" alt="Car Image" class="object-cover w-full h-full rounded-lg">
+                                    @if($index == 2)
+                                        @php
+                                            $photoCount = $car->documents->where('document_type', 'image')->count();
+                                        @endphp
+
+                                        <button @click="showCarousel = true" class="absolute bottom-0 right-0 px-4 py-2 mb-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">
+                                            Voir les {{ $photoCount }} photos
+                                        </button>
+                                    @endif
+                                </div>
+                                @if($index == 2)
+                                    </div>
+                                @endif
+                            @endif
+                        @endif
+                    @endforeach
+                </div>
+
+                <!-- Carousel en plein écran -->
+                <div x-show="showCarousel" @click.away="showCarousel = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+                    <div class="relative w-3/4 h-3/4">
+                        <button @click="showCarousel = false" class="absolute top-0 right-0 z-50 px-4 py-2 mt-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">Fermer</button>
+                        <template x-for="(photo, index) in photos" :key="index">
+                            <img x-show="currentPhoto === index" class="absolute inset-0 object-cover w-full h-full" :src="photo.src" :alt="photo.alt">
+                        </template>
+                        <button @click="currentPhoto = (currentPhoto > 0) ? currentPhoto - 1 : photos.length - 1" class="absolute left-0 z-40 px-4 py-2 text-white bg-black bg-opacity-50 rounded-full top-1/2">‹</button>
+                        <button @click="currentPhoto = (currentPhoto < photos.length - 1) ? currentPhoto + 1 : 0" class="absolute right-0 z-40 px-4 py-2 text-white bg-black bg-opacity-50 rounded-full top-1/2">›</button>
+                        <!-- Liste des petites images en dessous -->
+                        <div class="absolute bottom-0 left-0 right-0 flex items-center justify-center p-4 space-x-2 bg-black bg-opacity-50">
+                            <button @click="currentPhoto = (currentPhoto > 0) ? currentPhoto - 1 : photos.length - 1" class="px-2 py-1 text-white bg-black bg-opacity-50 rounded-full">‹</button>
+                            <template x-for="(photo, index) in visiblePhotos()" :key="index">
+                                <img @click="currentPhoto = (currentPhoto + index) % photos.length" :src="photo.src" :alt="photo.alt" class="object-cover w-16 h-16 rounded-lg cursor-pointer">
+                            </template>
+                            <button @click="currentPhoto = (currentPhoto < photos.length - 1) ? currentPhoto + 1 : 0" class="px-2 py-1 text-white bg-black bg-opacity-50 rounded-full">›</button>
                         </div>
                     </div>
                 </div>
@@ -48,7 +84,19 @@
                     <div class="flex justify-between">
                         <div>
                             <h1 class="text-2xl font-bold">{{$car->carModel->brand->brand_name ." ". $car->carModel->model_name}}</h1>
-                            <p class="mt-1 text-sm text-gray-500">Aujourd'hui à 17h23</p>
+                            <p class="mt-1 text-sm text-gray-500">
+                                @php
+                                    use Carbon\Carbon;
+                                    $createdAt = Carbon::parse($car->created_at);
+                                    if ($createdAt->isToday()) {
+                                        echo sprintf("Aujourd'hui à %s", $createdAt->format('H\hi'));
+                                    } elseif ($createdAt->isYesterday()) {
+                                        echo sprintf("Hier à %s", $createdAt->format('H\hi'));
+                                    } else {
+                                        echo sprintf("Il y a %d jours", $createdAt->diffInDays());
+                                    }
+                                @endphp
+                            </p>
                         </div>
                         <p class="text-2xl font-medium">{{number_format($car->selling_price)}}€</p>
                     </div>
@@ -150,9 +198,31 @@
                                     <i class="fa-regular fa-briefcase"></i>
                                     <h2 class="text-lg font-medium md:text-xl">Équipement</h2>
                                 </div>
-                                <a href="#" class="text-xs text-blue-500 hover:underline">Voir plus</a>
+                                <a href="#" @click.prevent="showEquipments = true" class="text-xs text-blue-500 hover:underline">Voir plus</a>
                             </div>
                             <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gray-300 opacity-50"></div>
+                        </div>
+                        <div class="hidden md:grid md:gap-4 md:mt-4 md:grid-cols-4">
+                            @foreach ($car->equipments->take(8) as $equipment)
+                                <div class="flex items-center justify-center">
+                                    <span class="text-xs text-center">{{ $equipment->equipment->equipment_name }}</span>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interface modale pour afficher tous les équipements -->
+                <div x-show="showEquipments" @click.away="showEquipments = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+                    <div class="relative w-3/4 p-4 bg-white rounded-lg">
+                        <button @click="showEquipments = false" class="absolute top-0 right-0 px-4 py-2 mt-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">Fermer</button>
+                        <h2 class="mb-4 text-lg font-medium md:text-xl">Tous les équipements</h2>
+                        <div class="grid gap-4 md:grid-cols-2">
+                            @foreach ($car->equipments as $equipment)
+                                <div class="flex items-center justify-center">
+                                    <span class="text-xs text-center">{{ $equipment->equipment->equipment_name }}</span>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -170,7 +240,7 @@
                     </div>
                     <div class="mt-4">
                         <p class="text-sm text-gray-700">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                            {{$car->commentaire_vendeur}}
                         </p>
                     </div>
                 </div>
@@ -185,28 +255,101 @@
                         <p class="text-sm text-gray-500">★★★★★</p>
                     </div>
                 </div>
-                <button class="px-4 py-2 mt-4 text-white !bg-[#3380CC] rounded-lg ">Faire une offre</button>
+                <button class="w-full px-4 py-2 mt-4 text-white !bg-[#3380CC] rounded-lg">Faire une offre</button>
                 <p class="mt-2 text-center text-gray-500">Ou</p>
                 <div class="flex flex-col mt-2 space-y-2">
                     <button class="px-4 py-2 text-white !bg-[#3380CC] rounded-lg ">Envoyer un message</button>
-                    <button class="px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">Voir le numéro de téléphone</button>
+                    <!-- Bouton "Voir le numéro de téléphone" -->
+                    @auth
+                    <div x-data="{ showPhone: false }">
+                        <button @click="showPhone = !showPhone" class="px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                            Voir le numéro de téléphone
+                        </button>
+                        <div x-show="showPhone" x-transition class="mt-2 text-gray-700">
+                            {{ $car->user->telephone }}
+                        </div>
+                    </div>
+                    @endauth
+                    @guest
+                    <a href="{{ route('auth.login') }}" 
+                       class="flex items-center justify-center h-12 px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                       Voir le numéro de téléphone
+                    </a>
+                    @endguest                    
+                </div>
+            </div>
+            <!-- Section vendeur pour l'interface téléphone -->
+            <div id="seller-section-phone" class="fixed left-0 right-0 flex items-center justify-center p-4 bg-white bottom-16 md:hidden">
+                <div class="flex w-full space-x-2">
+                    <button class="flex-1 px-4 py-2 text-white text-xs !bg-[#3380CC] rounded-lg">Offre</button>
+                    <button class="flex-1 px-4 py-2 text-white text-xs !bg-[#3380CC] rounded-lg">Message</button>
+                    <!-- Bouton "Voir le numéro de téléphone" -->
+                    @auth
+                    <div x-data="{ showPhone: false }" class="flex-1">
+                        <button @click="copyToClipboard('{{ $car->user->telephone }}')" class="w-full text-xs px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                            N° Tél
+                        </button>
+                    </div>
+                    @endauth
+                    @guest
+                    <a href="{{ route('auth.login') }}" 
+                    class="flex items-center justify-center text-xs w-full h-12 px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                    N° Tél
+                    </a>
+                    @endguest
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <script>
-        function photoCarousel() {
-            return {
-                photos: [
-                    { src: '{{ asset('assets/teslay.jpg') }}', alt: 'Tesla Model Y' },
-                    { src: '{{ asset('assets/teslay2.jpg') }}', alt: 'Tesla Model Y' },
-                    { src: '{{ asset('assets/teslay3.jpg') }}', alt: 'Tesla Model Y' },
-                    { src: '{{ asset('assets/teslay4.jpg') }}', alt: 'Tesla Model Y' },
-                ],
-                currentPhoto: 0,
-                showAllPhotos: false,
-            };
+<script>
+    function photoCarousel() {
+        return {
+            photos: [
+                @foreach($car->documents as $document)
+                    @if($document->document_type == 'image')
+                        { src: '{{ asset('storage/' . $document->document_content) }}', alt: 'Car Image' },
+                    @endif
+                @endforeach
+            ],
+            currentPhoto: 0,
+            showCarousel: false,
+            visiblePhotos() {
+                let start = this.currentPhoto;
+                let end = start + 3;
+                if (end > this.photos.length) {
+                    end = end % this.photos.length;
+                    return this.photos.slice(start).concat(this.photos.slice(0, end));
+                } else {
+                    return this.photos.slice(start, end);
+                }
+            }
+        };
+    }
+
+    function copyToClipboard(text) {
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(function() {
+                alert('Numéro de téléphone copié dans le presse-papier');
+            }, function(err) {
+                console.error('Erreur lors de la copie du texte : ', err);
+            });
+        } else {
+            // Méthode de secours pour les navigateurs qui ne supportent pas l'API Clipboard
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                document.execCommand('copy');
+                alert('Numéro de téléphone copié dans le presse-papier');
+            } catch (err) {
+                console.error('Erreur lors de la copie du texte : ', err);
+            }
+            document.body.removeChild(textArea);
         }
-    </script>
+    }
+</script>
 @endsection
