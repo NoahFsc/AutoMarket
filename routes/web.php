@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\ProduitController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -25,7 +26,10 @@ Route::post('/password/email', [AuthController::class, 'sendResetLinkEmail'])->n
 Route::get('/password/reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [AuthController::class, 'reset'])->name('password.update');
 
+Route::get('/produit/{id}', [ProduitController::class, 'index'])->name('produit.index');
+
 Route::get('/acheter', [AcheterController::class, 'index'])->name('acheter.index');
+Route::get('/produit/{id}', [ProduitController::class, 'index'])->name('produit.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profil', [UserController::class, 'index'])->name('user.index');
