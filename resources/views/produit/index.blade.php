@@ -47,10 +47,10 @@
                 <div class="flex flex-col mt-6">
                     <div class="flex justify-between">
                         <div>
-                            <h1 class="text-2xl font-bold">Tesla Model Y</h1>
+                            <h1 class="text-2xl font-bold">{{$car->carModel->brand->brand_name ." ". $car->carModel->model_name}}</h1>
                             <p class="mt-1 text-sm text-gray-500">Aujourd'hui à 17h23</p>
                         </div>
-                        <p class="text-2xl font-medium">64 380€</p>
+                        <p class="text-2xl font-medium">{{number_format($car->selling_price)}}€</p>
                     </div>
                 </div>
 
@@ -68,23 +68,23 @@
                         <ul class="mt-2 space-y-2">
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Année du véhicule</span>
-                                <span class="text-xs">2020</span>
+                                <span class="text-xs">{{$car->car_year}}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Kilométrage</span>
-                                <span class="text-xs">15 265</span>
+                                <span class="text-xs">{{number_format($car->mileage)}} km</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Type de boîte</span>
-                                <span class="text-xs">Manuelle</span>
+                                <span class="text-xs">{{$car->boite_vitesse}}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Nombre de portes</span>
-                                <span class="text-xs">5</span>
+                                <span class="text-xs">{{$car->nb_door}}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Provenance</span>
-                                <span class="text-xs">France</span>
+                                <span class="text-xs">{{$car->provenance}}</span>
                             </li>
                         </ul>
                     </div>
@@ -101,15 +101,15 @@
                         <ul class="mt-2 space-y-2">
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Type de moteur</span>
-                                <span class="text-xs">Électrique</span>
+                                <span class="text-xs">{{$car->carburant}}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Puissance fiscale</span>
-                                <span class="text-xs">450 ch</span>
+                                <span class="text-xs">{{number_format($car->puissance_fiscale)}} ch</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Puissance DIN</span>
-                                <span class="text-xs">500 km</span>
+                                <span class="text-xs">{{number_format($car->puissance_din)}} km</span>
                             </li>
                         </ul>
                     </div>
@@ -129,15 +129,15 @@
                         <ul class="mt-2 space-y-2">
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Consommation</span>
-                                <span class="text-xs">17kWh/100km</span>
+                                <span class="text-xs">{{$car->consommation}}kWh/100km</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Crit'air</span>
-                                <span class="text-xs">8 CV</span>
+                                <span class="text-xs">{{$car->crit_air}}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Émission</span>
-                                <span class="text-xs">5</span>
+                                <span class="text-xs">{{$car->co2_emission}}</span>
                             </li>
                         </ul>
                     </div>
@@ -178,10 +178,10 @@
 
             <!-- Section vendeur pour l'interface PC -->
             <div id="seller-section" class="flex-col hidden p-4 md:flex md:w-1/6 md:fixed md:right-40 md:top-40 md:h-full md:items-center">
-                <div class="flex items-center space-x-4">
-                    <img class="w-16 h-16 rounded-full" src="{{ asset('assets/seller.jpg') }}" alt="Photo du vendeur">
+                <div class="flex items-center gap-4">
+                    <img src="{{ $car->user->profile_picture ? asset('storage/' . $car->user->profile_picture) : asset('assets/default_pfp.png') }}" alt="Photo vendeur" class="w-16 h-16 rounded-full">
                     <div>
-                        <h2 class="text-lg font-semibold">Nom du Vendeur</h2>
+                        <h2 class="text-lg font-semibold">{{$car->user->first_name ." ". $car->user->last_name}}</h2>
                         <p class="text-sm text-gray-500">★★★★★</p>
                     </div>
                 </div>

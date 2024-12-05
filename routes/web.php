@@ -24,7 +24,7 @@ Route::post('/password/email', [AuthController::class, 'sendResetLinkEmail'])->n
 Route::get('/password/reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [AuthController::class, 'reset'])->name('password.update');
 
-Route::get('/produit', [ProduitController::class, 'index'])->name('produit.index');
+Route::get('/produit/{id}', [ProduitController::class, 'index'])->name('produit.index');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profil', [UserController::class, 'index'])->name('user.index');
