@@ -288,11 +288,10 @@
                 </div>
                 <!-- Case pour afficher le temps restant -->
                 <div class="p-4 mt-4 bg-gray-100 rounded-lg">
-                    @foreach ($car as $car)    
-                    @livewire('countdown', ['car'=>$car])
-                    @endforeach
+                    @livewire('countdown', ['deadline' => $car->deadline])
                 </div>
             </div>
+
             <!-- Section vendeur pour l'interface téléphone -->
             <div id="seller-section-phone" class="fixed left-0 right-0 flex items-center justify-center p-4 bg-white bottom-16 md:hidden">
                 <div class="flex w-full space-x-2">
@@ -307,12 +306,10 @@
                     </div>
                     @endauth
                     @guest
-                    <div class="text-center">
-                        <a href="{{ route('auth.login') }}" 
-                           class="flex items-center justify-center h-12 px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
-                           Voir le numéro de téléphone
-                        </a>
-                    </div>
+                    <a href="{{ route('auth.login') }}" 
+                    class="flex items-center justify-center text-xs w-full h-12 px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                    N° Tél
+                    </a>
                     @endguest
                 </div>
             </div>

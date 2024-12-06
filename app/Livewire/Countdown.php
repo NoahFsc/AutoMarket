@@ -1,37 +1,48 @@
 <?php
 
-namespace App\Http\Livewire;
+namespace App\Livewire;
 
 use Livewire\Component;
 use Carbon\Carbon;
 
 class Countdown extends Component
 {
-    public $car;
-    public $timeRemaining;
+    public $deadline;
+    public $remainingTime;
 
-    public function mount($car)
+    public function mount($deadline)
     {
-        $this->car = $car;
-        $this->updateAuction();
+        $this->deadline = Carbon::parse($deadline);
+        $this->calculateRemainingTime();
     }
 
-    public function updateAuction()
+    public function calculateRemainingTime()
     {
-        $deadline = Carbon::parse($this->car->deadline);
         $now = Carbon::now();
-        $diff = $deadline->diff($now);
+        $diff = $this->deadline->diff($now);
 
-        $this->timeRemaining = sprintf('%02dj %02dh %02dm %02ds', $diff->d, $diff->h, $diff->i, $diff->s);
-        if ($this->car->lastBid && $this->car->lastBid->isNotEmpty()) {
-            $this->car->selling_price = $this->car->lastBid->first()->proposed_price;
+        if ($this->deadline->isPast()) {
+            $this->remainingTime = 'Enchère terminée';
         } else {
-            $this->car->selling_price = $this->car->selling_price;
+            $parts = [];
+            if ($diff->d > 0) {
+                $parts[] = sprintf('%d jours', $diff->d);
+            }
+            if ($diff->h > 0) {
+                $parts[] = sprintf('%d heures', $diff->h);
+            }
+            if ($diff->i > 0) {
+                $parts[] = sprintf('%d minutes', $diff->i);
+            }
+            $parts[] = sprintf('%d secondes', $diff->s);
+
+            $this->remainingTime = implode(' ', $parts);
         }
     }
 
     public function render()
     {
+        $this->calculateRemainingTime();
         return view('components.countdown');
     }
 }
