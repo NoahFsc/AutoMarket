@@ -33,8 +33,8 @@
             </a>
             <div class="items-center hidden gap-12 md:flex">
                 <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">Accueil</a>
-                <a href="{{ route('acheter.index') }}" class="nav-link {{ Route::is('acheter.index') ? 'active' : '' }}">Acheter</a>
-                <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">Enchérir</a>
+                <a href="{{ route('catalog.acheter') }}" class="nav-link {{ Route::is('catalog.acheter') ? 'active' : '' }}">Acheter</a>
+                <a href="{{ route('catalog.encherir') }}" class="nav-link {{ Route::is('catalog.encherir') ? 'active' : '' }}">Enchérir</a>
                 <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">Vendre</a>
 
                 @auth
@@ -84,12 +84,12 @@
                 class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary-500' : 'text-gray-400' }}">
                 <i class="fa-regular fa-house fa-xl"></i><span class="text-sm">Accueil</span>
             </a>
-            <a href="{{ route('acheter.index') }}"
-                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('acheter.index') ? 'text-primary-500' : 'text-gray-400' }}">
+            <a href="{{ route('catalog.acheter') }}"
+                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('catalog.acheter') ? 'text-primary-500' : 'text-gray-400' }}">
                 <i class="fa-regular fa-car-side fa-xl"></i><span class="text-sm">Acheter</span>
             </a>
-            <a href="{{ route('home') }}"
-                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary-500' : 'text-gray-400' }}">
+            <a href="{{ route('catalog.encherir') }}"
+                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('catalog.encherir') ? 'text-primary-500' : 'text-gray-400' }}">
                 <i class="fa-regular fa-building-columns fa-xl"></i><span class="text-sm">Enchérir</span>
             </a>
             <a href="{{ route('home') }}"

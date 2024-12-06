@@ -6,12 +6,13 @@ use Livewire\Component;
 use App\Models\Car;
 use App\Models\Brand;
 use App\Models\CarModel;
-use Livewire\Attributes\On;
 use Livewire\WithPagination;
 
 class CarCatalog extends Component
 {
     use WithPagination;
+
+    public ?int $type = null;
 
     // Champs à filtrer
     public string $postal_code = '';
@@ -32,7 +33,8 @@ class CarCatalog extends Component
 
     // Champs de recherche et de tri
     public string $search = '';
-    public string $sortDirection = '';
+    public string $sortTime = '';
+    public string $sortPrice = '';
 
     // Champs de sélection de marque
     public array $brands = [];
@@ -43,10 +45,11 @@ class CarCatalog extends Component
     public string $selectedCarModel = '';
 
     // Récupération des marques et modèles de voitures au chargement du composant
-    public function mount()
+    public function mount(?int $type = null)
     {
         $this->brands = Brand::all()->toArray();
         $this->carModels = CarModel::all()->toArray();
+        $this->type = $type;
 
         // Récupérer les filtres de la session
         $filters = session()->get('filters', []);
@@ -67,22 +70,38 @@ class CarCatalog extends Component
         $this->carModels = CarModel::where('brand_id', $brandId)->get()->toArray();
     }
 
-    // Tri des véhicules par prix
-    public function toggleSort()
+    // Tri des véhicules par temps restant (pour enchères)
+    public function toggleTime()
     {
-        if ($this->sortDirection === 'asc') {
-            $this->sortDirection = 'desc';
-        } elseif ($this->sortDirection === 'desc') {
-            $this->sortDirection = '';
+        if ($this->sortTime === 'asc') {
+            $this->sortTime = 'desc';
+        } elseif ($this->sortTime === 'desc') {
+            $this->sortTime = '';
         } else {
-            $this->sortDirection = 'asc';
+            $this->sortTime = 'asc';
+        }
+    }
+
+    // Tri des véhicules par prix
+    public function togglePrice()
+    {
+        if ($this->sortPrice === 'asc') {
+            $this->sortPrice = 'desc';
+        } elseif ($this->sortPrice === 'desc') {
+            $this->sortPrice = '';
+        } else {
+            $this->sortPrice = 'asc';
         }
     }
 
     public function render()
     {
-        // Récupération des voitures mises en vente (pas enchères)
-        $requete = Car::where('vente_enchere', 0);
+        // Requête de récupération des voitures
+        if ($this->type === 0) {
+            $requete = Car::where('vente_enchere', 0);
+        } else {
+            $requete = Car::where('vente_enchere', 1);
+        }
 
         $filtres = [
             ['selling_price', '>=', $this->price_min],
@@ -163,9 +182,14 @@ class CarCatalog extends Component
             });
         }
 
+        // Tri par temps restant
+        if ($this->sortTime) {
+            $requete->orderBy('deadline', $this->sortTime);
+        }
+
         // Tri par prix
-        if ($this->sortDirection) {
-            $requete->orderBy('selling_price', $this->sortDirection);
+        if ($this->sortPrice) {
+            $requete->orderBy('selling_price', $this->sortPrice);
         }
 
         // Recherche par nom de modèle ou de marque
