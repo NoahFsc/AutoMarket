@@ -19,9 +19,7 @@ services:
 
   app:
     image: php:8.2-fpm  # Mise à jour pour utiliser PHP 8.2
-    build: 
-      context: .
-      dockerfile: ./app/Dockerfile
+    build: /app
     container_name: laravel-app
     restart: unless-stopped
     working_dir: /var/www/html
@@ -43,7 +41,7 @@ services:
     depends_on:
       - app
     networks:
-      - app-network  # Assurez-vous que le réseau est bien défini
+      - app-network
 
 networks:
   app-network:
