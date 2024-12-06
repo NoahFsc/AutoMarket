@@ -281,10 +281,16 @@
                     @endauth
                     @guest
                     <a href="{{ route('auth.login') }}" 
-                       class="flex items-center justify-center h-12 px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
-                       Voir le numéro de téléphone
+                    class="flex items-center justify-center h-12 px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                    Voir le numéro de téléphone
                     </a>
                     @endguest                    
+                </div>
+                <!-- Case pour afficher le temps restant -->
+                <div class="p-4 mt-4 bg-gray-100 rounded-lg">
+                    @foreach ($car as $car)    
+                    @livewire('countdown', ['car'=>$car])
+                    @endforeach
                 </div>
             </div>
             <!-- Section vendeur pour l'interface téléphone -->
@@ -301,10 +307,12 @@
                     </div>
                     @endauth
                     @guest
-                    <a href="{{ route('auth.login') }}" 
-                    class="flex items-center justify-center text-xs w-full h-12 px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
-                    N° Tél
-                    </a>
+                    <div class="text-center">
+                        <a href="{{ route('auth.login') }}" 
+                           class="flex items-center justify-center h-12 px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                           Voir le numéro de téléphone
+                        </a>
+                    </div>
                     @endguest
                 </div>
             </div>
