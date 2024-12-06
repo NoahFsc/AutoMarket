@@ -29,30 +29,39 @@
                 </div>
                 <!-- Images secondaires pour l'interface PC -->
                 <div class="relative hidden w-full mt-4 space-x-1 md:w-full md:flex md:flex-row md:space-x-1">
+                    @php
+                        $photoCount = $car->documents->where('document_type', 'image')->count();
+                    @endphp
                     @foreach($car->documents as $index => $document)
                         @if($document->document_type == 'image')
-                            @if($index == 0)
+                            @if($photoCount == 1)
+                                <div class="w-full h-[350px]">
+                                    <img src="{{ $document->document_content ? asset('storage/' . $document->document_content) : asset('assets/default_pfp.png') }}" alt="Car Image" class="object-cover w-full h-full rounded-lg">
+                                </div>
+                            @elseif($photoCount == 2)
                                 <div class="w-1/2 h-[350px]">
                                     <img src="{{ $document->document_content ? asset('storage/' . $document->document_content) : asset('assets/default_pfp.png') }}" alt="Car Image" class="object-cover w-full h-full rounded-lg">
                                 </div>
-                            @elseif($index == 1 || $index == 2)
-                                @if($index == 1)
-                                    <div class="flex flex-col w-1/2 space-y-1">
-                                @endif
-                                <div class="relative w-full h-[175px]">
-                                    <img src="{{ $document->document_content ? asset('storage/' . $document->document_content) : asset('assets/default_pfp.png') }}" alt="Car Image" class="object-cover w-full h-full rounded-lg">
-                                    @if($index == 2)
-                                        @php
-                                            $photoCount = $car->documents->where('document_type', 'image')->count();
-                                        @endphp
-
-                                        <button @click="showCarousel = true" class="absolute bottom-0 right-0 px-4 py-2 mb-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">
-                                            Voir les {{ $photoCount }} photos
-                                        </button>
-                                    @endif
-                                </div>
-                                @if($index == 2)
+                            @else
+                                @if($index == 0)
+                                    <div class="w-1/2 h-[350px]">
+                                        <img src="{{ $document->document_content ? asset('storage/' . $document->document_content) : asset('assets/default_pfp.png') }}" alt="Car Image" class="object-cover w-full h-full rounded-lg">
                                     </div>
+                                @elseif($index == 1 || $index == 2)
+                                    @if($index == 1)
+                                        <div class="flex flex-col w-1/2 space-y-1">
+                                    @endif
+                                    <div class="relative w-full h-[175px]">
+                                        <img src="{{ $document->document_content ? asset('storage/' . $document->document_content) : asset('assets/default_pfp.png') }}" alt="Car Image" class="object-cover w-full h-full rounded-lg">
+                                        @if($index == 2)
+                                            <button @click="showCarousel = true" class="absolute bottom-0 right-0 px-4 py-2 mb-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">
+                                                Voir les {{ $photoCount }} photos
+                                            </button>
+                                        @endif
+                                    </div>
+                                    @if($index == 2)
+                                        </div>
+                                    @endif
                                 @endif
                             @endif
                         @endif
@@ -98,7 +107,7 @@
                                 @endphp
                             </p>
                         </div>
-                        <p class="text-2xl font-medium">{{number_format($car->selling_price)}}€</p>
+                        <p class="text-2xl font-medium">{{number_format($car->minimum_price)}}€</p>
                     </div>
                 </div>
 

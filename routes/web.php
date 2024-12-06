@@ -27,7 +27,8 @@ Route::get('/password/reset/{token}', [AuthController::class, 'showResetForm'])-
 Route::post('/password/reset', [AuthController::class, 'reset'])->name('password.update');
 
 Route::get('/acheter', [AcheterController::class, 'index'])->name('acheter.index');
-Route::get('/produit/{id}', [ProduitController::class, 'index'])->name('produit.index');
+Route::get('/produit/{id}', [ProduitController::class, 'vente'])->name('produit.vente');
+Route::get('/enchere/{id}', [ProduitController::class, 'enchere'])->name('produit.enchere');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profil', [UserController::class, 'index'])->name('user.index');

@@ -1,4 +1,4 @@
-<a href="{{route('produit.index', $car->id)}}">
+<a href="{{route('produit.enchere', $car->id)}}">
     <div class="flex flex-col transition-transform transform cursor-pointer hover:scale-105" wire:poll.1000ms="updateCard">
         <div class="relative max-w-card">
             <img src="{{ $car->imageDocument->document_content }}" alt="Image" class="object-cover rounded-lg" style="width: 330px; height: 200px;">
