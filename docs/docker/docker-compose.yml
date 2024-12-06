@@ -46,3 +46,5 @@ services:
 networks:
   app-network:
     driver: bridge
+
+#Faire un multiréseau
