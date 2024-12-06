@@ -27,6 +27,14 @@ Route::post('/password/reset', [AuthController::class, 'reset'])->name('password
 
 Route::get('/vendre', [VendreController::class, 'index'])->name('vendre.index');
 
+Route::get('/vendre/step1', [VendreController::class, 'showStep1'])->name('vendre.step1');
+Route::post('/vendre/step1', [VendreController::class, 'doStep1'])->name('vendre.step1');
+Route::get('/vendre/step2', [VendreController::class, 'showStep2'])->name('vendre.step2');
+Route::post('/vendre/step2', [VendreController::class, 'doStep2'])->name('vendre.step2');
+Route::get('/vendre/step3', [VendreController::class, 'showStep3'])->name('vendre.step3');
+Route::post('/vendre/step3', [VendreController::class, 'doStep3'])->name('vendre.step3');
+
+
 Route::get('/acheter', [AcheterController::class, 'index'])->name('acheter.index');
 
 Route::middleware('auth')->group(function () {
