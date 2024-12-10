@@ -36,7 +36,7 @@
   <section class="py-8 mx-auto md:mt-32">
     <div class="flex justify-between">
       <h2 class="mb-4 text-2xl font-bold">Catégories populaires</h2>
-      <a href="{{ route('acheter.index') }}" class="hidden md:block">Voir tout</a>
+      <a href="{{ route('catalog.acheter') }}" class="hidden md:block">Voir tout</a>
     </div>
     <div class="grid gap-4 grid-cols-auto-fit-card">
       @foreach ($sells->take(8) as $car)
