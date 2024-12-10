@@ -4,14 +4,8 @@
 
 @section('contenu')
 
-<div class="mx-8 bg-gray-100 md:mx-0" x-data="{ showEquipments: false, showCarousel: false, currentPhoto: 0, photos: [
-    @foreach($car->documents as $document)
-        @if($document->document_type == 'image')
-            { src: '{{ asset('storage/' . $document->document_content) }}', alt: 'Car Image' },
-        @endif
-    @endforeach
-]}">
-    <div x-data="photoCarousel()" class="max-w-5xl mx-auto mt-10">
+<div class="mx-8 bg-gray-100 md:mx-0">
+    <div class="max-w-5xl mx-auto mt-10">
         <!-- Conteneur principal -->
         <div class="flex flex-col md:flex-row">
             <!-- Informations sur le véhicule -->
@@ -54,7 +48,7 @@
                                     <div class="relative w-full h-[175px]">
                                         <img src="{{ $document->document_content ? asset('storage/' . $document->document_content) : asset('assets/default_pfp.png') }}" alt="Car Image" class="object-cover w-full h-full rounded-lg">
                                         @if($index == 2)
-                                            <button @click="showCarousel = true" class="absolute bottom-0 right-0 px-4 py-2 mb-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">
+                                            <button class="absolute bottom-0 right-0 px-4 py-2 mb-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg carousel-open">
                                                 Voir les {{ $photoCount }} photos
                                             </button>
                                         @endif
@@ -69,25 +63,26 @@
                 </div>
 
                 <!-- Carousel en plein écran -->
-                <div x-show="showCarousel" @click.away="showCarousel = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+                <div class="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black bg-opacity-75 carousel" style="display: none;">
                     <div class="relative w-3/4 h-3/4">
-                        <button @click="showCarousel = false" class="absolute top-0 right-0 z-50 px-4 py-2 mt-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">Fermer</button>
-                        <template x-for="(photo, index) in photos" :key="index">
-                            <img x-show="currentPhoto === index" class="absolute inset-0 object-cover w-full h-full" :src="photo.src" :alt="photo.alt">
-                        </template>
-                        <button @click="currentPhoto = (currentPhoto > 0) ? currentPhoto - 1 : photos.length - 1" class="absolute left-0 z-40 px-4 py-2 text-white bg-black bg-opacity-50 rounded-full top-1/2">‹</button>
-                        <button @click="currentPhoto = (currentPhoto < photos.length - 1) ? currentPhoto + 1 : 0" class="absolute right-0 z-40 px-4 py-2 text-white bg-black bg-opacity-50 rounded-full top-1/2">›</button>
-                        <!-- Liste des petites images en dessous -->
-                        <div class="absolute bottom-0 left-0 right-0 flex items-center justify-center p-4 space-x-2 bg-black bg-opacity-50">
-                            <button @click="currentPhoto = (currentPhoto > 0) ? currentPhoto - 1 : photos.length - 1" class="px-2 py-1 text-white bg-black bg-opacity-50 rounded-full">‹</button>
-                            <template x-for="(photo, index) in visiblePhotos()" :key="index">
-                                <img @click="currentPhoto = (currentPhoto + index) % photos.length" :src="photo.src" :alt="photo.alt" class="object-cover w-16 h-16 rounded-lg cursor-pointer">
-                            </template>
-                            <button @click="currentPhoto = (currentPhoto < photos.length - 1) ? currentPhoto + 1 : 0" class="px-2 py-1 text-white bg-black bg-opacity-50 rounded-full">›</button>
-                        </div>
+                        <button class="absolute top-0 right-0 z-50 px-4 py-2 mt-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg carousel-close">Fermer</button>
+                        @foreach($car->documents as $index => $document)
+                            @if($document->document_type == 'image')
+                                <img src="{{ asset('storage/' . $document->document_content) }}" alt="Car Image" class="absolute inset-0 object-cover w-full h-full" style="display: none;">
+                            @endif
+                        @endforeach
+                        <button data-direction="prev" class="absolute left-0 z-40 px-4 py-2 text-white bg-black bg-opacity-50 rounded-full carousel-button top-1/2">‹</button>
+                        <button data-direction="next" class="absolute right-0 z-40 px-4 py-2 text-white bg-black bg-opacity-50 rounded-full carousel-button top-1/2">›</button>
+                    </div>
+                    <div class="flex mt-4 space-x-2">
+                        @foreach($car->documents as $index => $document)
+                            @if($document->document_type == 'image')
+                                <img src="{{ asset('storage/' . $document->document_content) }}" alt="Car Image" class="object-cover w-24 h-24 rounded-lg preview-image" data-index="{{ $index }}">
+                            @endif
+                        @endforeach
                     </div>
                 </div>
-
+                
                 <!-- Informations sur le modèle -->
                 <div class="flex flex-col mt-6">
                     <div class="flex justify-between">
@@ -207,7 +202,7 @@
                                     <i class="fa-regular fa-briefcase"></i>
                                     <h2 class="text-lg font-medium md:text-xl">Équipement</h2>
                                 </div>
-                                <a href="#" @click.prevent="showEquipments = true" class="text-xs text-blue-500 hover:underline">Voir plus</a>
+                                <a href="#" class="text-xs text-blue-500 show-equipments-btn hover:underline">Voir plus</a>
                             </div>
                             <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gray-300 opacity-50"></div>
                         </div>
@@ -220,11 +215,11 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Interface modale pour afficher tous les équipements -->
-                <div x-show="showEquipments" @click.away="showEquipments = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+                <div id="equipments-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75" style="display: none;">
                     <div class="relative w-3/4 p-4 bg-white rounded-lg">
-                        <button @click="showEquipments = false" class="absolute top-0 right-0 px-4 py-2 mt-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">Fermer</button>
+                        <button id="close-equipments-modal" class="absolute top-0 right-0 px-4 py-2 mt-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">Fermer</button>
                         <h2 class="mb-4 text-lg font-medium md:text-xl">Tous les équipements</h2>
                         <div class="grid gap-4 md:grid-cols-2">
                             @foreach ($car->equipments as $equipment)
@@ -256,7 +251,7 @@
             </div>
 
             <!-- Section vendeur pour l'interface PC -->
-            <div id="seller-section" class="flex-col hidden p-4 md:flex md:w-1/6 md:fixed md:right-40 md:top-40 md:h-full md:items-center">
+            <div id="seller-section" class="flex-col hidden p-4 bg-transparent md:flex md:w-1/6 md:fixed md:right-40 md:top-40 md:h-full md:items-center">
                 <div class="flex items-center gap-4">
                     <img src="{{ $car->user->profile_picture ? asset('storage/' . $car->user->profile_picture) : asset('assets/default_pfp.png') }}" alt="Photo vendeur" class="w-16 h-16 rounded-full">
                     <div>
@@ -264,7 +259,7 @@
                         <p class="text-sm text-gray-500">★★★★★</p>
                     </div>
                 </div>
-                <button class="w-full px-4 py-2 mt-4 text-white !bg-[#3380CC] rounded-lg">Faire une offre</button>
+                <button class="w-full px-4 py-2 mt-4 text-white !bg-[#3380CC] rounded-lg" @click="if (auctionEnded) { alert('Enchère terminée, il n\'est plus possible d\'enchérir'); } else { alert('Enchère non terminée, il est possible d\'enchérir'); }">Faire une offre</button>
                 <p class="mt-2 text-center text-gray-500">Ou</p>
                 <div class="flex flex-col mt-2 space-y-2">
                     <button class="px-4 py-2 text-white !bg-[#3380CC] rounded-lg ">Envoyer un message</button>
@@ -286,16 +281,15 @@
                     </a>
                     @endguest                    
                 </div>
-                <!-- Case pour afficher le temps restant -->
                 <div class="p-4 mt-4 bg-gray-100 rounded-lg">
-                    @livewire('countdown', ['deadline' => $car->deadline])
+                    <livewire:countdown :deadline="$car->deadline" :key="$car->id" />
                 </div>
             </div>
 
             <!-- Section vendeur pour l'interface téléphone -->
             <div id="seller-section-phone" class="fixed left-0 right-0 flex items-center justify-center p-4 bg-white bottom-16 md:hidden">
                 <div class="flex w-full space-x-2">
-                    <button class="flex-1 px-4 py-2 text-white text-xs !bg-[#3380CC] rounded-lg">Offre</button>
+                    <button class="flex-1 px-4 py-2 text-white text-xs !bg-[#3380CC] rounded-lg" @click="if (auctionEnded) { alert('Enchère terminée, il n\'est plus possible d\'enchérir'); } else { /* Logique pour envoyer une offre */ }">Offre</button>
                     <button class="flex-1 px-4 py-2 text-white text-xs !bg-[#3380CC] rounded-lg">Message</button>
                     <!-- Bouton "Voir le numéro de téléphone" -->
                     @auth
@@ -318,52 +312,127 @@
 </div>
 
 <script>
-    function photoCarousel() {
-        return {
-            photos: [
-                @foreach($car->documents as $document)
-                    @if($document->document_type == 'image')
-                        { src: '{{ asset('storage/' . $document->document_content) }}', alt: 'Car Image' },
-                    @endif
-                @endforeach
-            ],
-            currentPhoto: 0,
-            showCarousel: false,
-            visiblePhotos() {
-                let start = this.currentPhoto;
-                let end = start + 3;
-                if (end > this.photos.length) {
-                    end = end % this.photos.length;
-                    return this.photos.slice(start).concat(this.photos.slice(0, end));
-                } else {
-                    return this.photos.slice(start, end);
-                }
-            }
-        };
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+        const photos = [
+            @foreach($car->documents as $document)
+                @if($document->document_type == 'image')
+                    { src: '{{ asset('storage/' . $document->document_content) }}', alt: 'Car Image' },
+                @endif
+            @endforeach
+        ];
 
-    function copyToClipboard(text) {
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(text).then(function() {
-                alert('Numéro de téléphone copié dans le presse-papier');
-            }, function(err) {
-                console.error('Erreur lors de la copie du texte : ', err);
-            });
-        } else {
-            // Méthode de secours pour les navigateurs qui ne supportent pas l'API Clipboard
-            var textArea = document.createElement("textarea");
-            textArea.value = text;
-            document.body.appendChild(textArea);
-            textArea.focus();
-            textArea.select();
-            try {
-                document.execCommand('copy');
-                alert('Numéro de téléphone copié dans le presse-papier');
-            } catch (err) {
-                console.error('Erreur lors de la copie du texte : ', err);
+        let currentPhoto = 0;
+        let showCarousel = false;
+
+        function updateCarousel() {
+            const carousel = document.querySelector('.carousel');
+            if (carousel) {
+                const images = carousel.querySelectorAll('img');
+                images.forEach((img, index) => {
+                    img.style.display = index === currentPhoto ? 'block' : 'none';
+                });
+
+                const previews = carousel.querySelectorAll('.preview-image');
+                previews.forEach((preview, index) => {
+                    const previewIndex = (currentPhoto + index) % photos.length;
+                    preview.src = photos[previewIndex].src;
+                    preview.dataset.index = previewIndex;
+                });
             }
-            document.body.removeChild(textArea);
         }
-    }
+
+        document.querySelectorAll('.carousel-button').forEach(button => {
+            button.addEventListener('click', () => {
+                if (button.dataset.direction === 'prev') {
+                    currentPhoto = (currentPhoto > 0) ? currentPhoto - 1 : photos.length - 1;
+                } else {
+                    currentPhoto = (currentPhoto < photos.length - 1) ? currentPhoto + 1 : 0;
+                }
+                updateCarousel();
+            });
+        });
+
+        const carouselCloseButton = document.querySelector('.carousel-close');
+        if (carouselCloseButton) {
+            carouselCloseButton.addEventListener('click', () => {
+                showCarousel = false;
+                const carousel = document.querySelector('.carousel');
+                if (carousel) {
+                    carousel.style.display = 'none';
+                }
+            });
+        }
+
+        const carouselOpenButton = document.querySelector('.carousel-open');
+        if (carouselOpenButton) {
+            carouselOpenButton.addEventListener('click', () => {
+                showCarousel = true;
+                const carousel = document.querySelector('.carousel');
+                if (carousel) {
+                    carousel.style.display = 'flex';
+                    updateCarousel();
+                }
+            });
+        }
+
+        document.querySelectorAll('.preview-image').forEach(preview => {
+            preview.addEventListener('click', () => {
+                currentPhoto = parseInt(preview.dataset.index);
+                updateCarousel();
+            });
+        });
+
+        updateCarousel();
+
+        // Écouteur pour l'événement auction-ended
+        window.addEventListener('auction-ended', () => {
+            document.querySelectorAll('#seller-section button, #seller-section-phone button').forEach(button => {
+                button.disabled = true;
+                button.classList.add('disabled');
+            });
+        });
+
+        // Logique pour afficher le numéro de téléphone
+        const showPhoneBtn = document.getElementById('show-phone-btn');
+        const phoneNumber = document.getElementById('phone-number');
+        if (showPhoneBtn && phoneNumber) {
+            showPhoneBtn.addEventListener('click', () => {
+                phoneNumber.style.display = phoneNumber.style.display === 'none' ? 'block' : 'none';
+            });
+        }
+
+        // Logique pour copier le numéro de téléphone
+        const copyPhoneBtn = document.getElementById('copy-phone-btn');
+        if (copyPhoneBtn) {
+            copyPhoneBtn.addEventListener('click', () => {
+                navigator.clipboard.writeText('{{ $car->user->telephone }}').then(() => {
+                    alert('Numéro de téléphone copié dans le presse-papier');
+                });
+            });
+        }
+
+        // Logique pour afficher le modal des équipements
+        const showEquipmentsBtn = document.querySelector('.show-equipments-btn');
+        const equipmentsModal = document.getElementById('equipments-modal');
+        const closeEquipmentsModalBtn = document.getElementById('close-equipments-modal');
+
+        if (showEquipmentsBtn && equipmentsModal && closeEquipmentsModalBtn) {
+            showEquipmentsBtn.addEventListener('click', (event) => {
+                event.preventDefault();
+                equipmentsModal.style.display = 'flex';
+            });
+
+            closeEquipmentsModalBtn.addEventListener('click', () => {
+                equipmentsModal.style.display = 'none';
+            });
+
+            equipmentsModal.addEventListener('click', (event) => {
+                if (event.target === equipmentsModal) {
+                    equipmentsModal.style.display = 'none';
+                }
+            });
+        }
+    });
 </script>
+
 @endsection

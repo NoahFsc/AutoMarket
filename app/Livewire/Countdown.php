@@ -13,16 +13,17 @@ class Countdown extends Component
     public function mount($deadline)
     {
         $this->deadline = Carbon::parse($deadline);
-        $this->calculateRemainingTime();
+        $this->calculateTime();
     }
 
-    public function calculateRemainingTime()
+    public function calculateTime()
     {
         $now = Carbon::now();
         $diff = $this->deadline->diff($now);
 
         if ($this->deadline->isPast()) {
             $this->remainingTime = 'Enchère terminée';
+            $this->dispatch('auction-ended');
         } else {
             $parts = [];
             if ($diff->d > 0) {
@@ -42,7 +43,6 @@ class Countdown extends Component
 
     public function render()
     {
-        $this->calculateRemainingTime();
         return view('components.countdown');
     }
 }
