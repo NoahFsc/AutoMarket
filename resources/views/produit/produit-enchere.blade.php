@@ -297,8 +297,8 @@
                     <button class="flex-1 px-4 py-2 text-white text-xs !bg-[#3380CC] rounded-lg">Message</button>
                     <!-- Bouton "Voir le numéro de téléphone" -->
                     @auth
-                    <div x-data="{ showPhone: false }" class="flex-1">
-                        <button @click="copyToClipboard('{{ $car->user->telephone }}')" class="w-full text-xs px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                    <div class="flex-1">
+                        <button id="copy-phone-btn" class="w-full text-xs px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
                             N° Tél
                         </button>
                     </div>
@@ -428,12 +428,33 @@
         }
 
         // Logique pour copier le numéro de téléphone
+        function copyToClipboard(text) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Numéro de téléphone copié dans le presse-papier');
+                }).catch(err => {
+                    console.error('Erreur lors de la copie du texte : ', err);
+                });
+            } else {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    alert('Numéro de téléphone copié dans le presse-papier');
+                } catch (err) {
+                    console.error('Erreur lors de la copie du texte : ', err);
+                }
+                document.body.removeChild(textArea);
+            }
+        }
+
         const copyPhoneBtn = document.getElementById('copy-phone-btn');
         if (copyPhoneBtn) {
             copyPhoneBtn.addEventListener('click', () => {
-                navigator.clipboard.writeText('{{ $car->user->telephone }}').then(() => {
-                    alert('Numéro de téléphone copié dans le presse-papier');
-                });
+                copyToClipboard('{{ $car->user->telephone }}');
             });
         }
 
