@@ -28,6 +28,9 @@
             {{-- Boutons Desktop --}}
             @if ($user->id == Auth::id())
             <div class="hidden gap-3 md:flex md:justify-end">
+                @if ($user->is_admin == 1)
+                <a href="{{ route('admin.dashboard') }}" class="p-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-error-500 hover:bg-error-400">Dashboard</a>
+                @endif
                 <form action="{{ route('auth.logout') }}" method="POST">
                     @method('DELETE')
                     @csrf

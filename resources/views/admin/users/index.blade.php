@@ -1,10 +1,12 @@
 @extends('layout')
 
-@section('titre', 'Dashboard')
+@section('titre', 'Utilisateurs')
 
 @section('contenu')
 
+<div class="flex flex-grow gap-16">
     <livewire:dashboard-sidebar />
-    Utilisateurs
-    
+    <livewire:users-catalog />
+</div>
+
 @endsection

@@ -8,6 +8,6 @@ class DashboardSidebar extends Component
 {
     public function render()
     {
-        return view('components.dashboard-sidebar');
+        return view('components.admin.dashboard-sidebar');
     }
 }

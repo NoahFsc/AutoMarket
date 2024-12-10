@@ -103,7 +103,7 @@
         </div>
     </div>
 
-    <div class="flex-grow {{ request()->is('admin/*') ? '' : 'md:mx-16 md:my-16'}}">
+    <div class="flex-grow flex flex-col {{ request()->is('admin/*') ? '' : 'md:mx-16 md:my-16'}}">
 
         @yield('contenu')
 

@@ -4,7 +4,13 @@
 
 @section('contenu')
 
+<div class="flex flex-grow gap-16">
+    
     <livewire:dashboard-sidebar />
-    Signalements
+
+    <div>
+        Contenu signalements
+    </div>
+</div>
     
 @endsection

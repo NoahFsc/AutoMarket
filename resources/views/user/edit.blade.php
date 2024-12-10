@@ -11,7 +11,7 @@
         
         {{-- Navigation --}}
         <div class="relative flex items-center justify-between w-full">
-            <a href="{{ route('user.index') }}" class="absolute left-0 text-sm text-gray-400 md:text-base md:hidden hover:text-gray-500">
+            <a href="{{ url()->previous() }}" class="absolute left-0 text-sm text-gray-400 md:text-base md:hidden hover:text-gray-500">
                 <i class="fa-solid fa-chevron-left"></i> Retour
             </a>
     

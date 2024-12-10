@@ -4,7 +4,7 @@
 
 @section('contenu')
 
-<div class="flex gap-16">
+<div class="flex flex-grow gap-16">
     
     <livewire:dashboard-sidebar />
 
