@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class UserController extends Controller
 {
+    use AuthorizesRequests;
+
     public function index($id = null)
     {
         if ($id === null || $id == Auth::id()) {
@@ -24,6 +27,9 @@ class UserController extends Controller
 
     public function edit()
     {
+        $user = Auth::user();
+        $this->authorize('update', $user);
+
         return view('user.edit');
     }
 
@@ -42,6 +48,8 @@ class UserController extends Controller
         ]);
 
         $user = User::find(Auth::user()->id);
+
+        $this->authorize('update', $user);
 
         if ($request->hasFile('profile_picture')) {
             $donnees['profile_picture'] = $request->file('profile_picture')->store('profile_pictures', 'public');
@@ -64,6 +72,8 @@ class UserController extends Controller
         ]);
 
         $user = User::find(Auth::user()->id);
+
+        $this->authorize('update', $user);
 
         if (!Hash::check($request->current_password, $user->password)) {
             return back()->withErrors(['current_password' => 'Le mot de passe actuel est incorrect.']);

@@ -103,7 +103,7 @@
         </div>
     </div>
 
-    <div class="flex-grow md:mx-16 md:my-16">
+    <div class="flex-grow {{ request()->is('admin/*') ? '' : 'md:mx-16 md:my-16'}}">
 
         @yield('contenu')
 
@@ -114,7 +114,7 @@
         <div class="flex flex-col gap-4">
             <div class="justify-between hidden md:flex">
                 <div class="flex items-center gap-2">
-                    <img src="{{ asset('assets/logo.png') }}" alt="Logo" class="h-10 mb-2">
+                    <img src="{{ asset('assets/logo_automarket.webp') }}" alt="Logo" class="h-10 mb-2">
                     <span class="text-base">AutoMarket</span>
                 </div>
                 <form action="" class="flex h-10"> {{-- A remplacer par route newsletter --}}

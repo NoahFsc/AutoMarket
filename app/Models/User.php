@@ -21,6 +21,7 @@ class User extends Authenticatable
         'telephone',
         'profile_picture',
         'description',
+        'is_admin',
     ];
 
     protected $hidden = [
