@@ -13,12 +13,16 @@
                 <!-- Image principale pour téléphone -->
                 <div class="w-full h-64 md:hidden">
                     <div class="relative w-full h-full">
-                        <template x-for="(photo, index) in photos" :key="index">
-                            <img x-show="currentPhoto === index" class="absolute inset-0 object-cover w-full h-full rounded-lg" :src="photo.src" :alt="photo.alt">
-                        </template>
+                        <div id="phone-carousel">
+                            @foreach($car->documents as $index => $document)
+                                @if($document->document_type == 'image')
+                                    <img src="{{ asset('storage/' . $document->document_content) }}" alt="Car Image" class="absolute inset-0 object-cover w-full h-full rounded-lg phone-carousel-image" style="display: none;">
+                                @endif
+                            @endforeach
+                        </div>
                         <!-- Boutons de navigation pour le carousel -->
-                        <button @click="currentPhoto = (currentPhoto > 0) ? currentPhoto - 1 : photos.length - 1" class="absolute left-0 px-2 py-1 text-white transform -translate-y-1/2 bg-black bg-opacity-50 rounded-full top-1/2">‹</button>
-                        <button @click="currentPhoto = (currentPhoto < photos.length - 1) ? currentPhoto + 1 : 0" class="absolute right-0 px-2 py-1 text-white transform -translate-y-1/2 bg-black bg-opacity-50 rounded-full top-1/2">›</button>
+                        <button id="phone-carousel-prev" class="absolute left-0 px-2 py-1 text-white transform -translate-y-1/2 bg-black bg-opacity-50 rounded-full top-1/2">‹</button>
+                        <button id="phone-carousel-next" class="absolute right-0 px-2 py-1 text-white transform -translate-y-1/2 bg-black bg-opacity-50 rounded-full top-1/2">›</button>
                     </div>
                 </div>
                 <!-- Images secondaires pour l'interface PC -->
@@ -313,6 +317,28 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        const phoneCarouselImages = document.querySelectorAll('.phone-carousel-image');
+        let currentPhoneImage = 0;
+
+        function updatePhoneCarousel() {
+            phoneCarouselImages.forEach((img, index) => {
+                img.style.display = index === currentPhoneImage ? 'block' : 'none';
+            });
+        }
+
+        document.getElementById('phone-carousel-prev').addEventListener('click', () => {
+            currentPhoneImage = (currentPhoneImage > 0) ? currentPhoneImage - 1 : phoneCarouselImages.length - 1;
+            updatePhoneCarousel();
+        });
+
+        document.getElementById('phone-carousel-next').addEventListener('click', () => {
+            currentPhoneImage = (currentPhoneImage < phoneCarouselImages.length - 1) ? currentPhoneImage + 1 : 0;
+            updatePhoneCarousel();
+        });
+
+        updatePhoneCarousel();
+
+        // Existing carousel and modal logic
         const photos = [
             @foreach($car->documents as $document)
                 @if($document->document_type == 'image')
