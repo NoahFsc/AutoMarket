@@ -30,18 +30,21 @@
         </div>
     </div>
     <form>
+        @csrf
         <div class="flex justify-start text-2xl font-semibold text-gray-800 mb-6">Détails du véhicule</div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
             <div>
                 <livewire:create-search />
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Type de Véhicule</label>
-                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500">
+                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500 text-gray-500">
                     <option>Sélectionner un type</option>
                 </select>
 
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Contrôle Technique</label>
-                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500">
-                    <option>Sélectionner un état</option>
+                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500 text-gray-500">
+                    <option value="" disabled selected>Sélectionner un état</option>
+                    <option>À Jour</option>
+                    <option>À Faire</option>
                 </select>
             </div>
             <div>
@@ -55,44 +58,57 @@
                 <input type="number" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500"
                     placeholder="Entrez le kilométrage">
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Nombres de portes</label>
-                <input type="number" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500"
-                    placeholder="Entrez le nombre de portes">
+                <select
+                    class="w-full border-gray-300 text-gray-500 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300">
+                    <option value="" disabled selected>Sélectionnez un niveau</option>
+                    @foreach ($nbdoors as $nbdoor)
+                    <option value="{{ $nbdoor->id }}">{{$nbdoor->nb_doors}}</option>
+                    @endforeach
+                </select>
             </div>
-        </div>
-        <div class="flex justify-between text-2xl font-semibold text-gray-800 mb-6">
-            <div>Moteur</div>
-            <div>Pollution</div>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
+                <div class="text-2xl font-semibold text-gray-800 mb-6">Moteur</div>
                 <label class="block text-gray-500 font-medium mb-2">Type de carburant</label>
-                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500">
-                    <option>Sélectionner une marque</option>
+                <select
+                    class="w-full border-gray-300 text-gray-500 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300">
+                    <option value="" disabled selected>Sélectionner un type de carburant</option>
+                    @foreach ($fueltypes as $fueltype)
+                    <option value="{{ $fueltype->id }}">{{$fueltype->nom}}</option>
+                    @endforeach
                 </select>
 
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Puissance Fiscale</label>
-                <input type="number" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500"
+                <input type="number"
+                    class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300"
                     placeholder="Entrez la puissance fiscale">
-                </input>
 
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Puissance DIN</label>
-                <input type="number" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500"
+                <input type="number"
+                    class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300"
                     placeholder="Entrez la puissance DIN">
-                </input>
             </div>
             <div>
+                <div class="text-2xl font-semibold text-gray-800 mb-6">Pollution</div>
                 <label class="block text-gray-500 font-medium mb-2">Consommation</label>
-                <input type="number" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500"
+                <input type="number"
+                    class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300"
                     placeholder="Entrez la consommation (/100km)">
-                </input>
+
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Crit'Air</label>
-                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500">
-                    <option>Sélectionner un niveau</option>
+                <select
+                    class="w-full border-gray-300 text-gray-500 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300">
+                    <option value="" disabled selected>Sélectionnez un niveau</option>
+                    @foreach ($critairs as $critair)
+                    <option value="{{ $critair->id }}">{{$critair->nom}}</option>
+                    @endforeach
                 </select>
+
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Émission de CO2</label>
-                <input type="number" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500"
+                <input type="number"
+                    class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300"
                     placeholder="Entrez l'émission de CO2">
-                </input>
             </div>
         </div>
 

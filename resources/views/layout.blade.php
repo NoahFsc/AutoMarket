@@ -120,6 +120,7 @@
                     <span class="text-base">AutoMarket</span>
                 </div>
                 <form action="" class="flex h-10"> {{-- A remplacer par route newsletter --}}
+                    @csrf
                     <input type="email" class="w-48 px-4 py-2 text-xs border border-gray-300 rounded-l-lg"
                         placeholder="Entrez votre e-mail">
                     <button type="submit"

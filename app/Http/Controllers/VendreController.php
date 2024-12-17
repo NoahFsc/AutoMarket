@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
-use App\Models\CarModel;
+use App\Models\RefCritAir;
+use App\Models\RefFuelType;
+use App\Models\RefNbDoor;
 use Illuminate\Http\Request;
 
 class VendreController extends Controller
@@ -15,7 +16,11 @@ class VendreController extends Controller
 
     public function showStep1()
     {
-        return view('vendre.create-ad');
+        $critairs = RefCritAir::all();
+        $nbdoors = RefNbDoor::all();
+        $fueltypes = RefFuelType::all();
+
+        return view('vendre.create-ad', compact('critairs', 'nbdoors', 'fueltypes'));
     }
 
     public function doStep1(Request $request)
