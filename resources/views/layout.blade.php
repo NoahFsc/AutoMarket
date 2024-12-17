@@ -13,7 +13,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
-    @wireUiScripts
     <livewire:styles />
     <script src="//unpkg.com/alpinejs" defer></script>
     <script src="{{ asset('assets/fontawesome.js') }}" crossorigin="anonymous"></script>
@@ -38,35 +37,41 @@
                 <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">Vendre</a>
 
                 @auth
-                {{-- Composant WireUI Dropdown --}}
-                <x-dropdown>
-                    <x-slot name="trigger">
-                        <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('assets/default_pfp.png') }}"
-                            alt="Avatar" class="rounded-full size-12">
-                    </x-slot>
-
-                    <x-dropdown.header class="md:text-gray-400" label="Menus" />
-                    <x-dropdown.item href="{{ route('user.index') }}"
-                        class="md:text-black md:hover:text-black md:hover:bg-primary-100" icon="user-circle"
-                        label="Profil" />
-                    <x-dropdown.item href="{{ route('user.index') }}"
-                        class="md:text-black md:hover:text-black md:hover:bg-primary-100" icon="chat-bubble-left-right"
-                        label="Messages" />
-                    <x-dropdown.item href="{{ route('user.index') }}"
-                        class="md:text-black md:hover:text-black md:hover:bg-primary-100" icon="shopping-cart"
-                        label="Achats" />
-                    <x-dropdown.header />
-
-                    <x-dropdown.header separator class="md:text-gray-400" label="Actions" />
-                    <x-dropdown.item href="#" class="md:text-error-500 md:hover:text-black md:hover:bg-primary-100"
-                        icon="arrow-right-start-on-rectangle" label="Se déconnecter"
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();" />
-                    <form id="logout-form" action="{{ route('auth.logout') }}" method="POST" class="hidden">
-                        @csrf
-                        @method('DELETE')
-                    </form>
-                    <x-dropdown.header />
-                </x-dropdown>
+                    <div class="relative inline-block text-left" x-data="{ open: false }">
+                        <button @click="open = !open" type="button" class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium rounded-md">
+                            <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('assets/default_pfp.png') }}"
+                                alt="Avatar" class="rounded-full size-12">
+                        </button>
+                        <div x-show="open" @click.away="open = false" class="absolute right-0 z-50 w-56 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+                                <div class="px-4 py-2 text-xs text-gray-400">Menus</div>
+                                <a href="{{ route('user.index') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
+                                    <i class="fa-regular fa-circle-user"></i> <p>Profil</p>
+                                </a>
+                                <a href="{{ route('user.index') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
+                                    <i class="fa-regular fa-message-dots"></i> <p>Messages</p>
+                                </a>
+                                <a href="{{ route('user.index') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
+                                    <i class="fa-regular fa-clock-rotate-left"></i> <p>Historique d'achats</p>
+                                </a>
+                                @if (Auth::user()->is_admin)
+                                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
+                                    <i class="fa-regular fa-gear"></i> <p>Administration</p>
+                                </a>
+                                @endif
+                                <div class="mx-4 mt-2 border-t border-gray-200"></div>
+                                <div class="px-4 py-2 text-xs text-gray-400">Actions</div>
+                                <a href="#" class="block px-4 py-2 text-error-500 hover:bg-gray-100" role="menuitem"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                    <i class="fa-solid fa-arrow-right-start-on-rectangle"></i> Se déconnecter
+                                </a>
+                                <form id="logout-form" action="{{ route('auth.logout') }}" method="POST" class="hidden">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                            </div>
+                        </div>
+                    </div>
                 @endauth
 
                 @guest
