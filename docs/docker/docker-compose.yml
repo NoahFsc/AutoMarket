@@ -15,20 +15,19 @@ services:
     ports:
       - "3306:3306"
     networks:
-      - app-network  # Assurez-vous que le réseau est bien défini
+      - back-network
 
   app:
-    image: php:8.2-fpm  # Mise à jour pour utiliser PHP 8.2
-    build: 
-      context: .
-      dockerfile: ./app/Dockerfile
+    image: php:8.2-fpm
+    build: /app
     container_name: laravel-app
     restart: unless-stopped
     working_dir: /var/www/html
     volumes:
       - ./app:/var/www/html
     networks:
-      - app-network  # Assurez-vous que le réseau est bien défini
+      - back-network
+      - front-network
 
   nginx:
     image: nginx:alpine
@@ -43,8 +42,11 @@ services:
     depends_on:
       - app
     networks:
-      - app-network  # Assurez-vous que le réseau est bien défini
+      - front-network
 
 networks:
-  app-network:
-    driver: bridge
+    back-network:
+        driver: bridge
+    front-network:
+        driver: bridge
+

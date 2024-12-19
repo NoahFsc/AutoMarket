@@ -13,6 +13,7 @@ class Car extends Model
         'type_of_car',
         'car_year',
         'mileage',
+        'postal_code',
         'consommation',
         'nb_door',
         'provenance',
@@ -27,6 +28,7 @@ class Car extends Model
         'crit_air',
         'co2_emission',
         'status',
+        'commentaire_vendeur',
     ];
 
     protected $casts = [
@@ -59,5 +61,17 @@ class Car extends Model
     public function carModel()
     {
         return $this->belongsTo(CarModel::class, 'model_id');
+    }
+
+    //Récupérer les équipements de la voiture
+    public function equipments()
+    {
+        return $this->hasMany(CarsEquipment::class, 'car_id');
+    }
+
+    // Récupérer la dernière enchère de la voiture (une seule uniquement)
+    public function lastBid()
+    {
+        return $this->hasMany(Bid::class)->latest();
     }
 }

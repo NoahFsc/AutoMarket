@@ -7,8 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class WebsiteReview extends Model
 {
     protected $fillable = [
+        'nb_of_star',
         'comment',
         'user_id',
+        'nb_of_star'
     ];
 
     public $timestamps = false;

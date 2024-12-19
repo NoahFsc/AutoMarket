@@ -12,6 +12,7 @@ CREATE TABLE users (
   telephone VARCHAR(20),
   profile_picture VARCHAR(255),
   description VARCHAR(255),
+  is_admin TINYINT(1) DEFAULT 0,
   email_verified_at TIMESTAMP NULL DEFAULT NULL,
   remember_token VARCHAR(100) DEFAULT NULL,
   created_at TIMESTAMP,
@@ -22,6 +23,7 @@ CREATE TABLE users (
 
 CREATE TABLE WEBSITE_REVIEWS (
     id INT PRIMARY KEY AUTO_INCREMENT,
+    nb_of_star INT NOT NULL,
     comment VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id INT,
@@ -56,6 +58,7 @@ CREATE TABLE CARS (
     type_of_car VARCHAR(50),
     car_year VARCHAR(4),
     mileage FLOAT,
+    postal_code VARCHAR(5),
     consommation FLOAT,
     nb_door INT,
     provenance VARCHAR(50),
@@ -69,6 +72,7 @@ CREATE TABLE CARS (
     deadline DATE,
     crit_air INT,
     co2_emission FLOAT,
+    commentaire_vendeur TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id INT,
     model_id INT,
