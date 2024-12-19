@@ -12,7 +12,6 @@ CREATE TABLE users (
   telephone VARCHAR(20),
   profile_picture VARCHAR(255),
   description VARCHAR(255),
-  is_admin TINYINT(1) DEFAULT 0,
   email_verified_at TIMESTAMP NULL DEFAULT NULL,
   remember_token VARCHAR(100) DEFAULT NULL,
   created_at TIMESTAMP,
@@ -23,7 +22,6 @@ CREATE TABLE users (
 
 CREATE TABLE WEBSITE_REVIEWS (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    nb_of_star INT NOT NULL,
     comment VARCHAR(255) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id INT,
@@ -53,6 +51,22 @@ CREATE TABLE CAR_MODELS (
     FOREIGN KEY (brand_id) REFERENCES BRANDS(id)
 );
 
+CREATE TABLE REFERENTIELS_crit_air (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  contenu varchar(255) NOT NULL
+);
+
+CREATE TABLE REFERENTIELS_CARBURANT (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  carburant_name varchar(255) NOT NULL
+);
+
+CREATE TABLE REFERENTIELS_NB_DOOR(
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  nb_door INT NOT NULL
+);
+
+
 CREATE TABLE CARS (
     id INT PRIMARY KEY AUTO_INCREMENT,
     type_of_car VARCHAR(50),
@@ -60,17 +74,17 @@ CREATE TABLE CARS (
     mileage FLOAT,
     postal_code VARCHAR(5),
     consommation FLOAT,
-    nb_door INT,
+    nb_door_id INT,
     provenance VARCHAR(50),
     puissance_fiscale FLOAT,
     puissance_din FLOAT,
     boite_vitesse BOOLEAN,
-    carburant VARCHAR(50),
+    carburant_id INT,
     vente_enchere BOOLEAN,
     minimum_price FLOAT,
     selling_price FLOAT,
     deadline DATE,
-    crit_air INT,
+    crit_air_id INT,
     co2_emission FLOAT,
     commentaire_vendeur TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -79,6 +93,9 @@ CREATE TABLE CARS (
     status BOOLEAN NOT NULL,
     FOREIGN KEY (user_id) REFERENCES USERS(id),
     FOREIGN KEY (model_id) REFERENCES CAR_MODELS(id)
+    FOREIGN KEY (carburant_id) REFERENCES REFERENTIELS_CARBURANT(id)
+    FOREIGN KEY (nb_door_id) REFERENCES REFERENTIELS_NB_DOOR(id)
+    FOREIGN KEY (crit_air_id) REFERENCES REFERENTIELS_CRIT_AIR(id)
 );
 
 CREATE TABLE DOCUMENTS (
@@ -125,5 +142,27 @@ CREATE TABLE CARS_EQUIPMENTS (
     FOREIGN KEY (equipment_id) REFERENCES EQUIPMENTS(id)
 );
 
-SET FOREIGN_KEY_CHECKS = 1;
 
+CREATE TABLE CONVERSATIONS (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id_sender INT NOT NULL,
+    user_id_receiver INT NOT NULL,
+    FOREIGN KEY (user_id_sender) REFERENCES USERS(id),
+    FOREIGN KEY (user_id_receiver) REFERENCES USERS(id),
+    UNIQUE (user_id_sender, user_id_receiver),
+    CHECK (user_id_sender < user_id_receiver)
+);
+
+CREATE TABLE CHATS (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    content VARCHAR(255) NOT NULL,
+    send_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    conversation_id INT NOT NULL, 
+    user_id INT NOT NULL,
+    FOREIGN KEY (conversation_id) REFERENCES CONVERSATIONS(id),
+    FOREIGN KEY (user_id) REFERENCES USERS(id)
+);
+
+
+SET FOREIGN_KEY_CHECKS = 1;
