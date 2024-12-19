@@ -45,13 +45,13 @@
                         <div x-show="open" @click.away="open = false" class="absolute right-0 z-50 w-56 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 <div class="px-4 py-2 text-xs text-gray-400">Menus</div>
-                                <a href="{{ route('user.index') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
+                                <a href="{{ route('user.index', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
                                     <i class="fa-regular fa-circle-user"></i> <p>Profil</p>
                                 </a>
-                                <a href="{{ route('user.index') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
+                                <a href="{{ route('user.index', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
                                     <i class="fa-regular fa-message-dots"></i> <p>Messages</p>
                                 </a>
-                                <a href="{{ route('user.index') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
+                                <a href="{{ route('user.index', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
                                     <i class="fa-regular fa-clock-rotate-left"></i> <p>Historique d'achats</p>
                                 </a>
                                 @if (Auth::user()->is_admin)
@@ -101,10 +101,17 @@
                 class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary-500' : 'text-gray-400' }}">
                 <i class="fa-regular fa-messages fa-xl"></i><span class="text-sm">Messagerie</span>
             </a>
-            <a href="{{ route(auth()->check() ? 'user.index' : 'auth.login') }}"
-                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is(auth()->check() ? ['user.index', 'user.edit'] : 'auth.login') ? 'text-primary-500' : ' text-gray-400' }}">
-                <i class="fa-regular fa-user fa-xl"></i><span class="text-sm">Profil</span>
-            </a>
+            @if(auth()->check())
+                <a href="{{ route('user.index', ['id' => Auth::id()]) }}"
+                    class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is(['user.index', 'user.edit']) ? 'text-primary-500' : 'text-gray-400' }}">
+                    <i class="fa-regular fa-user fa-xl"></i><span class="text-sm">Profil</span>
+                </a>
+            @else
+                <a href="{{ route('auth.login') }}"
+                    class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('auth.login') ? 'text-primary-500' : 'text-gray-400' }}">
+                    <i class="fa-regular fa-user fa-xl"></i><span class="text-sm">Profil</span>
+                </a>
+            @endif
         </div>
     </div>
 

@@ -13,27 +13,23 @@ class UserController extends Controller
 {
     use AuthorizesRequests;
 
-    public function index($id = null)
+    public function index($id)
     {
-        if ($id === null || $id == Auth::id()) {
-            $id = Auth::id();
-        }
-
         $user = User::findOrFail($id);
         $cars = $user->cars;
         $reviews = $user->userReviewsReceived;
         return view('user.index', compact('user', 'cars', 'reviews'));
     }
 
-    public function edit()
+    public function edit($id)
     {
-        $user = Auth::user();
+        $user = User::findOrFail($id);
         $this->authorize('update', $user);
 
-        return view('user.edit');
+        return view('user.edit', compact('user'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $donnees = $request->validate([
             'profile_picture' => 'nullable|file|mimes:webp,png,jpg,jpeg|max:2048',
@@ -47,8 +43,7 @@ class UserController extends Controller
             'telephone' => 'nullable|string|max:20',
         ]);
 
-        $user = User::find(Auth::user()->id);
-
+        $user = User::findOrFail($id);
         $this->authorize('update', $user);
 
         if ($request->hasFile('profile_picture')) {
@@ -61,18 +56,21 @@ class UserController extends Controller
 
         $user->update($donnees);
 
-        return redirect()->route('user.index')->with('status', 'Profil mis à jour avec succès.');
+        if ($request->query('from') === 'admin') {
+            return redirect()->route('admin.users.index')->with('status', 'Profil mis à jour avec succès.');
+        }
+
+        return redirect()->route('user.index', $user->id)->with('status', 'Profil mis à jour avec succès.');
     }
 
-    public function updatePassword(Request $request)
+    public function updatePassword(Request $request, $id)
     {
         $request->validate([
             'current_password' => 'required',
             'new_password' => 'required|confirmed|min:4',
         ]);
 
-        $user = User::find(Auth::user()->id);
-
+        $user = User::findOrFail($id);
         $this->authorize('update', $user);
 
         if (!Hash::check($request->current_password, $user->password)) {

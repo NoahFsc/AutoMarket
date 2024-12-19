@@ -34,7 +34,7 @@
                         <div class="flex items-center gap-4">
                             <img class="rounded-full size-10" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('assets/default_pfp.png') }}" alt="Photo de profil">
                             <div>
-                                <a href="{{ route('user.show', $user->id) }}">
+                                <a href="{{ route('user.index', $user->id) }}">
                                     <div class="text-sm font-medium text-gray-900 hover:text-primary-500">{{ $user->first_name }} {{ $user->last_name }}</div>
                                 </a>
                                 <div class="text-sm text-gray-500">{{ $user->email }}</div>
@@ -63,8 +63,8 @@
                             </button>
                             <div x-show="open" @click.away="open = false" class="absolute right-0 z-50 w-56 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
                                 <div class="py-1" role="menu">
-                                    <a href="{{ route('user.show', $user->id) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Voir le profil</a>
-                                    <a href="{{ route('user.edit', $user->id) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Modifier le compte</a>
+                                    <a href="{{ route('user.index', $user->id) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Voir le profil</a>
+                                    <a href="{{ route('user.edit', ['id' => $user->id, 'from' => 'admin']) }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Modifier le compte</a>
                                     <button wire:click="deleteUser({{ $user->id }})" class="block w-full px-4 py-2 text-sm text-left text-red-500 hover:bg-gray-100" role="menuitem">Supprimer le compte</button>
                                 </div>
                             </div>

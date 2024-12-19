@@ -6,7 +6,7 @@
 
 <div class="flex flex-col gap-3 mx-8 md:w-3/4 md:mx-auto">
 
-    <form action="{{ route('user.update') }}" method="POST" enctype="multipart/form-data" class="flex flex-col">
+    <form action="{{ route('user.update', ['id' => $user->id, 'from' => request()->query('from')]) }}" method="POST" enctype="multipart/form-data" class="flex flex-col">
         @csrf
         
         {{-- Navigation --}}
@@ -23,7 +23,7 @@
         {{-- Entête --}}
         <div class="relative flex flex-col items-center gap-4 mt-8 md:mt-0 md:flex-row">
             <div class="relative">
-                <img id="imageProfil" src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('assets/default_pfp.png') }}" alt="Avatar" class="rounded-full size-20 md:size-24">
+                <img id="imageProfil" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('assets/default_pfp.png') }}" alt="Avatar" class="rounded-full size-20 md:size-24">
                 <button type="button" class="absolute flex items-center justify-center size-8" style="bottom: -5px; right: -5px;">
                     <span class="fa-stack fa-1x">
                         <i class="fa fa-circle fa-stack-2x text-primary-500"></i>
@@ -33,11 +33,11 @@
                 <input type="file" name="profile_picture" class="hidden" id="profile_picture">
             </div>
             <div class="flex flex-col items-center md:items-start">                
-                <span class="text-2xl font-bold md:text-4xl">{{Auth::user()->first_name . ' ' . Auth::user()->last_name }}</span>
-                <span class="text-base text-gray-500">{{ '@' . strtolower(Auth::user()->first_name . Auth::user()->last_name) }} </span>
+                <span class="text-2xl font-bold md:text-4xl">{{$user->first_name . ' ' . $user->last_name }}</span>
+                <span class="text-base text-gray-500">{{ '@' . strtolower($user->first_name . $user->last_name) }} </span>
             </div>
             <div class="absolute right-0 items-center hidden md:flex">
-                <a href="{{ route('user.index') }}" class="hidden mr-4 text-sm text-gray-400 md:text-base md:block hover:text-gray-500">
+                <a href="{{ route('user.index', ['id' => Auth::id()]) }}" class="hidden mr-4 text-sm text-gray-400 md:text-base md:block hover:text-gray-500">
                     Annuler 
                 </a>
                 <button type="submit" class="hidden px-4 py-2 text-sm text-center text-white rounded-lg md:text-base md:block md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Enregistrer</button>
@@ -62,7 +62,7 @@
                 <div class="flex flex-col gap-4 md:flex-row">
                     <div class="flex flex-col">
                         <label for="first_name" class="mb-1 text-gray-500">Prénom</label>
-                        <input type="text" name="first_name" id="first_name" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre prénom" value="{{ Auth::user()->first_name }}">
+                        <input type="text" name="first_name" id="first_name" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre prénom" value="{{ $user->first_name }}">
                         @error('first_name')
                             <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
                         @enderror
@@ -70,7 +70,7 @@
                     
                     <div class="flex flex-col">
                         <label for="last_name" class="mb-1 text-gray-500">Nom</label>
-                        <input type="text" name="last_name" id="last_name" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre nom" value="{{ Auth::user()->last_name }}">
+                        <input type="text" name="last_name" id="last_name" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre nom" value="{{ $user->last_name }}">
                         @error('last_name')
                             <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
                         @enderror
@@ -79,7 +79,7 @@
         
                 <div class="flex flex-col">
                     <label for="description" class="mb-1 text-gray-500">A propos de moi</label>
-                    <textarea name="description" id="description" rows="5" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez une description" value="{{ Auth::user()->description }}"></textarea>
+                    <textarea name="description" id="description" rows="5" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez une description" value="{{ $user->description }}"></textarea>
                     @error('description')
                         <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
                     @enderror
@@ -97,7 +97,7 @@
             <div class="flex flex-col gap-4">
                 <div class="flex flex-col">
                     <label for="email" class="mb-1 text-gray-500">Adresse e-mail</label>
-                    <input type="email" name="email" id="email" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre adresse e-mail" value="{{ Auth::user()->email }}">
+                    <input type="email" name="email" id="email" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre adresse e-mail" value="{{ $user->email }}">
                     @error('email')
                         <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
                     @enderror
@@ -128,7 +128,7 @@
                         </div>
                     </div>
             
-                    <form action="{{ route('user.updatePassword') }}" method="POST">
+                    <form action="{{ route('user.updatePassword', $user->id) }}" method="POST">
                         @csrf
                         <button type="button" class="w-full px-3 py-2 text-sm text-white rounded-md md:text-base bg-primary-500">Modifier le mot de passe</button>
                     </form>
@@ -139,7 +139,7 @@
                     <div class="flex gap-4">
                         <div class="flex flex-col w-1/2">
                             <label for="birth_date" class="mb-1 text-sm text-gray-500 md:text-base">Date de naissance</label>
-                            <input type="date" name="birth_date" id="birth_date" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" value="{{ \Carbon\Carbon::parse(Auth::user()->birth_date)->format('Y-m-d') }}">
+                            <input type="date" name="birth_date" id="birth_date" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" value="{{ \Carbon\Carbon::parse($user->birth_date)->format('Y-m-d') }}">
                             @error('birth_date')
                                 <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
                             @enderror
@@ -154,14 +154,14 @@
                     </div>
                     <div class="flex flex-col mt-2">
                         <label for="adresse" class="mb-1 text-sm text-gray-500 md:text-base">Adresse</label>
-                        <input type="text" name="adresse" id="adresse" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre adresse" value="{{ Auth::user()->adresse }}">
+                        <input type="text" name="adresse" id="adresse" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre adresse" value="{{ $user->adresse }}">
                         @error('adresse')
                             <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="flex flex-col mt-2">
                         <label for="telephone" class="mb-1 text-sm text-gray-500 md:text-base">Numéro de téléphone</label>
-                        <input type="text" name="telephone" id="telephone" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre numéro de téléphone" value="{{ Auth::user()->telephone }}">
+                        <input type="text" name="telephone" id="telephone" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre numéro de téléphone" value="{{ $user->telephone }}">
                         @error('telephone')
                             <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
                         @enderror

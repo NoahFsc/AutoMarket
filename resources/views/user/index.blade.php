@@ -33,12 +33,12 @@
                     @csrf
                     <button type="submit" class="w-full px-4 py-2 text-sm transition-all duration-300 border rounded-lg border-opacity-20 hover:border-opacity-80 text-error-500 border-error-500">Déconnexion</button>
                 </form>
-                <a href="{{ route('user.edit') }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Modifier le profil</a>
+                <a href="{{ route('user.edit', $user->id) }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Modifier le profil</a>
             </div>
             @else
             <div class="hidden gap-3 md:flex md:justify-end">
-                <a href="{{ route('user.show', $user->id) }}"class="px-4 py-2 text-sm transition-all duration-300 border rounded-lg border-opacity-20 hover:border-opacity-80 text-error-500 border-error-500">Signaler</a>
-                <a href="{{ route('user.show', $user->id) }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Envoyer un message</a>
+                <a href="{{ route('user.index', $user->id) }}"class="px-4 py-2 text-sm transition-all duration-300 border rounded-lg border-opacity-20 hover:border-opacity-80 text-error-500 border-error-500">Signaler</a>
+                <a href="{{ route('user.index', $user->id) }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Envoyer un message</a>
             </div>
             @endif
         
@@ -58,7 +58,7 @@
     
     {{-- Boutons Mobile --}}
     <div class="flex gap-3 md:hidden">
-        <a href="{{ route('user.edit') }}" class="w-full py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Modifier le profil</a>
+        <a href="{{ route('user.edit', $user->id) }}" class="w-full py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Modifier le profil</a>
         <form action="{{ route('auth.logout') }}" method="POST" class="w-full">
             @method('DELETE')
             @csrf

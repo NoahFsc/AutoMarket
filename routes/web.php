@@ -26,11 +26,11 @@ Route::name('auth.')->group(function () {
 });
 
 // Routes de réinitialisation de mot de passe
-Route::prefix('password')->name('password.')->group(function () {
-    Route::get('/reset', [AuthController::class, 'showLinkRequestForm'])->name('request');
-    Route::post('/email', [AuthController::class, 'sendResetLinkEmail'])->name('email');
-    Route::get('/reset/{token}', [AuthController::class, 'showResetForm'])->name('reset');
-    Route::post('/reset', [AuthController::class, 'reset'])->name('update');
+Route::prefix('password')->group(function () {
+    Route::get('/reset', [AuthController::class, 'showLinkRequestForm'])->name('password.request');
+    Route::post('/email', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
+    Route::get('/reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset', [AuthController::class, 'reset'])->name('password.update');
 });
 
 // Routes du catalogue
@@ -43,32 +43,31 @@ Route::get('/enchere/{id}', [ProduitController::class, 'enchere'])->name('produi
 Route::middleware('auth')->group(function () {
 
     // Routes de l'utilisateur
-    Route::name('user.')->group(function () {
-        Route::get('/profil', [UserController::class, 'index'])->name('index');
-        Route::get('/profil/edit', [UserController::class, 'edit'])->name('edit');
-        Route::post('/profil/edit', [UserController::class, 'update'])->name('update');
-        Route::post('/profil/update-password', [UserController::class, 'updatePassword'])->name('updatePassword');
-        Route::get('/profil/{id}', [UserController::class, 'index'])->name('show');
+    Route::prefix('profil')->group(function () {
+        Route::get('/{id}', [UserController::class, 'index'])->name('user.index');
+        Route::get('/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+        Route::post('/{id}/edit', [UserController::class, 'update'])->name('user.update');
+        Route::post('/{id}/update-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
     });
 });
 
 // Nécessite d'être admin pour accéder aux routes suivantes
-Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
 
-    Route::prefix('users')->name('users.')->group(function () {
-        Route::get('/', [UsersController::class, 'index'])->name('index');
+    Route::prefix('users')->group(function () {
+        Route::get('/', [UsersController::class, 'index'])->name('admin.users.index');
     });
 
-    Route::prefix('offers')->name('offers.')->group(function () {
-        Route::get('/', [OffersController::class, 'index'])->name('index');
+    Route::prefix('offers')->group(function () {
+        Route::get('/', [OffersController::class, 'index'])->name('admin.offers.index');
     });
 
-    Route::prefix('reports')->name('reports.')->group(function () {
-        Route::get('/', [ReportsController::class, 'index'])->name('index');
+    Route::prefix('reports')->group(function () {
+        Route::get('/', [ReportsController::class, 'index'])->name('admin.reports.index');
     });
 
-    Route::prefix('references')->name('references.')->group(function () {
-        Route::get('/', [ReferencesController::class, 'index'])->name('index');
+    Route::prefix('references')->group(function () {
+        Route::get('/', [ReferencesController::class, 'index'])->name('admin.references.index');
     });
 });
