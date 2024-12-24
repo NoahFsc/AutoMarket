@@ -1,0 +1,29 @@
+name: Deploy Site to Server
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Deploy to server
+      env:
+        SSH_KEY: ${{ secrets.SSH_KEY }}
+      run: |
+        mkdir -p ~/.ssh
+        echo "$SSH_KEY" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 10.1.138.4 >> ~/.ssh/known_hosts
+        ssh -i ~/.ssh/id_rsa etudiant@10.1.138.4 '
+          cd /home/etudiant/AutoMarket &&
+          git pull &&
+          docker-compose down &&
+          docker-compose up -d --build
+        '
