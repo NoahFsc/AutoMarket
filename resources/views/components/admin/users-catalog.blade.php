@@ -22,7 +22,7 @@
                 <tr>
                     <th class="px-6 py-3 font-medium text-left">Utilisateur</th>
                     <th class="px-6 py-3 font-medium text-left">Rôle</th>
-                    <th class="px-6 py-3 font-medium text-left">Dernière activité</th>
+                    <th class="px-6 py-3 font-medium text-left">Dernière modification</th>
                     <th class="px-6 py-3 font-medium text-left">Date de création</th>
                     <th class="px-6 py-3 font-medium text-right">Actions</th>
                 </tr>

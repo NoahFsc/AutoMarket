@@ -14,8 +14,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
     <livewire:styles />
-    <script src="//unpkg.com/alpinejs" defer></script>
     <script src="{{ asset('assets/fontawesome.js') }}" crossorigin="anonymous"></script>
+    <script>
+        document.addEventListener('livewire:load', function () {
+            if (typeof Alpine === 'undefined') {
+                var script = document.createElement('script');
+                script.src = '//unpkg.com/alpinejs';
+                script.defer = true;
+                document.head.appendChild(script);
+            }
+        });
+    </script>
 </head>
 
 <body class="flex flex-col min-h-screen bg-background">

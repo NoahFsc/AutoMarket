@@ -53,19 +53,12 @@ Route::middleware('auth')->group(function () {
 
 // Nécessite d'être admin pour accéder aux routes suivantes
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
+
+    // Pages du panel admin
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-
-    Route::prefix('users')->group(function () {
-        Route::get('/', [UsersController::class, 'index'])->name('admin.users.index');
-    });
-
-    Route::prefix('offers')->group(function () {
-        Route::get('/', [OffersController::class, 'index'])->name('admin.offers.index');
-    });
-
-    Route::prefix('reports')->group(function () {
-        Route::get('/', [ReportsController::class, 'index'])->name('admin.reports.index');
-    });
+    Route::get('/users', [UsersController::class, 'index'])->name('admin.users.index');
+    Route::get('/offers', [OffersController::class, 'index'])->name('admin.offers.index');
+    Route::get('/reports', [ReportsController::class, 'index'])->name('admin.reports.index');
 
     Route::prefix('references')->group(function () {
         Route::get('/', [ReferencesController::class, 'index'])->name('admin.references.index');

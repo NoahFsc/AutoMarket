@@ -4,20 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\WithPagination;
 
 class UserController extends Controller
 {
+    use WithPagination;
     use AuthorizesRequests;
 
     public function index($id)
     {
         $user = User::findOrFail($id);
-        $cars = $user->cars;
+        $cars = $user->cars()->paginate(8);
         $reviews = $user->userReviewsReceived;
+
         return view('user.index', compact('user', 'cars', 'reviews'));
     }
 

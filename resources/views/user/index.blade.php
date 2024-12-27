@@ -37,7 +37,7 @@
             </div>
             @else
             <div class="hidden gap-3 md:flex md:justify-end">
-                <a href="{{ route('user.index', $user->id) }}"class="px-4 py-2 text-sm transition-all duration-300 border rounded-lg border-opacity-20 hover:border-opacity-80 text-error-500 border-error-500">Signaler</a>
+                <livewire:report-user :userId="$user->id" />
                 <a href="{{ route('user.index', $user->id) }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Envoyer un message</a>
             </div>
             @endif
@@ -91,7 +91,7 @@
     {{-- Annonces --}}
     <div class="flex gap-3">
         <div class="flex flex-col flex-grow gap-3">
-            <span class="flex items-center gap-2 text-2xl font-medium"><i class="fa-solid fa-cart-shopping"></i>Annonces déposées <p class="text-sm opacity-50">({{ count($cars) }})</p></span>
+            <span class="flex items-center gap-2 text-2xl font-medium"><i class="fa-solid fa-cart-shopping"></i>Annonces déposées <p class="text-sm opacity-50">({{ $cars->total() }})</p></span>
             <div class="grid gap-4 grid-cols-auto-fit-card">
                 @foreach ($cars as $car)
                     @if ($car->vente_enchere == 0)
@@ -100,6 +100,9 @@
                         <livewire:auction-card :car="$car" :key="$car->id" />
                     @endif
                 @endforeach
+            </div>
+            <div class="mt-4">
+                {{ $cars->links('components.pagination') }}
             </div>
             @if (count($cars) == 0)
                 <div class="opacity-50">Aucune annonce.</div>
@@ -115,8 +118,20 @@
             @if (count($reviews) == 0)
                 <div class="opacity-50">Aucun avis.</div>
             @endif
-        </div>
+        </di>
     </div>
 </div>
+
+@if (session('status'))
+    <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform translate-y-4" class="fixed bottom-0 right-0 p-4 mb-4 mr-4 text-white bg-gray-800 rounded-lg shadow-lg bg-opacity-80">
+        <div class="flex items-center font-medium">
+            <i class="mr-2 text-xl fa-regular fa-circle-check text-validation-500"></i>
+            {{ session('status') }}
+        </div>
+        @if (session('concerned_user_id'))
+            <a href="{{ route('user.index', ['id' => session('concerned_user_id')]) }}" class="block mt-2 text-sm text-white opacity-50 hover:opacity-75">Voir le compte</a>
+        @endif
+    </div>
+@endif
 
 @endsection
