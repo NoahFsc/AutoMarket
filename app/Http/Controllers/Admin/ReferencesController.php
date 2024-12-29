@@ -20,4 +20,14 @@ class ReferencesController extends Controller
     {
         return view('admin.references.critair-list');
     }
+
+    public function carburants()
+    {
+        return view('admin.references.carburants-list');
+    }
+
+    public function portieres()
+    {
+        return view('admin.references.portieres-list');
+    }
 }

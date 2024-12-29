@@ -15,24 +15,33 @@
         </a>
 
         {{-- Accordéon Référentiels --}}
-        <div x-data="{ open: false }">
+        {{-- Vérifie si le menu est ouvert : si oui, le garder ouvert en cas de changement de page. Sinon, le garder fermé. --}}
+        <div x-data="{ open: localStorage.getItem('referencesMenuOpen') === 'true' || {{ Route::is('admin.references.*') ? 'true' : 'false' }} }" x-init="$watch('open', value => localStorage.setItem('referencesMenuOpen', value))">
             <button @click="open = !open" class="text-lg flex items-center gap-3 py-4 px-12 w-full text-left focus:outline-none {{ Route::is('admin.references.*') ? 'bg-primary-500 bg-opacity-20' : 'hover:bg-primary-300 hover:bg-opacity-20' }}">
                 <i class="text-lg fa-regular fa-folder-open"></i>
                 Référentiels
-                <i :class="open ? 'fa-chevron-up' : 'fa-chevron-down'" class="ml-auto fa-regular"></i>
+                <i :class="open ? 'fa-chevron-up' : 'fa-chevron-down'" class="ml-auto fa"></i>
             </button>
             <div x-show="open" x-collapse>
-                <a href="{{ route('admin.references.brands-list') }}" class="text-lg flex items-center gap-3 py-4 px-12 pl-16 {{ Route::is('admin.references.critair') ? 'bg-primary-500 bg-opacity-20' : 'hover:bg-primary-300 hover:bg-opacity-20' }}">
-                    <i class="fa-regular fa-cars"></i>
+                <a href="{{ route('admin.references.brands-list') }}" class="text-lg flex items-center gap-3 py-4 px-12 pl-16 {{ Route::is('admin.references.brands-list') ? 'bg-primary-500 bg-opacity-20' : 'hover:bg-primary-300 hover:bg-opacity-20' }}">
+                    <i class="fa-regular fa-car"></i>
                     Marques
                 </a>
-                <a href="{{ route('admin.references.models-list') }}" class="text-lg flex items-center gap-3 py-4 px-12 pl-16 {{ Route::is('admin.references.critair') ? 'bg-primary-500 bg-opacity-20' : 'hover:bg-primary-300 hover:bg-opacity-20' }}">
+                <a href="{{ route('admin.references.models-list') }}" class="text-lg flex items-center gap-3 py-4 px-12 pl-16 {{ Route::is('admin.references.models-list') ? 'bg-primary-500 bg-opacity-20' : 'hover:bg-primary-300 hover:bg-opacity-20' }}">
                     <i class="fa-regular fa-tags"></i>
                     Modèles
                 </a>
-                <a href="{{ route('admin.references.critair-list') }}" class="text-lg flex items-center gap-3 py-4 px-12 pl-16 {{ Route::is('admin.references.critair') ? 'bg-primary-500 bg-opacity-20' : 'hover:bg-primary-300 hover:bg-opacity-20' }}">
+                <a href="{{ route('admin.references.critair-list') }}" class="text-lg flex items-center gap-3 py-4 px-12 pl-16 {{ Route::is('admin.references.critair-list') ? 'bg-primary-500 bg-opacity-20' : 'hover:bg-primary-300 hover:bg-opacity-20' }}">
                     <i class="fa-regular fa-circle-check"></i>
                     Crit'air
+                </a>
+                <a href="{{ route('admin.references.carburants-list') }}" class="text-lg flex items-center gap-3 py-4 px-12 pl-16 {{ Route::is('admin.references.carburants-list') ? 'bg-primary-500 bg-opacity-20' : 'hover:bg-primary-300 hover:bg-opacity-20' }}">
+                    <i class="fa-regular fa-gas-pump"></i>
+                    Carburants
+                </a>
+                <a href="{{ route('admin.references.portieres-list') }}" class="text-lg flex items-center gap-3 py-4 px-12 pl-16 {{ Route::is('admin.references.portieres-list') ? 'bg-primary-500 bg-opacity-20' : 'hover:bg-primary-300 hover:bg-opacity-20' }}">
+                    <i class="fa-regular fa-garage"></i>
+                    Portières
                 </a>
             </div>
         </div>
