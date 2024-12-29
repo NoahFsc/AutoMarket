@@ -12,6 +12,7 @@ CREATE TABLE users (
   telephone VARCHAR(20),
   profile_picture VARCHAR(255),
   description VARCHAR(255),
+  is_admin TINYINT(1) DEFAULT 0,
   email_verified_at TIMESTAMP NULL DEFAULT NULL,
   remember_token VARCHAR(100) DEFAULT NULL,
   created_at TIMESTAMP,

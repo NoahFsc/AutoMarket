@@ -39,7 +39,7 @@ class HomeSearch extends Component
             'codePostal' => $this->codePostal,
         ]);
 
-        return redirect()->route('acheter.index');
+        return redirect()->route('catalog.acheter');
     }
 
     public function render()
