@@ -280,10 +280,12 @@
                     </div>
                     @endauth
                     @guest
-                    <a href="{{ route('auth.login') }}" 
-                       class="flex items-center justify-center h-12 px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
-                       Voir le numéro de téléphone
-                    </a>
+                    <div class="text-center">
+                        <a href="{{ route('auth.login') }}" 
+                           class="flex items-center justify-center h-12 px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                           Voir le numéro de téléphone
+                        </a>
+                    </div>
                     @endguest                    
                 </div>
             </div>

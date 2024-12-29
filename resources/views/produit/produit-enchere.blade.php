@@ -19,12 +19,16 @@
                 <!-- Image principale pour téléphone -->
                 <div class="w-full h-64 md:hidden">
                     <div class="relative w-full h-full">
-                        <template x-for="(photo, index) in photos" :key="index">
-                            <img x-show="currentPhoto === index" class="absolute inset-0 object-cover w-full h-full rounded-lg" :src="photo.src" :alt="photo.alt">
-                        </template>
+                        <div id="phone-carousel">
+                            @foreach($car->documents as $index => $document)
+                                @if($document->document_type == 'image')
+                                    <img src="{{ asset('storage/' . $document->document_content) }}" alt="Car Image" class="absolute inset-0 object-cover w-full h-full rounded-lg phone-carousel-image" style="display: none;">
+                                @endif
+                            @endforeach
+                        </div>
                         <!-- Boutons de navigation pour le carousel -->
-                        <button @click="currentPhoto = (currentPhoto > 0) ? currentPhoto - 1 : photos.length - 1" class="absolute left-0 px-2 py-1 text-white transform -translate-y-1/2 bg-black bg-opacity-50 rounded-full top-1/2">‹</button>
-                        <button @click="currentPhoto = (currentPhoto < photos.length - 1) ? currentPhoto + 1 : 0" class="absolute right-0 px-2 py-1 text-white transform -translate-y-1/2 bg-black bg-opacity-50 rounded-full top-1/2">›</button>
+                        <button id="phone-carousel-prev" class="absolute left-0 px-2 py-1 text-white transform -translate-y-1/2 bg-black bg-opacity-50 rounded-full top-1/2">‹</button>
+                        <button id="phone-carousel-next" class="absolute right-0 px-2 py-1 text-white transform -translate-y-1/2 bg-black bg-opacity-50 rounded-full top-1/2">›</button>
                     </div>
                 </div>
                 <!-- Images secondaires pour l'interface PC -->
@@ -87,7 +91,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Informations sur le modèle -->
                 <div class="flex flex-col mt-6">
                     <div class="flex justify-between">
@@ -220,7 +224,7 @@
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Interface modale pour afficher tous les équipements -->
                 <div x-show="showEquipments" @click.away="showEquipments = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
                     <div class="relative w-3/4 p-4 bg-white rounded-lg">
@@ -264,7 +268,7 @@
                         <p class="text-sm text-gray-500">★★★★★</p>
                     </div>
                 </div>
-                <button class="w-full px-4 py-2 mt-4 text-white !bg-[#3380CC] rounded-lg">Faire une offre</button>
+                <button class="w-full px-4 py-2 mt-4 text-white !bg-[#3380CC] rounded-lg" @click="if (auctionEnded) { alert('Enchère terminée, il n\'est plus possible d\'enchérir'); } else { alert('Enchère non terminée, il est possible d\'enchérir'); }">Faire une offre</button>
                 <p class="mt-2 text-center text-gray-500">Ou</p>
                 <div class="flex flex-col mt-2 space-y-2">
                     <button class="px-4 py-2 text-white !bg-[#3380CC] rounded-lg ">Envoyer un message</button>
@@ -281,21 +285,25 @@
                     @endauth
                     @guest
                     <a href="{{ route('auth.login') }}" 
-                       class="flex items-center justify-center h-12 px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
-                       Voir le numéro de téléphone
+                    class="flex items-center justify-center h-12 px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                    Voir le numéro de téléphone
                     </a>
                     @endguest                    
                 </div>
+                <div class="p-4 mt-4 bg-gray-100 rounded-lg">
+                    <livewire:countdown :deadline="$car->deadline" :key="$car->id" />
+                </div>
             </div>
+
             <!-- Section vendeur pour l'interface téléphone -->
             <div id="seller-section-phone" class="fixed left-0 right-0 flex items-center justify-center p-4 bg-white bottom-16 md:hidden">
                 <div class="flex w-full space-x-2">
-                    <button class="flex-1 px-4 py-2 text-white text-xs !bg-[#3380CC] rounded-lg">Offre</button>
+                    <button class="flex-1 px-4 py-2 text-white text-xs !bg-[#3380CC] rounded-lg" @click="if (auctionEnded) { alert('Enchère terminée, il n\'est plus possible d\'enchérir'); } else { /* Logique pour envoyer une offre */ }">Offre</button>
                     <button class="flex-1 px-4 py-2 text-white text-xs !bg-[#3380CC] rounded-lg">Message</button>
                     <!-- Bouton "Voir le numéro de téléphone" -->
                     @auth
-                    <div x-data="{ showPhone: false }" class="flex-1">
-                        <button @click="copyToClipboard('{{ $car->user->telephone }}')" class="w-full text-xs px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                    <div class="flex-1">
+                        <button id="copy-phone-btn" class="w-full text-xs px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
                             N° Tél
                         </button>
                     </div>
@@ -336,7 +344,6 @@
             }
         };
     }
-
     function copyToClipboard(text) {
         if (navigator.clipboard) {
             navigator.clipboard.writeText(text).then(function() {
@@ -361,4 +368,5 @@
         }
     }
 </script>
+
 @endsection
