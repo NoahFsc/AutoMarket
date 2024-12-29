@@ -15,7 +15,16 @@
 
     @wireUiScripts
     <livewire:styles />
-    <script src="//unpkg.com/alpinejs" defer></script>
+    <script>
+        document.addEventListener('livewire:load', function () {
+            if (typeof Alpine === 'undefined') {
+                var script = document.createElement('script');
+                script.src = '//unpkg.com/alpinejs';
+                script.defer = true;
+                document.head.appendChild(script);
+            }
+        });
+    </script>
     <script src="{{ asset('assets/fontawesome.js') }}" crossorigin="anonymous"></script>
 </head>
 
