@@ -125,4 +125,4 @@
             icon.innerHTML = downChevron;
         }
     }
-  </script>
+</script>

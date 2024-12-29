@@ -8,6 +8,6 @@ class OffersController extends Controller
 {
     public function index()
     {
-        return view('admin.offers.index');
+        return view('admin.offers-list');
     }
 }

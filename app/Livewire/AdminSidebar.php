@@ -4,10 +4,10 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-class DashboardSidebar extends Component
+class AdminSidebar extends Component
 {
     public function render()
     {
-        return view('components.admin.dashboard-sidebar');
+        return view('components.admin.admin-sidebar');
     }
 }

@@ -1,12 +1,12 @@
 @extends('layout')
 
-@section('titre', 'Utilisateurs')
+@section('titre', 'Signalements')
 
 @section('contenu')
 
 <div class="flex flex-grow gap-16">
-    <livewire:dashboard-sidebar />
-    <livewire:users-catalog />
+    <livewire:admin-sidebar />
+    <livewire:reports-catalog />
 </div>
 
 @if (session('status'))
@@ -15,11 +15,10 @@
             <i class="mr-2 text-xl fa-regular fa-circle-check text-validation-500"></i>
             {{ session('status') }}
         </div>
-        @if (session('edited_user_id'))
-            <a href="{{ route('user.index', ['id' => session('edited_user_id')]) }}" class="block mt-2 text-sm text-white opacity-50 hover:opacity-75">Voir le profil</a>
+        @if (session('concerned_user_id'))
+            <a href="{{ route('user.index', ['id' => session('concerned_user_id')]) }}" class="block mt-2 text-sm text-white opacity-50 hover:opacity-75">Voir le compte</a>
         @endif
     </div>
 @endif
-
-
+    
 @endsection

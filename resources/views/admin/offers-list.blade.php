@@ -1,11 +1,11 @@
 @extends('layout')
 
-@section('titre', 'Dashboard')
+@section('titre', 'Annonces')
 
 @section('contenu')
 
 <div class="flex flex-grow gap-16">
-    <livewire:dashboard-sidebar />
+    <livewire:admin-sidebar />
     <livewire:offers-catalog />
 </div>
 

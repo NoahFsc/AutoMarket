@@ -17,9 +17,13 @@ class UsersCatalog extends Component
         $this->resetPage();
     }
 
-    public function addUser()
+    public function verifyUser($userId)
     {
-        // Logique pour ajouter un utilisateur
+        $user = User::find($userId);
+        $user->email_verified_at = now();
+        $user->save();
+
+        session()->flash('verifiedEvent', 'Utilisateur vérifié avec succès.');
     }
 
     public function deleteUser($userId)

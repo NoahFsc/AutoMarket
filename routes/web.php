@@ -1,10 +1,9 @@
 <?php
 
-use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\OffersController;
-use App\Http\Controllers\Admin\ReferencesController;
 use App\Http\Controllers\Admin\ReportsController;
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\ReferencesController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
@@ -15,15 +14,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Routes d'authentification
-Route::name('auth.')->group(function () {
-    Route::get('/register', [AuthController::class, 'register'])->name('register');
-    Route::post('/register', [AuthController::class, 'doRegister']);
-    Route::get('/register/step2', [AuthController::class, 'showRegisterStep2'])->name('register.step2');
-    Route::post('/register/step2', [AuthController::class, 'doRegisterStep2']);
-    Route::get('/login', [AuthController::class, 'login'])->name('login');
-    Route::post('/login', [AuthController::class, 'doLogin']);
-    Route::delete('/logout', [AuthController::class, 'logout'])->name('logout');
-});
+Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
+Route::post('/register', [AuthController::class, 'doRegister']);
+Route::get('/register/step2', [AuthController::class, 'showRegisterStep2'])->name('auth.register.step2');
+Route::post('/register/step2', [AuthController::class, 'doRegisterStep2']);
+Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
+Route::post('/login', [AuthController::class, 'doLogin']);
+Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
 
 // Routes de réinitialisation de mot de passe
 Route::prefix('password')->group(function () {
@@ -55,12 +52,14 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
 
     // Pages du panel admin
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
-    Route::get('/users', [UsersController::class, 'index'])->name('admin.users.index');
-    Route::get('/offers', [OffersController::class, 'index'])->name('admin.offers.index');
-    Route::get('/reports', [ReportsController::class, 'index'])->name('admin.reports.index');
+    Route::get('/users', [UsersController::class, 'index'])->name('admin.users-list');
+    Route::get('/offers', [OffersController::class, 'index'])->name('admin.offers-list');
+    Route::get('/reports', [ReportsController::class, 'index'])->name('admin.reports-list');
 
+    // Liste des pages de références
     Route::prefix('references')->group(function () {
-        Route::get('/', [ReferencesController::class, 'index'])->name('admin.references.index');
+        Route::get('/brands', [ReferencesController::class, 'brands'])->name('admin.references.brands-list');
+        Route::get('/models', [ReferencesController::class, 'models'])->name('admin.references.models-list');
+        Route::get('/critair', [ReferencesController::class, 'critair'])->name('admin.references.critair-list');
     });
 });

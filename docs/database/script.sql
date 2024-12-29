@@ -125,5 +125,17 @@ CREATE TABLE CARS_EQUIPMENTS (
     FOREIGN KEY (equipment_id) REFERENCES EQUIPMENTS(id)
 );
 
+CREATE TABLE REPORTS (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    reason VARCHAR(255) NOT NULL,
+    user_id_receiver INT,
+    user_id_writer INT,
+    status TINYINT(1) DEFAULT 0,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    FOREIGN KEY (user_id_receiver) REFERENCES USERS(id),
+    FOREIGN KEY (user_id_writer) REFERENCES USERS(id)
+);
+
 SET FOREIGN_KEY_CHECKS = 1;
 

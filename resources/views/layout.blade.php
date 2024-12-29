@@ -51,7 +51,7 @@
                             <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('assets/default_pfp.png') }}"
                                 alt="Avatar" class="rounded-full size-12">
                         </button>
-                        <div x-show="open" @click.away="open = false" class="absolute right-0 z-50 w-56 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5">
+                        <div x-show="open" @click.away="open = false" class="absolute right-0 z-50 w-56 mt-2 bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-95">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 <div class="px-4 py-2 text-xs text-gray-400">Menus</div>
                                 <a href="{{ route('user.index', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
@@ -64,7 +64,7 @@
                                     <i class="fa-regular fa-clock-rotate-left"></i> <p>Historique d'achats</p>
                                 </a>
                                 @if (Auth::user()->is_admin)
-                                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
+                                <a href="{{ route('admin.users-list') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
                                     <i class="fa-regular fa-gear"></i> <p>Administration</p>
                                 </a>
                                 @endif
