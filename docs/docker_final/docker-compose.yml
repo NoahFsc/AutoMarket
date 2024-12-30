@@ -1,0 +1,58 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: laravel_db
+      MYSQL_USER: laravel_user
+      MYSQL_PASSWORD: user_password
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - back-network
+    security_opt:
+      - no-new-privileges:true
+
+  app:
+    image: php:8.2-fpm
+    container_name: laravel-app
+    restart: unless-stopped
+    working_dir: /var/www/html
+    volumes:
+      - app:/var/www/html:ro
+    networks:
+      - back-network
+      - front-network
+    security_opt:
+      - no-new-privileges:true
+
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    volumes:
+      - nginx_conf:/etc/nginx/conf.d
+      - app:/var/www/html:ro
+    ports:
+      - "80:80"
+    depends_on:
+      - app
+    networks:
+      - front-network
+    security_opt:
+      - no-new-privileges:true
+
+networks:
+  back-network:
+    driver: bridge
+  front-network:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  app:
+  nginx_conf:

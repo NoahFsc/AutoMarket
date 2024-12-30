@@ -1,0 +1,37 @@
+# Ignorer les fichiers environnementaux sensibles
+.env
+.env.*
+
+# Ignorer les fichiers générés par Laravel
+/vendor
+/node_modules
+/public/storage
+/storage/*.key
+/storage/*.log
+/storage/debugbar
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/testing/*
+/storage/framework/views/*
+/storage/logs/*
+
+# Ignorer les fichiers générés par Docker
+docker-compose.override.yml
+docker-compose.prod.yml
+mysql_data/
+app/
+nginx/logs/
+
+# Ignorer les fichiers système
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+
+# Ignorer les caches
+.phpunit.result.cache
+.php-cs-fixer.cache
+
+# Ignorer les fichiers de déploiement spécifiques
+*.env.backup
+composer.lock.backup
