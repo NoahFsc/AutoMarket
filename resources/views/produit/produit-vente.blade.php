@@ -137,7 +137,7 @@
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Nombre de portes</span>
-                                <span class="text-xs">{{$car->nb_door}}</span>
+                                <span class="text-xs">{{$car->nbDoor->nb_doors}}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Provenance</span>
@@ -158,7 +158,7 @@
                         <ul class="mt-2 space-y-2">
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Type de moteur</span>
-                                <span class="text-xs">{{$car->carburant}}</span>
+                                <span class="text-xs">{{$car->fuelType->nom}}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Puissance fiscale</span>
@@ -190,7 +190,7 @@
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Crit'air</span>
-                                <span class="text-xs">{{$car->crit_air}}</span>
+                                <span class="text-xs">{{$car->critAir->nom}}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Émission</span>

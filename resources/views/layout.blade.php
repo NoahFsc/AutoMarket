@@ -14,7 +14,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap" rel="stylesheet">
 
     <livewire:styles />
-    <script src="{{ asset('assets/fontawesome.js') }}" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://noahfsc.github.io/FontAwesome-6.2.0-Pro/css/all.min.css" >
     <script>
         document.addEventListener('livewire:load', function () {
             if (typeof Alpine === 'undefined') {

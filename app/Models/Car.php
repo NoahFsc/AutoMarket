@@ -15,17 +15,17 @@ class Car extends Model
         'mileage',
         'postal_code',
         'consommation',
-        'nb_door',
+        'nb_door_id',
         'provenance',
         'puissance_fiscale',
         'puissance_din',
         'boite_vitesse',
-        'carburant',
+        'carburant_id',
         'vente_enchere',
         'minimum_price',
         'selling_price',
         'deadline',
-        'crit_air',
+        'crit_air_id',
         'co2_emission',
         'status',
         'commentaire_vendeur',
@@ -73,5 +73,23 @@ class Car extends Model
     public function lastBid()
     {
         return $this->hasMany(Bid::class)->latest();
+    }
+
+    // Récupérer le crit'air de la voiture
+    public function critAir()
+    {
+        return $this->belongsTo(ReferentielsCritAir::class, 'crit_air_id');
+    }
+
+    // Récupérer le nombre de portes de la voiture
+    public function nbDoor()
+    {
+        return $this->belongsTo(ReferentielsNbDoor::class, 'nb_door_id');
+    }
+
+    // Récupérer le type de carburant de la voiture
+    public function fuelType()
+    {
+        return $this->belongsTo(ReferentielsFuelType::class, 'carburant_id');
     }
 }

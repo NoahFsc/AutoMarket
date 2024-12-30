@@ -53,6 +53,22 @@ CREATE TABLE CAR_MODELS (
     FOREIGN KEY (brand_id) REFERENCES BRANDS(id)
 );
 
+CREATE TABLE REFERENTIELS_CRIT_AIR (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  image varchar(255),
+  nom varchar(100),
+);
+
+CREATE TABLE REFERENTIELS_FUEL_TYPE (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nom varchar(100),
+);
+
+CREATE TABLE REFERENTIELS_NB_DOORS (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nb_doors varchar(100),
+);
+
 CREATE TABLE CARS (
     id INT PRIMARY KEY AUTO_INCREMENT,
     type_of_car VARCHAR(50),
@@ -60,17 +76,17 @@ CREATE TABLE CARS (
     mileage FLOAT,
     postal_code VARCHAR(5),
     consommation FLOAT,
-    nb_door INT,
+    nb_door_id INT,
     provenance VARCHAR(50),
     puissance_fiscale FLOAT,
     puissance_din FLOAT,
     boite_vitesse BOOLEAN,
-    carburant VARCHAR(50),
+    carburant_id INT,
     vente_enchere BOOLEAN,
     minimum_price FLOAT,
     selling_price FLOAT,
     deadline DATE,
-    crit_air INT,
+    crit_air_id INT,
     co2_emission FLOAT,
     commentaire_vendeur TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -78,7 +94,10 @@ CREATE TABLE CARS (
     model_id INT,
     status BOOLEAN NOT NULL,
     FOREIGN KEY (user_id) REFERENCES USERS(id),
-    FOREIGN KEY (model_id) REFERENCES CAR_MODELS(id)
+    FOREIGN KEY (model_id) REFERENCES CAR_MODELS(id),
+    FOREIGN KEY (crit_air_id) REFERENCES REFERENTIELS_CRIT_AIR(id),
+    FOREIGN KEY (carburant_id) REFERENCES REFERENTIELS_FUEL_TYPE(id),
+    FOREIGN KEY (nb_door_id) REFERENCES REFERENTIELS_NB_DOORS(id)
 );
 
 CREATE TABLE DOCUMENTS (

@@ -40,22 +40,30 @@
     </div>
     <div>
         <label for="carburant" class="block text-base opacity-50">Carburant</label>
-        <div class="flex items-center mb-2">
-            <input type="checkbox" wire:model.live='diesel' class="mr-2 bg-transparent rounded-sm">
-            <label for="diesel" class="ml-2">Diesel</label>
-        </div>
-        <div class="flex items-center mb-2">
-            <input type="checkbox" wire:model.live='essence' class="mr-2 bg-transparent rounded-sm">
-            <label for="essence" class="ml-2">Essence</label>
-        </div>
-        <div class="flex items-center mb-2">
-            <input type="checkbox" wire:model.live='electrique' class="mr-2 bg-transparent rounded-sm">
-            <label for="electrique" class="ml-2">Électrique</label>
-        </div>
-        <div class="flex items-center mb-2">
-            <input type="checkbox" wire:model.live='hybride' class="mr-2 bg-transparent rounded-sm">
-            <label for="hybride" class="ml-2">Hybride</label>
-        </div>
+        @foreach ($carburants as $carburant)
+            <div class="flex items-center mb-2">
+                <input type="checkbox" wire:model.live='selectedCarburants' value="{{ $carburant['id'] }}" class="mr-2 bg-transparent rounded-sm">
+                <label for="carburant_{{ $carburant['id'] }}" class="ml-2">{{ $carburant['nom'] }}</label>
+            </div>
+        @endforeach
+    </div>
+    <div>
+        <label for="nb_door" class="block text-base opacity-50">Nombre de portes</label>
+        @foreach ($nbDoors as $nbDoor)
+            <div class="flex items-center mb-2">
+                <input type="checkbox" wire:model.live='selectedNbDoors' value="{{ $nbDoor['id'] }}" class="mr-2 bg-transparent rounded-sm">
+                <label for="nb_door_{{ $nbDoor['id'] }}" class="ml-2">{{ $nbDoor['nb_doors'] }}</label>
+            </div>
+        @endforeach
+    </div>
+    <div>
+        <label for="critair" class="block text-base opacity-50">Crit'Air</label>
+        @foreach ($critairs as $critair)
+            <div class="flex items-center mb-2">
+                <input type="checkbox" wire:model.live='selectedCritairs' value="{{ $critair['id'] }}" class="mr-2 bg-transparent rounded-sm">
+                <label for="crit_air_{{ $critair['id'] }}" class="ml-2">{{ $critair['nom'] }}</label>
+            </div>
+        @endforeach
     </div>
     <div>
         <label for="boite" class="block text-base opacity-50">Boîte</label>
@@ -77,18 +85,6 @@
         <div class="flex items-center mb-2">
             <input type="checkbox" wire:model.live='verifie' class="mr-2 bg-transparent rounded-sm">
             <label for="verifie" class="ml-2">Vérifié</label>
-        </div>
-    </div>
-    <div class="mb-4">
-        <label for="portes" class="block text-base opacity-50">Portes</label>
-        <div class="flex gap-2">
-            <input type="text" wire:model.live='portes' placeholder="Entrez un nombre" class="block w-full mt-1 border-gray-300 rounded-md h-9 focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
-        </div>
-    </div>
-    <div class="mb-4">
-        <label for="sieges" class="block text-base opacity-50">Sièges</label>
-        <div class="flex gap-2">
-            <input type="text" wire:model.live='sieges' placeholder="Entrez un nombre" class="block w-full mt-1 border-gray-300 rounded-md h-9 focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
         </div>
     </div>
 </div>
