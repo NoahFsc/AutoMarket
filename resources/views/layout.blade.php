@@ -92,7 +92,7 @@
     </nav>
 
     {{-- Mobile --}}
-    <div class="fixed bottom-0 left-0 right-0 md:hidden z-70">
+    <div class="fixed bottom-0 left-0 right-0 md:hidden z-[10000]">
         <div class="flex items-end justify-around pb-2 bg-white min-h-[64px]">
             <a href="{{ route('home') }}"
                 class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary-500' : 'text-gray-400' }}">

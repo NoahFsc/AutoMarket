@@ -23,8 +23,6 @@ class CarCatalog extends Component
     public ?int $kilometrage_max = null;
     public ?int $price_min = null;
     public ?int $price_max = null;
-    public bool $manuelle = false;
-    public bool $automatique = false;
     public bool $non_verifie = false;
     public bool $verifie = false;
 
@@ -40,6 +38,13 @@ class CarCatalog extends Component
     // Champs de sélection de modèle
     public array $carModels = [];
     public string $selectedCarModel = '';
+
+    // Champs de sélection de boîte de vitesse
+    public array $boites = [
+        'manuelle' => false,
+        'automatique' => false,
+    ];
+    public array $selectedBoites = [];
 
     // Champs de sélection de carburant
     public array $carburants = [];
@@ -129,6 +134,11 @@ class CarCatalog extends Component
             }
         }
 
+        // Filtre boîte de vitesse
+        if (!empty($this->selectedBoites)) {
+            $requete->whereIn('boite_vitesse', $this->selectedBoites);
+        }
+
         // Filtre carburant
         if (!empty($this->selectedCarburants)) {
             $requete->whereIn('carburant_id', $this->selectedCarburants);
@@ -143,20 +153,6 @@ class CarCatalog extends Component
         if (!empty($this->selectedNbDoors)) {
             $requete->whereIn('nb_door_id', $this->selectedNbDoors);
         }
-
-        $boites = [
-            'manuelle' => $this->manuelle,
-            'automatique' => $this->automatique,
-        ];
-
-        // Filtre boîte de vitesse
-        $requete->where(function ($q) use ($boites) {
-            foreach ($boites as $boite => $valeur) {
-                if ($valeur) {
-                    $q->orWhere('boite_vitesse', $boite);
-                }
-            }
-        });
 
         // Filtre utilisateurs non vérifiés
         if ($this->non_verifie) {

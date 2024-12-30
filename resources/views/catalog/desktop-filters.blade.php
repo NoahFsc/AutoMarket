@@ -68,11 +68,11 @@
     <div>
         <label for="boite" class="block text-base opacity-50">Boîte</label>
         <div class="flex items-center mb-2">
-            <input type="checkbox" wire:model.live='manuelle' class="mr-2 bg-transparent rounded-sm">
+            <input type="checkbox" wire:model.live='selectedBoites' value="0" class="mr-2 bg-transparent rounded-sm">
             <label for="manuelle" class="ml-2">Manuelle</label>
         </div>
         <div class="flex items-center mb-2">
-            <input type="checkbox" wire:model.live='automatique' class="mr-2 bg-transparent rounded-sm">
+            <input type="checkbox" wire:model.live='selectedBoites' value="1" class="mr-2 bg-transparent rounded-sm">
             <label for="automatique" class="ml-2">Automatique</label>
         </div>
     </div>
