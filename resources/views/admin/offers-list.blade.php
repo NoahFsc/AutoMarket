@@ -1,10 +1,10 @@
-@extends('layout')
+@extends('layout-admin')
 
 @section('titre', 'Annonces')
 
 @section('contenu')
 
-<div class="flex flex-grow gap-16">
+<div class="flex flex-grow gap-16 bg-white">
     <livewire:admin-sidebar />
     <livewire:offers-catalog />
 </div>

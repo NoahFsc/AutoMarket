@@ -1,4 +1,4 @@
-<div class="relative flex flex-col flex-grow gap-4 mr-16">
+<div class="relative flex flex-col flex-grow gap-4 mt-16 mr-16">
 
     {{-- Entête --}}
     <div class="flex flex-col">
