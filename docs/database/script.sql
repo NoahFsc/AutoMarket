@@ -156,5 +156,26 @@ CREATE TABLE REPORTS (
     FOREIGN KEY (user_id_writer) REFERENCES USERS(id)
 );
 
+CREATE TABLE CONVERSATIONS (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_id_sender INT NOT NULL,
+    user_id_receiver INT NOT NULL,
+    FOREIGN KEY (user_id_sender) REFERENCES USERS(id),
+    FOREIGN KEY (user_id_receiver) REFERENCES USERS(id),
+    UNIQUE (user_id_sender, user_id_receiver),
+    CHECK (user_id_sender < user_id_receiver)
+);
+
+CREATE TABLE CHATS (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    content VARCHAR(255) NOT NULL,
+    send_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    conversation_id INT NOT NULL, 
+    user_id INT NOT NULL,
+    FOREIGN KEY (conversation_id) REFERENCES CONVERSATIONS(id),
+    FOREIGN KEY (user_id) REFERENCES USERS(id)
+);
+
 SET FOREIGN_KEY_CHECKS = 1;
 
