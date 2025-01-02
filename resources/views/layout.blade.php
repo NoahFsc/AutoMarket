@@ -30,7 +30,7 @@
 
 <body class="flex flex-col min-h-screen bg-background">
     <livewire:scripts />
-    
+
     {{-- Ordinateur --}}
     <nav class="p-8 bg-background">
         <div class="flex items-center mx-auto md:justify-between">
@@ -42,8 +42,10 @@
             </a>
             <div class="items-center hidden gap-12 md:flex">
                 <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">Accueil</a>
-                <a href="{{ route('catalog.acheter') }}" class="nav-link {{ Route::is('catalog.acheter') ? 'active' : '' }}">Acheter</a>
-                <a href="{{ route('catalog.encherir') }}" class="nav-link {{ Route::is('catalog.encherir') ? 'active' : '' }}">Enchérir</a>
+                <a href="{{ route('catalog.acheter') }}"
+                    class="nav-link {{ Route::is('catalog.acheter') ? 'active' : '' }}">Acheter</a>
+                <a href="{{ route('catalog.encherir') }}"
+                    class="nav-link {{ Route::is('catalog.encherir') ? 'active' : '' }}">Enchérir</a>
                 <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">Vendre</a>
 
                 @auth
@@ -101,8 +103,8 @@
                 class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('catalog.encherir') ? 'text-primary-500' : 'text-gray-400' }}">
                 <i class="fa-regular fa-building-columns fa-xl"></i><span class="text-sm">Enchérir</span>
             </a>
-            <a href="{{ route('home') }}"
-                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary-500' : 'text-gray-400' }}">
+            <a href="{{ route('vendre.index') }}"
+                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('vendre.index') ? 'text-primary-500' : 'text-gray-400' }}">
                 <i class="fa-regular fa-messages fa-xl"></i><span class="text-sm">Messagerie</span>
             </a>
             <a href="{{ route(auth()->check() ? 'user.index' : 'auth.login') }}"
@@ -127,6 +129,7 @@
                     <span class="text-base">AutoMarket</span>
                 </div>
                 <form action="" class="flex h-10"> {{-- A remplacer par route newsletter --}}
+                    @csrf
                     <input type="email" class="w-48 px-4 py-2 text-xs border border-gray-300 rounded-l-lg"
                         placeholder="Entrez votre e-mail">
                     <button type="submit"

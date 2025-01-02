@@ -4,6 +4,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\VendreController;
 use App\Http\Controllers\ProduitController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,6 +25,28 @@ Route::get('/password/reset', [AuthController::class, 'showLinkRequestForm'])->n
 Route::post('/password/email', [AuthController::class, 'sendResetLinkEmail'])->name('password.email');
 Route::get('/password/reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
 Route::post('/password/reset', [AuthController::class, 'reset'])->name('password.update');
+
+Route::get('/vendre', [VendreController::class, 'index'])->name('vendre.index');
+
+Route::get('/vendre/step1', [VendreController::class, 'showStep1'])->name('vendre.step1');
+Route::post('/vendre/step1', [VendreController::class, 'doStep1'])->name('vendre.step1');
+Route::get('/vendre/step2', [VendreController::class, 'showStep2'])->name('vendre.step2');
+Route::post('/vendre/step2', [VendreController::class, 'doStep2'])->name('vendre.step2');
+Route::get('/vendre/step3', [VendreController::class, 'showStep3'])->name('vendre.step3');
+Route::post('/vendre/step3', [VendreController::class, 'doStep3'])->name('vendre.step3');
+Route::post('/vendre/upload-media', [VendreController::class, 'uploadMedia'])->name('vendre.uploadMedia');
+
+
+Route::get('/vendre', [VendreController::class, 'index'])->name('vendre.index');
+
+Route::get('/vendre/step1', [VendreController::class, 'showStep1'])->name('vendre.step1');
+Route::post('/vendre/step1', [VendreController::class, 'doStep1'])->name('vendre.step1');
+Route::get('/vendre/step2', [VendreController::class, 'showStep2'])->name('vendre.step2');
+Route::post('/vendre/step2', [VendreController::class, 'doStep2'])->name('vendre.step2');
+Route::get('/vendre/step3', [VendreController::class, 'showStep3'])->name('vendre.step3');
+Route::post('/vendre/step3', [VendreController::class, 'doStep3'])->name('vendre.step3');
+Route::post('/vendre/upload-media', [VendreController::class, 'uploadMedia'])->name('vendre.uploadMedia');
+
 
 Route::get('/acheter', [CatalogController::class, 'acheter'])->name('catalog.acheter');
 Route::get('/encherir', [CatalogController::class, 'encherir'])->name('catalog.encherir');

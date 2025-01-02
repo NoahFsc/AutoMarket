@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Car;
 use App\Models\WebsiteReview;
-use App\Models\Brand;
-use App\Models\CarModel;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {

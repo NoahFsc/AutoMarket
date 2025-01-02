@@ -12,8 +12,6 @@ class CarsEquipment extends Model
     protected $fillable = [
         'car_id',
         'equipment_id',
-        'user_id_receiver',
-        'user_id_writer',
     ];
 
     public $timestamps = false;
