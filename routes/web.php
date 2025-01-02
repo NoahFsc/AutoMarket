@@ -33,6 +33,7 @@ Route::get('/vendre/step2', [VendreController::class, 'showStep2'])->name('vendr
 Route::post('/vendre/step2', [VendreController::class, 'doStep2'])->name('vendre.step2');
 Route::get('/vendre/step3', [VendreController::class, 'showStep3'])->name('vendre.step3');
 Route::post('/vendre/step3', [VendreController::class, 'doStep3'])->name('vendre.step3');
+Route::post('/vendre/upload-media', [VendreController::class, 'uploadMedia'])->name('vendre.uploadMedia');
 
 
 Route::get('/acheter', [AcheterController::class, 'index'])->name('acheter.index');

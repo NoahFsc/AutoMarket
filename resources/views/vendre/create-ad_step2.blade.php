@@ -30,7 +30,7 @@
             </div>
         </div>
     </div>
-    <form action="{{ route('vendre.step2') }}" method="POST">
+    <form action="{{ route('vendre.step2') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <div class="text-2xl font-semibold text-gray-800 mb-6">Documents du véhicule</div>
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -85,10 +85,21 @@
                 <i class="fa-light fa-upload text-gray-500 mr-3"></i>
                 <label class="w-full text-gray-500 focus:outline-none focus:ring focus:ring-blue-300 cursor-pointer">
                     <span class="text-gray-500">Déposez vos images et vos vidéos</span>
-                    <input type="file" name="media" accept="image/jpeg,image/png,image/jpg,video/mp4" class="hidden">
+                    <input type="file" name="media" accept="image/jpeg,image/png,image/jpg,video/mp4" class="hidden"
+                        multiple>
                 </label>
             </div>
         </div>
+        <div class="text-2xl font-semibold text-gray-800 mt-6 mb-6">Images téléchargées</div>
+        <div id="image-grid" class="grid grid-cols-2 md:grid-cols-7 gap-2 mt-2">
+            @foreach($uploadedImages as $image)
+            <div class="border border-gray-300 rounded-md overflow-hidden" style="width: 100px; height: 100px;">
+                <img src="{{ asset('storage/' . $image) }}" alt="Image" class="w-full h-full object-cover">
+            </div>
+            @endforeach
+        </div>
+        <div class="flex justify-center font-semibold text-gray-500 mt-2">Glissez-déposez une photo pour changer sa
+            position</div>
         <div class="flex justify-center mt-8 gap-4">
             <button type="button" class="px-6 py-2 border border-gray-300 text-gray-500 rounded-md hover:bg-gray-100"
                 onclick="window.history.back()">Étape précédente</button>
@@ -97,5 +108,57 @@
         </div>
     </form>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var el = document.getElementById('image-grid');
+        if (el) {
+            var sortable = Sortable.create(el, {
+                animation: 150,
+                ghostClass: 'bg-blue-100',
+                onEnd: function (/**Event*/evt) {
+                    // Vous pouvez ajouter du code ici pour gérer l'ordre des images après le tri
+                    console.log('Nouveau ordre:', sortable.toArray());
+                },
+            });
+        }
+
+        document.querySelector('input[name="media"]').addEventListener('change', function (event) {
+            var files = event.target.files;
+            var formData = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                formData.append('media', files[i]);
+            }
+
+            fetch('{{ route("vendre.uploadMedia") }}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.path) {
+                    var imgGrid = document.getElementById('image-grid');
+                    var newImgDiv = document.createElement('div');
+                    newImgDiv.classList.add('border', 'border-gray-300', 'rounded-md', 'overflow-hidden');
+                    newImgDiv.style.width = '100px';
+                    newImgDiv.style.height = '100px';
+
+                    var newImg = document.createElement('img');
+                    newImg.src = '{{ asset("storage") }}/' + data.path;
+                    newImg.alt = 'Image';
+                    newImg.classList.add('w-full', 'h-full', 'object-cover');
+
+                    newImgDiv.appendChild(newImg);
+                    imgGrid.appendChild(newImgDiv);
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        });
+    });
+</script>
 
 @endsection

@@ -36,7 +36,8 @@
             <div>
                 <livewire:create-search />
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Type de Véhicule</label>
-                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-300 text-gray-500">
+                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-300 text-gray-500"
+                    name="type_of_car">
                     <option value="" disabled selected>Sélectionnez un niveau</option>
                     @foreach ($vehiculeTypes as $vehiculeType)
                     <option value="{{ $vehiculeType->id }}">{{$vehiculeType->nom}}</option>
@@ -115,10 +116,11 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Sélection</label>
-                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500">
+                <select id="equipment-select"
+                    class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500">
                     <option value="" disabled selected>Sélectionnez un niveau</option>
-                    @foreach ($gearboxes as $gearboxe)
-                    <option value="{{ $gearboxe->id }}">{{$gearboxe->nom}}</option>
+                    @foreach ($equipments as $equipment)
+                    <option value="{{ $equipment->id }}">{{$equipment->equipment_name}}</option>
                     @endforeach
                 </select>
             </div>
@@ -130,7 +132,11 @@
                     <option value="{{ $gearboxe->id }}">{{$gearboxe->nom}}</option>
                     @endforeach
                 </select>
+
             </div>
+        </div>
+        <div id="selected-equipments" class="flex flex-wrap mt-4">
+            <!-- Les badges des équipements sélectionnés seront ajoutés ici -->
         </div>
         <div class="flex justify-center mt-8 gap-4">
             <button type="button" class="px-6 py-2 border border-gray-300 text-gray-500 rounded-md hover:bg-gray-100"
@@ -140,5 +146,49 @@
         </div>
     </form>
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const equipmentSelect = document.getElementById('equipment-select');
+        const selectedEquipmentsContainer = document.getElementById('selected-equipments');
+
+        equipmentSelect.addEventListener('change', function () {
+            const selectedOption = equipmentSelect.options[equipmentSelect.selectedIndex];
+            const equipmentId = selectedOption.value;
+            const equipmentName = selectedOption.text;
+
+            if (equipmentId) {
+                // Créer un badge pour l'équipement sélectionné
+                const badge = document.createElement('div');
+                badge.classList.add('bg-blue-500', 'text-white', 'rounded-full', 'px-4', 'py-2', 'mr-2', 'mb-2', 'flex', 'items-center');
+                badge.setAttribute('data-id', equipmentId);
+
+                const badgeText = document.createElement('span');
+                badgeText.textContent = equipmentName;
+
+                const removeButton = document.createElement('button');
+                removeButton.classList.add('ml-2', 'text-white', 'hover:text-gray-300');
+                removeButton.innerHTML = '&times;';
+                removeButton.addEventListener('click', function () {
+                    selectedEquipmentsContainer.removeChild(badge);
+                });
+
+                badge.appendChild(badgeText);
+                badge.appendChild(removeButton);
+                selectedEquipmentsContainer.appendChild(badge);
+
+                // Ajouter un champ caché pour soumettre l'équipement sélectionné
+                const hiddenInput = document.createElement('input');
+                hiddenInput.type = 'hidden';
+                hiddenInput.name = 'equipments[]';
+                hiddenInput.value = equipmentId;
+                badge.appendChild(hiddenInput);
+
+                // Réinitialiser la sélection
+                equipmentSelect.selectedIndex = 0;
+            }
+        });
+    });
+</script>
 
 @endsection
