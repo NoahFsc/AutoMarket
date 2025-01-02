@@ -46,7 +46,8 @@
                     class="nav-link {{ Route::is('catalog.acheter') ? 'active' : '' }}">Acheter</a>
                 <a href="{{ route('catalog.encherir') }}"
                     class="nav-link {{ Route::is('catalog.encherir') ? 'active' : '' }}">Enchérir</a>
-                <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">Vendre</a>
+                <a href="{{ route('vendre.index') }}"
+                    class="nav-link {{ Route::is('vendre.index') ? 'active' : '' }}">Vendre</a>
 
                 @auth
                 {{-- Composant WireUI Dropdown --}}
