@@ -11,7 +11,7 @@
         @endif
     @endforeach
 ]}">
-    <div x-data="photoCarousel()" class="max-w-5xl mx-auto mt-10">
+    <div x-data="photoCarousel()" class="max-w-5xl mx-auto">
         <!-- Conteneur principal -->
         <div class="flex flex-col md:flex-row">
             <!-- Informations sur le véhicule -->
@@ -107,7 +107,7 @@
                                 @endphp
                             </p>
                         </div>
-                        <p class="text-2xl font-medium">{{number_format($car->minimum_price)}}€</p>
+                        <p class="text-2xl font-medium">{{number_format($car->selling_price, 2)}}€</p>
                     </div>
                 </div>
 
@@ -266,15 +266,15 @@
                 </div>
                 <button class="w-full px-4 py-2 mt-4 text-white !bg-[#3380CC] rounded-lg">Faire une offre</button>
                 <p class="mt-2 text-center text-gray-500">Ou</p>
-                <div class="flex flex-col mt-2 space-y-2">
+                <div class="flex flex-col w-full gap-2 mt-2">
                     <button class="px-4 py-2 text-white !bg-[#3380CC] rounded-lg ">Envoyer un message</button>
                     <!-- Bouton "Voir le numéro de téléphone" -->
                     @auth
                     <div x-data="{ showPhone: false }">
-                        <button @click="showPhone = !showPhone" class="px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                        <button @click="showPhone = !showPhone" class="w-full px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
                             Voir le numéro de téléphone
                         </button>
-                        <div x-cloak x-show="showPhone" x-transition class="mt-2 text-gray-700">
+                        <div x-cloak x-show="showPhone" x-transition class="flex justify-center w-full mt-2 text-gray-700">
                             {{ $car->user->telephone }}
                         </div>
                     </div>
@@ -286,6 +286,9 @@
                     </a>
                     @endguest                    
                 </div>
+
+                {{-- Temps restant --}}
+                <livewire:remaining-time :car="$car" />
             </div>
             <!-- Section vendeur pour l'interface téléphone -->
             <div id="seller-section-phone" class="fixed left-0 right-0 flex items-center justify-center p-4 bg-white bottom-16 md:hidden">

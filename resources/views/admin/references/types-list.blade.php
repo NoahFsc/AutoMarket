@@ -6,7 +6,7 @@
 
 <div class="flex flex-grow gap-16 bg-white">
     <livewire:admin-sidebar />
-    Contenu ref Types
+    <livewire:type.types-catalog />
 </div>
 
 @endsection
