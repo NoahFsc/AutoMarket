@@ -30,4 +30,14 @@ class ReferencesController extends Controller
     {
         return view('admin.references.portieres-list');
     }
+
+    public function boites()
+    {
+        return view('admin.references.boites-list');
+    }
+
+    public function types()
+    {
+        return view('admin.references.types-list');
+    }
 }

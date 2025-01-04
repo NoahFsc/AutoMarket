@@ -17,31 +17,26 @@ class OffersCatalog extends Component
         $this->resetPage();
     }
 
-    public function addOffer()
-    {
-        // Logique pour ajouter une offre
-    }
-
-    public function deleteUser($carId)
+    public function deleteOffer($carId)
     {
         Car::find($carId)->delete();
     }
 
     public function render()
     {
-        $cars = Car::where('type_of_car', 'like', '%' . $this->search . '%')
-            ->paginate(6);
-        $cars = Car::whereHas('user', function ($query) {
-            $query->where('last_name', 'like', '%' . $this->search . '%')
-                ->orWhere('first_name', 'like', '%' . $this->search . '%');
+        $cars = Car::whereHas('typeOfCar', function ($query) {
+            $query->where('nom', 'like', '%' . $this->search . '%');
         })
+            ->orWhereHas('user', function ($query) {
+                $query->where('last_name', 'like', '%' . $this->search . '%')
+                    ->orWhere('first_name', 'like', '%' . $this->search . '%');
+            })
             ->orWhereHas('carModel', function ($query) {
                 $query->where('model_name', 'like', '%' . $this->search . '%')
                     ->orWhereHas('brand', function ($query) {
                         $query->where('brand_name', 'like', '%' . $this->search . '%');
                     });
             })
-            ->orWhere('type_of_car', 'like', '%' . $this->search . '%')
             ->paginate(6);
 
         return view('components.admin.offers-catalog', ['cars' => $cars]);

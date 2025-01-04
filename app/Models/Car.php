@@ -10,7 +10,7 @@ class Car extends Model
     use HasFactory;
 
     protected $fillable = [
-        'type_of_car',
+        'type_of_car_id',
         'car_year',
         'mileage',
         'postal_code',
@@ -19,7 +19,7 @@ class Car extends Model
         'provenance',
         'puissance_fiscale',
         'puissance_din',
-        'boite_vitesse',
+        'boite_vitesse_id',
         'carburant_id',
         'vente_enchere',
         'minimum_price',
@@ -91,5 +91,17 @@ class Car extends Model
     public function fuelType()
     {
         return $this->belongsTo(ReferentielsFuelType::class, 'carburant_id');
+    }
+
+    // Récupérer la boîte de vitesse de la voiture
+    public function gearBox()
+    {
+        return $this->belongsTo(ReferentielsGearBox::class, 'boite_vitesse_id');
+    }
+
+    // Récupérer le type de voiture
+    public function typeOfCar()
+    {
+        return $this->belongsTo(ReferentielsVehiculeType::class, 'type_of_car_id');
     }
 }

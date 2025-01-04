@@ -69,6 +69,16 @@
                         <i class="fa-regular fa-garage {{ Route::is('admin.references.portieres-list') ? 'fa-solid text-black' : 'fa-regular text-gray-700' }}"></i>
                         Portières
                     </a>
+                    <a href="{{ route('admin.references.boites-list') }}" class="text-lg flex items-center gap-3 py-2 px-8 font-medium rounded-lg {{ Route::is('admin.references.boites-list') ? 'bg-gray-500 bg-opacity-20 text-black' : 'hover:bg-gray-400 hover:bg-opacity-20 text-gray-700' }}">
+                        <span class="opacity-50">•</span>
+                        <i class="fa-regular fa-gears {{ Route::is('admin.references.boites-list') ? 'fa-solid text-black' : 'fa-regular text-gray-700' }}"></i>
+                        Boîtes de vit.
+                    </a>
+                    <a href="{{ route('admin.references.types-list') }}" class="text-lg flex items-center gap-3 py-2 px-8 font-medium rounded-lg {{ Route::is('admin.references.types-list') ? 'bg-gray-500 bg-opacity-20 text-black' : 'hover:bg-gray-400 hover:bg-opacity-20 text-gray-700' }}">
+                        <span class="opacity-50">•</span>
+                        <i class="fa-regular fa-shapes {{ Route::is('admin.references.types-list') ? 'fa-solid text-black' : 'fa-regular text-gray-700' }}"></i>
+                        Types de v.
+                    </a>
                 </div>
             </div>
         </div>

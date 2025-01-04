@@ -63,5 +63,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         Route::get('/critair', [ReferencesController::class, 'critair'])->name('admin.references.critair-list');
         Route::get('/carburants', [ReferencesController::class, 'carburants'])->name('admin.references.carburants-list');
         Route::get('/portieres', [ReferencesController::class, 'portieres'])->name('admin.references.portieres-list');
+        Route::get('/boites', [ReferencesController::class, 'boites'])->name('admin.references.boites-list');
+        Route::get('/types', [ReferencesController::class, 'types'])->name('admin.references.types-list');
     });
 });

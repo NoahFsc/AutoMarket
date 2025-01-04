@@ -9,6 +9,7 @@ use App\Models\CarModel;
 use App\Models\ReferentielsCritAir;
 use App\Models\ReferentielsFuelType;
 use App\Models\ReferentielsNbDoor;
+use App\Models\ReferentielsGearBox;
 use Livewire\WithPagination;
 
 class CarCatalog extends Component
@@ -40,11 +41,8 @@ class CarCatalog extends Component
     public string $selectedCarModel = '';
 
     // Champs de sélection de boîte de vitesse
-    public array $boites = [
-        'manuelle' => false,
-        'automatique' => false,
-    ];
-    public array $selectedBoites = [];
+    public array $gearBoxes = [];
+    public array $selectedGearBoxes = [];
 
     // Champs de sélection de carburant
     public array $carburants = [];
@@ -66,6 +64,7 @@ class CarCatalog extends Component
         $this->carburants = ReferentielsFuelType::all()->toArray();
         $this->nbDoors = ReferentielsNbDoor::all()->toArray();
         $this->critairs = ReferentielsCritAir::all()->toArray();
+        $this->gearBoxes = ReferentielsGearBox::all()->toArray();
         $this->type = $type;
 
         // Récupérer les filtres de la session
@@ -135,8 +134,8 @@ class CarCatalog extends Component
         }
 
         // Filtre boîte de vitesse
-        if (!empty($this->selectedBoites)) {
-            $requete->whereIn('boite_vitesse', $this->selectedBoites);
+        if (!empty($this->selectedGearBoxes)) {
+            $requete->whereIn('boite_vitesse_id', $this->selectedGearBoxes);
         }
 
         // Filtre carburant
@@ -216,7 +215,8 @@ class CarCatalog extends Component
             'carModels' => $this->carModels,
             'carburants' => $this->carburants,
             'nbDoors' => $this->nbDoors,
-            'critairs' => $this->critairs
+            'critairs' => $this->critairs,
+            'boites' => $this->gearBoxes,
         ]);
     }
 }

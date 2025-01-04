@@ -56,12 +56,17 @@ CREATE TABLE CAR_MODELS (
 CREATE TABLE REFERENTIELS_CRIT_AIR (
   id INT PRIMARY KEY AUTO_INCREMENT,
   image varchar(255),
-  nom varchar(100),
+  nom varchar(100)
 );
 
 CREATE TABLE REFERENTIELS_FUEL_TYPE (
   id INT PRIMARY KEY AUTO_INCREMENT,
-  nom varchar(100),
+  nom varchar(100)
+);
+
+CREATE TABLE REFERENTIELS_GEARBOX_TYPE (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  nom varchar(100)
 );
 
 CREATE TABLE REFERENTIELS_NB_DOORS (
@@ -69,9 +74,15 @@ CREATE TABLE REFERENTIELS_NB_DOORS (
   nb_doors varchar(100),
 );
 
+CREATE TABLE REFERENTIELS_VEHICULE_TYPE (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  segment varchar(100),
+  nom varchar(100)
+);
+
 CREATE TABLE CARS (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    type_of_car VARCHAR(50),
+    type_of_car_id INT,
     car_year VARCHAR(4),
     mileage FLOAT,
     postal_code VARCHAR(5),
@@ -80,7 +91,7 @@ CREATE TABLE CARS (
     provenance VARCHAR(50),
     puissance_fiscale FLOAT,
     puissance_din FLOAT,
-    boite_vitesse BOOLEAN,
+    boite_vitesse_id INT,
     carburant_id INT,
     vente_enchere BOOLEAN,
     minimum_price FLOAT,
@@ -92,11 +103,14 @@ CREATE TABLE CARS (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     user_id INT,
     model_id INT,
-    status BOOLEAN NOT NULL,
+    status TINYINT(1) DEFAULT 0 NOT NULL,
+    status_ct TINYINT(1) DEFAULT 0 NOT NULL,
     FOREIGN KEY (user_id) REFERENCES USERS(id),
     FOREIGN KEY (model_id) REFERENCES CAR_MODELS(id),
     FOREIGN KEY (crit_air_id) REFERENCES REFERENTIELS_CRIT_AIR(id),
     FOREIGN KEY (carburant_id) REFERENCES REFERENTIELS_FUEL_TYPE(id),
+    FOREIGN KEY (boite_vitesse_id) REFERENCES REFERENTIELS_GEARBOX_TYPE(id),
+    FOREIGN KEY (type_of_car_id) REFERENCES REFERENTIELS_VEHICULE_TYPE(id),
     FOREIGN KEY (nb_door_id) REFERENCES REFERENTIELS_NB_DOORS(id)
 );
 

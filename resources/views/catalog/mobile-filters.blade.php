@@ -80,14 +80,12 @@
         <div class="mb-4">
             <label for="boite" class="text-base opacity-50">Boîte</label>
             <div class="flex flex-wrap">
-                <div class="flex items-center w-1/2 mb-2">
-                    <input type="checkbox" wire:model.live='selectedBoites' value="0" class="mr-2 bg-transparent rounded-sm">
-                    <label for="manuelle" class="ml-2">Manuelle</label>
-                </div>
-                <div class="flex items-center w-1/2 mb-2">
-                    <input type="checkbox" wire:model.live='selectedBoites' value="1" class="mr-2 bg-transparent rounded-sm">
-                    <label for="automatique" class="ml-2">Automatique</label>
-                </div>
+                @foreach ($boites as $boite)
+                    <div class="flex items-center w-1/2 mb-2">
+                        <input type="checkbox" wire:model.live='selectedGearBoxes' value="{{ $boite['id'] }}" class="mr-2 bg-transparent rounded-sm">
+                        <label for="boite_{{ $boite['id'] }}" class="ml-2">{{ $boite['nom'] }}</label>
+                    </div>
+                @endforeach
             </div>
         </div>
         <div class="mb-4">
