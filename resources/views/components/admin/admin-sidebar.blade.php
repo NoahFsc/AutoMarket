@@ -43,7 +43,7 @@
                 </button>
 
                 {{-- Contenu --}}
-                <div class="flex flex-col gap-2" x-show="open" x-collapse>
+                <div class="flex flex-col gap-2" x-cloak x-show="open" x-collapse>
                     <a href="{{ route('admin.references.brands-list') }}" class="text-lg flex items-center gap-3 py-2 px-8 font-medium rounded-lg {{ Route::is('admin.references.brands-list') ? 'bg-gray-500 bg-opacity-20 text-black' : 'hover:bg-gray-400 hover:bg-opacity-20 text-gray-700' }}">
                         <span class="opacity-50">•</span>
                         <i class="fa-regular fa-car {{ Route::is('admin.references.brands-list') ? 'fa-solid text-black' : 'fa-regular text-gray-700' }}"></i>
@@ -100,7 +100,7 @@
         </button>
 
         {{-- Dropdown --}}
-        <div x-show="open" @click.away="open = false" class="absolute bottom-0 z-50 w-56 bg-white rounded-md shadow-lg -right-[105%] ring-1 ring-black ring-opacity-5" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-95">
+        <div x-cloak x-show="open" @click.away="open = false" class="absolute bottom-0 z-50 w-56 bg-white rounded-md shadow-lg -right-[105%] ring-1 ring-black ring-opacity-5" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-95">
             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                 <div class="px-4 py-2 text-xs text-gray-400">Menus</div>
                 <a href="{{ route('user.index', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">

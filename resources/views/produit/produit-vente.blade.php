@@ -69,7 +69,7 @@
                 </div>
 
                 <!-- Carousel en plein écran -->
-                <div x-show="showCarousel" @click.away="showCarousel = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+                <div x-cloak x-show="showCarousel" @click.away="showCarousel = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
                     <div class="relative w-3/4 h-3/4">
                         <button @click="showCarousel = false" class="absolute top-0 right-0 z-50 px-4 py-2 mt-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">Fermer</button>
                         <template x-for="(photo, index) in photos" :key="index">
@@ -222,7 +222,7 @@
                 </div>
 
                 <!-- Interface modale pour afficher tous les équipements -->
-                <div x-show="showEquipments" @click.away="showEquipments = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+                <div x-cloak x-show="showEquipments" @click.away="showEquipments = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
                     <div class="relative w-3/4 p-4 bg-white rounded-lg">
                         <button @click="showEquipments = false" class="absolute top-0 right-0 px-4 py-2 mt-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">Fermer</button>
                         <h2 class="mb-4 text-lg font-medium md:text-xl">Tous les équipements</h2>
@@ -274,7 +274,7 @@
                         <button @click="showPhone = !showPhone" class="px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
                             Voir le numéro de téléphone
                         </button>
-                        <div x-show="showPhone" x-transition class="mt-2 text-gray-700">
+                        <div x-cloak x-show="showPhone" x-transition class="mt-2 text-gray-700">
                             {{ $car->user->telephone }}
                         </div>
                     </div>

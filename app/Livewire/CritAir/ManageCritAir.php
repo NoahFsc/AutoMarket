@@ -3,6 +3,7 @@
 namespace App\Livewire\CritAir;
 
 use App\Models\ReferentielsCritAir;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
@@ -13,10 +14,11 @@ class ManageCritAir extends Component
     public $crit_air_id;
     public $nom;
     public $image;
+    public $currentImage;
 
     protected $rules = [
         'nom' => 'required|string|max:255',
-        'image' => 'required|image|max:1024',
+        'image' => 'nullable|image|max:1024',
     ];
 
     protected $listeners = ['openManageCritAirModal' => 'openModal'];
@@ -27,9 +29,10 @@ class ManageCritAir extends Component
             $critair = ReferentielsCritAir::findOrFail($crit_air_id);
             $this->crit_air_id = $critair->id;
             $this->nom = $critair->nom;
-            $this->image = $critair->image;
+            $this->currentImage = Storage::url($critair->image);
+            $this->image = null;
         } else {
-            $this->reset(['crit_air_id', 'nom', 'image']);
+            $this->reset(['crit_air_id', 'nom', 'image', 'currentImage']);
         }
     }
 
@@ -37,7 +40,7 @@ class ManageCritAir extends Component
     {
         $this->validate();
 
-        $imagePath = $this->image->store('public/images');
+        $imagePath = $this->image ? $this->image->store('images', 'public') : $this->currentImage;
 
         if ($this->crit_air_id) {
             $critair = ReferentielsCritAir::findOrFail($this->crit_air_id);
@@ -55,7 +58,7 @@ class ManageCritAir extends Component
         }
 
         // Réinitialiser les champs du formulaire
-        $this->reset(['crit_air_id', 'nom', 'image']);
+        $this->reset(['crit_air_id', 'nom', 'image', 'currentImage']);
 
         $this->dispatch('close-manage-critair-modal');
         $this->dispatch('refreshCritAir');

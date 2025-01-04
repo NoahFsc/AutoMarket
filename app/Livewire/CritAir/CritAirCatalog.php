@@ -19,7 +19,7 @@ class CritAirCatalog extends Component
         $this->resetPage();
     }
 
-    public function deleteCritAir($critairId)
+    public function deleteCritair($critairId)
     {
         ReferentielsCritAir::find($critairId)->delete();
     }

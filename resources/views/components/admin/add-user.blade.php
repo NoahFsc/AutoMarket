@@ -1,7 +1,7 @@
 <div x-data="{ open: false }" @open-add-user-modal.window="open = true" @close-add-user-modal.window="open = false">
     <button @click="open = true" class="px-4 py-2 text-white rounded-md bg-primary-500 hover:bg-primary-600"><i class="fa-solid fa-user-plus"></i> Ajouter un utilisateur</button>
 
-    <div x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" @click="open = false">
+    <div x-cloak x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" @click="open = false">
         <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg" @click.stop>
             <div class="flex items-center gap-2 mb-4">
                 <i class="text-3xl fa-regular fa-user-plus"></i>
