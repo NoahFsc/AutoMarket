@@ -268,7 +268,7 @@
                 <button class="w-full px-4 py-2 mt-4 text-white !bg-primary-500 rounded-lg">Faire une offre</button>
                 <p class="mt-2 text-center text-gray-500">Ou</p>
                 <div class="flex flex-col w-full gap-2 mt-2">
-                    <button class="px-4 py-2 text-white !bg-primary-500 rounded-lg ">Envoyer un message</button>
+                    <a href="{{ route('chat.start', $car->user->id) }}" class="px-4 py-2 text-white !bg-primary-500 rounded-lg text-center">Envoyer un message</a>
                     <!-- Bouton "Voir le numéro de téléphone" -->
                     @auth
                     <div x-data="{ showPhone: false }">
@@ -292,7 +292,7 @@
             <div id="seller-section-phone" class="fixed left-0 right-0 flex items-center justify-center p-4 bg-white bottom-16 md:hidden">
                 <div class="flex w-full space-x-2">
                     <button class="flex-1 px-4 py-2 text-white text-xs !bg-primary-500 rounded-lg">Offre</button>
-                    <button class="flex-1 px-4 py-2 text-white text-xs !bg-primary-500 rounded-lg">Message</button>
+                    <a href="{{ route('chat.start', $car->user->id) }}" class="flex-1 px-4 py-2 text-white text-xs !bg-primary-500 rounded-lg text-center">Message</a>
                     <!-- Bouton "Voir le numéro de téléphone" -->
                     @auth
                     <div x-data="{ showPhone: false }" class="flex-1">

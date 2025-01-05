@@ -64,6 +64,7 @@ Route::middleware('auth')->group(function () {
 
     // Route de chat
     Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
+    Route::get('/chat/start/{userId}', [ChatController::class, 'startConversation'])->name('chat.start');
 });
 
 // Nécessite d'être admin pour accéder aux routes suivantes

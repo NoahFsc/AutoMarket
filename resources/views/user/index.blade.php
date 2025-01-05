@@ -38,7 +38,7 @@
             @else
             <div class="hidden gap-3 md:flex md:justify-end">
                 <livewire:report-user :userId="$user->id" />
-                <a href="{{ route('user.index', $user->id) }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Envoyer un message</a>
+                    <a href="{{ route('chat.start', $user->id) }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Envoyer un message</a>
             </div>
             @endif
         
@@ -58,12 +58,17 @@
     
     {{-- Boutons Mobile --}}
     <div class="flex gap-3 md:hidden">
+        @if ($user->id == Auth::id())
         <a href="{{ route('user.edit', $user->id) }}" class="w-full py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Modifier le profil</a>
         <form action="{{ route('auth.logout') }}" method="POST" class="w-full">
             @method('DELETE')
             @csrf
             <button type="submit" class="w-full py-2 text-sm transition-all duration-300 border rounded-lg border-opacity-20 hover:border-opacity-80 text-error-500 border-error-500">Déconnexion</button>
         </form>
+        @else
+        <livewire:report-user :userId="$user->id" />
+        <a href="{{ route('chat.start', $user->id) }}" class="w-full py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Envoyer un message</a>
+        @endif
     </div>
 
 
