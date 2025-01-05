@@ -6,15 +6,16 @@ use App\Models\Car;
 use App\Models\CarsEquipment;
 use App\Models\Document;
 use App\Models\Equipment;
-use App\Models\RefCritAir;
-use App\Models\RefFuelType;
-use App\Models\RefGearbox;
-use App\Models\RefNbDoor;
-use App\Models\RefVehiculeType;
+use App\Models\ReferentielsCritAir;
+use App\Models\ReferentielsFuelType;
+use App\Models\ReferentielsGearBox;
+use App\Models\ReferentielsNbDoor;
+use App\Models\ReferentielsVehiculeType;
 use App\Models\Bid;
 use App\Models\Offer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class VendreController extends Controller
@@ -26,11 +27,11 @@ class VendreController extends Controller
 
     public function showStep1()
     {
-        $critairs = RefCritAir::all();
-        $nbdoors = RefNbDoor::all();
-        $fueltypes = RefFuelType::all();
-        $gearboxes = RefGearbox::all();
-        $vehiculeTypes = RefVehiculeType::all();
+        $critairs = ReferentielsCritAir::all();
+        $nbdoors = ReferentielsNbDoor::all();
+        $fueltypes = ReferentielsFuelType::all();
+        $gearboxes = ReferentielsGearBox::all();
+        $vehiculeTypes = ReferentielsVehiculeType::all();
         $equipments = Equipment::all();
 
         return view('vendre.create-ad', compact('critairs', 'nbdoors', 'fueltypes', 'gearboxes', 'vehiculeTypes', 'equipments'));
@@ -40,7 +41,7 @@ class VendreController extends Controller
     {
         $validated = $request->validate([
             'type_of_car_id' => 'required|exists:referentiels_vehicule_type,id',
-            'car_year' => 'required|integer|min:1900|max:2022',
+            'car_year' => 'required|integer|min:1900|max:2025',
             'mileage' => 'required|integer|min:0',
             'consommation' => 'required|integer|min:0',
             'nb_door_id' => 'required|exists:referentiels_nb_doors,id',
@@ -53,8 +54,8 @@ class VendreController extends Controller
             'co2_emission' => 'required|numeric|min:0',
             'model_id' => 'required|exists:car_models,id',
             'status_ct' => 'required|string|in:À Jour,À Faire',
-            'equipment_id' => 'nullable|array',
-            'equipment_id.*' => 'exists:equipments,id',
+            'equipments' => 'nullable|array',
+            'equipments.*' => 'exists:equipments,id',
         ]);
 
         // Convertir 'À Jour' en 1 et 'À Faire' en 0
@@ -189,6 +190,8 @@ class VendreController extends Controller
             'commentaire_vendeur' => 'nullable|string',
         ]);
 
+        $validated['user_id'] = Auth::id();
+
         // Récupérer les données des étapes précédentes depuis la session
         $step1Data = $request->session()->get('create-ad-step1');
         $step2Data = $request->session()->get('create-ad-step2');
@@ -212,13 +215,13 @@ class VendreController extends Controller
             'status_ct' => $step1Data['status_ct'],
             'selling_price' => $validated['prix_vente'],
             'commentaire_vendeur' => $validated['commentaire_vendeur'],
-            'user_id' => Auth::id(),
-            'vente_enchere' => $validated['type_annonce'], // Ajouter vente_enchere
+            'vente_enchere' => $validated['type_annonce'],
+            'user_id' => $validated['user_id'],
         ]);
 
         // Associer les équipements à la voiture
-        if (!empty($step1Data['equipment_id'])) {
-            foreach ($step1Data['equipment_id'] as $equipmentId) {
+        if (!empty($step1Data['equipments'])) {
+            foreach ($step1Data['equipments'] as $equipmentId) {
                 CarsEquipment::create([
                     'car_id' => $car->id,
                     'equipment_id' => $equipmentId,
@@ -236,23 +239,6 @@ class VendreController extends Controller
                 'car_id' => $car->id,
                 'document_type' => $document['type'],
                 'document_content' => $newPath,
-            ]);
-        }
-
-        // Créer une enchère ou une offre selon le type d'annonce
-        if ($validated['type_annonce'] == 1) {
-            Bid::create([
-                'proposed_price' => $validated['prix_vente'],
-                'status' => 1, // Vente aux enchères
-                'user_id' => Auth::id(),
-                'car_id' => $car->id,
-            ]);
-        } else {
-            Offer::create([
-                'proposed_price' => $validated['prix_vente'],
-                'status' => 0, // Vente directe
-                'user_id' => Auth::id(),
-                'car_id' => $car->id,
             ]);
         }
 

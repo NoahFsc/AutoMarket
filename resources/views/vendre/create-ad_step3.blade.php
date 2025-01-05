@@ -5,46 +5,46 @@
 @section('contenu')
 
 <div class="mx-8 md:w-2/4 md:mx-auto">
-    <div class="flex justify-center text-3xl font-semibold text-gray-800 mb-10">Poster une annonce</div>
-    <div class="mb-6 relative">
+    <div class="flex justify-center mb-10 text-3xl font-semibold text-gray-800">Poster une annonce</div>
+    <div class="relative mb-6">
         <div class="absolute inset-0 flex items-center">
-            <div class="w-full h-1 bg-info-500 mt-8 mr-8 ml-20"></div>
+            <div class="w-full h-1 mt-8 ml-20 mr-8 bg-info-500"></div>
         </div>
         <div class="relative flex items-center justify-between">
             <div class="flex flex-col items-center">
-                <div class="text-gray-700 mb-2">Informations Générales</div>
-                <div class="w-8 h-8 bg-info-500 rounded-full flex items-center justify-center">
-                    <i class="fa-regular fa-check text-white"></i>
+                <div class="mb-2 text-gray-700">Informations Générales</div>
+                <div class="flex items-center justify-center w-8 h-8 rounded-full bg-info-500">
+                    <i class="text-white fa-regular fa-check"></i>
                 </div>
             </div>
             <div class="flex flex-col items-center">
-                <div class="text-gray-500 mb-2">Documents</div>
-                <div class="w-8 h-8 bg-info-500 rounded-full flex items-center justify-center">
-                    <i class="fa-regular fa-check text-white"></i>
+                <div class="mb-2 text-gray-500">Documents</div>
+                <div class="flex items-center justify-center w-8 h-8 rounded-full bg-info-500">
+                    <i class="text-white fa-regular fa-check"></i>
                 </div>
             </div>
             <div class="flex flex-col items-center">
-                <div class="text-gray-500 mb-2">Confirmation</div>
-                <div class="w-8 h-8 border-4 bg-white border-info-500 rounded-full"></div>
+                <div class="mb-2 text-gray-500">Confirmation</div>
+                <div class="w-8 h-8 bg-white border-4 rounded-full border-info-500"></div>
             </div>
         </div>
     </div>
     <form action="{{ route('vendre.step3') }}" method="POST">
         @csrf
         <div>
-            <div class="text-2xl font-semibold text-gray-800 mb-6">Finalisation</div>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="mb-6 text-2xl font-semibold text-gray-800">Finalisation</div>
+            <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                    <label class="block text-gray-500 font-medium mb-2">Type d'annonce</label>
+                    <label class="block mb-2 font-medium text-gray-500">Type d'annonce</label>
                     <select name="type_annonce"
-                        class="w-full border-gray-300 text-gray-500 rounded-md shadow-sm focus:ring focus:ring-blue-300">
+                        class="w-full text-gray-500 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300">
                         <option value="" disabled selected>Sélectionner un type d'annonce</option>
                         <option value="0">Vente directe</option>
                         <option value="1">Vente aux enchères</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block text-gray-500 font-medium mb-2">Prix de vente</label>
+                    <label class="block mb-2 font-medium text-gray-500">Prix de vente</label>
                     <input type="number" name="prix_vente"
                         class="w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300"
                         placeholder="Entrez un prix">
@@ -52,14 +52,14 @@
             </div>
         </div>
         <div>
-            <div class="text-2xl font-semibold text-gray-800 mt-6 mb-6">Commentaire du vendeur</div>
+            <div class="mt-6 mb-6 text-2xl font-semibold text-gray-800">Commentaire du vendeur</div>
             <textarea name="commentaire_vendeur"
                 class="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300"></textarea>
         </div>
-        <div class="flex justify-center mt-8 gap-4">
-            <button type="button" class="px-6 py-2 border border-gray-300 text-gray-500 rounded-md hover:bg-gray-100"
+        <div class="flex justify-center gap-4 mt-8">
+            <button type="button" class="px-6 py-2 text-gray-500 border border-gray-300 rounded-md hover:bg-gray-100"
                 onclick="window.history.back()">Étape précédente</button>
-            <button type="submit" class="px-6 py-2 bg-primary-500 text-white rounded-md hover:bg-primary-400">Confirmer
+            <button type="submit" class="px-6 py-2 text-white rounded-md bg-primary-500 hover:bg-primary-400">Confirmer
                 la création</button>
         </div>
     </form>

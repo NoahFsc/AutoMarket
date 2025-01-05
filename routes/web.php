@@ -31,22 +31,24 @@ Route::prefix('password')->group(function () {
     Route::post('/reset', [AuthController::class, 'reset'])->name('password.update');
 });
 
-Route::get('/vendre', [VendreController::class, 'index'])->name('vendre.index');
-
-Route::get('/vendre/step1', [VendreController::class, 'showStep1'])->name('vendre.step1');
-Route::post('/vendre/step1', [VendreController::class, 'doStep1'])->name('vendre.step1');
-Route::get('/vendre/step2', [VendreController::class, 'showStep2'])->name('vendre.step2');
-Route::post('/vendre/step2', [VendreController::class, 'doStep2'])->name('vendre.step2');
-Route::get('/vendre/step3', [VendreController::class, 'showStep3'])->name('vendre.step3');
-Route::post('/vendre/step3', [VendreController::class, 'doStep3'])->name('vendre.step3');
-Route::post('/vendre/upload-media', [VendreController::class, 'uploadMedia'])->name('vendre.uploadMedia');
-Route::post('/vendre/upload-pdf', [VendreController::class, 'uploadPdf'])->name('vendre.uploadPDF');
-
 // Routes du catalogue
 Route::get('/acheter', [CatalogController::class, 'acheter'])->name('catalog.acheter');
 Route::get('/encherir', [CatalogController::class, 'encherir'])->name('catalog.encherir');
 Route::get('/produit/{id}', [ProduitController::class, 'vente'])->name('produit.vente');
 Route::get('/enchere/{id}', [ProduitController::class, 'enchere'])->name('produit.enchere');
+
+// Routes de vente
+Route::prefix('vendre')->group(function () {
+    Route::get('/', [VendreController::class, 'index'])->name('vendre.index');
+    Route::get('/step1', [VendreController::class, 'showStep1'])->name('vendre.step1');
+    Route::post('/step1', [VendreController::class, 'doStep1']);
+    Route::get('/step2', [VendreController::class, 'showStep2'])->name('vendre.step2');
+    Route::post('/step2', [VendreController::class, 'doStep2']);
+    Route::get('/step3', [VendreController::class, 'showStep3'])->name('vendre.step3');
+    Route::post('/step3', [VendreController::class, 'doStep3']);
+    Route::post('/upload-media', [VendreController::class, 'uploadMedia'])->name('vendre.uploadMedia');
+    Route::post('/upload-pdf', [VendreController::class, 'uploadPdf'])->name('vendre.uploadPDF');
+});
 
 // Nécessite d'être connecté pour accéder aux routes suivantes
 Route::middleware('auth')->group(function () {
