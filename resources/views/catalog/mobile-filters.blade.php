@@ -44,65 +44,61 @@
                 <input type="text" wire:model.live='price_max' placeholder="Max" class="w-full h-10 mt-1 border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500">
             </div>
         </div>
-        <div>
+        <div class="mb-4">
             <label for="carburant" class="text-base opacity-50">Carburant</label>
-            <div class="flex justify-between">
-                <div class="flex items-center w-full mb-2">
-                    <input type="checkbox" wire:model.live='diesel' class="mr-2 bg-transparent rounded-sm">
-                    <label for="diesel" class="ml-2">Diesel</label>
-                </div>
-                <div class="flex items-center w-full mb-2">
-                    <input type="checkbox" wire:model.live='essence' class="mr-2 bg-transparent rounded-sm">
-                    <label for="essence" class="ml-2">Essence</label>
-                </div>
-            </div>
-            <div class="flex justify-between">
-                <div class="flex items-center w-full mb-2">
-                    <input type="checkbox" wire:model.live='electrique' class="mr-2 bg-transparent rounded-sm">
-                    <label for="electrique" class="ml-2">Électrique</label>
-                </div>
-                <div class="flex items-center w-full mb-2">
-                    <input type="checkbox" wire:model.live='hybride' class="mr-2 bg-transparent rounded-sm">
-                    <label for="hybride" class="ml-2">Hybride</label>
-                </div>
+            <div class="flex flex-wrap">
+                @foreach ($carburants as $carburant)
+                    <div class="flex items-center w-1/2 mb-2">
+                        <input type="checkbox" wire:model.live='selectedCarburants' value="{{ $carburant['id'] }}" class="mr-2 bg-transparent rounded-sm">
+                        <label for="carburant_{{ $carburant['id'] }}" class="ml-2">{{ $carburant['nom'] }}</label>
+                    </div>
+                @endforeach
             </div>
         </div>
-        <div>
+        <div class="mb-4">
+            <label for="nb_door" class="text-base opacity-50">Nombre de portes</label>
+            <div class="flex flex-wrap">
+                @foreach ($nbDoors as $nbDoor)
+                    <div class="flex items-center w-1/2 mb-2">
+                        <input type="checkbox" wire:model.live='selectedNbDoors' value="{{ $nbDoor['id'] }}" class="mr-2 bg-transparent rounded-sm">
+                        <label for="nb_door_{{ $nbDoor['id'] }}" class="ml-2">{{ $nbDoor['nb_doors'] }}</label>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        <div class="mb-4">
+            <label for="critair" class="text-base opacity-50">Crit'Air</label>
+            <div class="flex flex-wrap">
+                @foreach ($critairs as $critair)
+                    <div class="flex items-center w-1/2 mb-2">
+                        <input type="checkbox" wire:model.live='selectedCritairs' value="{{ $critair['id'] }}" class="mr-2 bg-transparent rounded-sm">
+                        <label for="crit_air_{{ $critair['id'] }}" class="ml-2">{{ $critair['nom'] }}</label>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+        <div class="mb-4">
             <label for="boite" class="text-base opacity-50">Boîte</label>
-            <div class="flex justify-between">
-                <div class="flex items-center w-full mb-2">
-                    <input type="checkbox" wire:model.live='manuelle' class="mr-2 bg-transparent rounded-sm">
-                    <label for="manuelle" class="ml-2">Manuelle</label>
-                </div>
-                <div class="flex items-center w-full mb-2">
-                    <input type="checkbox" wire:model.live='automatique' class="mr-2 bg-transparent rounded-sm">
-                    <label for="automatique" class="ml-2">Automatique</label>
-                </div>
+            <div class="flex flex-wrap">
+                @foreach ($boites as $boite)
+                    <div class="flex items-center w-1/2 mb-2">
+                        <input type="checkbox" wire:model.live='selectedGearBoxes' value="{{ $boite['id'] }}" class="mr-2 bg-transparent rounded-sm">
+                        <label for="boite_{{ $boite['id'] }}" class="ml-2">{{ $boite['nom'] }}</label>
+                    </div>
+                @endforeach
             </div>
         </div>
-        <div>
+        <div class="mb-4">
             <label for="vendeur" class="text-base opacity-50">Vendeur</label>
-            <div class="flex justify-between">
-                <div class="flex items-center w-full mb-2">
+            <div class="flex items-center">
+                <div class="w-1/2">
                     <input type="checkbox" wire:model.live='non_verifie' class="mr-2 bg-transparent rounded-sm">
                     <label for="non-verifie" class="ml-2">Non vérifié</label>
                 </div>
-                <div class="flex items-center w-full mb-2">
+                <div class="w-1/2">
                     <input type="checkbox" wire:model.live='verifie' class="mr-2 bg-transparent rounded-sm">
                     <label for="verifie" class="ml-2">Vérifié</label>
                 </div>
-            </div>
-        </div>
-        <div class="mb-4">
-            <label for="portes" class="text-base opacity-50">Portes</label>
-            <div class="flex gap-2">
-                <input type="text" wire:model.live='portes' placeholder="Entrez un nombre" class="w-full h-10 mt-1 border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500">
-            </div>
-        </div>
-        <div class="mb-4">
-            <label for="sieges" class="text-base opacity-50">Sièges</label>
-            <div class="flex gap-2">
-                <input type="text" wire:model.live='sieges' placeholder="Entrez un nombre" class="w-full h-10 mt-1 border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500">
             </div>
         </div>
     </div>
@@ -125,4 +121,4 @@
             icon.innerHTML = downChevron;
         }
     }
-  </script>
+</script>

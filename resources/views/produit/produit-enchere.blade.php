@@ -11,7 +11,7 @@
         @endif
     @endforeach
 ]}">
-    <div x-data="photoCarousel()" class="max-w-5xl mx-auto mt-10">
+    <div x-data="photoCarousel()" class="max-w-5xl mx-auto">
         <!-- Conteneur principal -->
         <div class="flex flex-col md:flex-row">
             <!-- Informations sur le véhicule -->
@@ -73,7 +73,7 @@
                 </div>
 
                 <!-- Carousel en plein écran -->
-                <div x-show="showCarousel" @click.away="showCarousel = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+                <div x-cloak x-show="showCarousel" @click.away="showCarousel = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
                     <div class="relative w-3/4 h-3/4">
                         <button @click="showCarousel = false" class="absolute top-0 right-0 z-50 px-4 py-2 mt-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">Fermer</button>
                         <template x-for="(photo, index) in photos" :key="index">
@@ -111,7 +111,7 @@
                                 @endphp
                             </p>
                         </div>
-                        <p class="text-2xl font-medium">{{number_format($car->minimum_price)}}€</p>
+                        <p class="text-2xl font-medium">{{number_format($car->selling_price, 2)}}€</p>
                     </div>
                 </div>
 
@@ -141,7 +141,7 @@
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Nombre de portes</span>
-                                <span class="text-xs">{{$car->nb_door}}</span>
+                                <span class="text-xs">{{$car->nbDoor->nb_doors}}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Provenance</span>
@@ -162,7 +162,7 @@
                         <ul class="mt-2 space-y-2">
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Type de moteur</span>
-                                <span class="text-xs">{{$car->carburant}}</span>
+                                <span class="text-xs">{{$car->fuelType->nom}}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Puissance fiscale</span>
@@ -194,7 +194,7 @@
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Crit'air</span>
-                                <span class="text-xs">{{$car->crit_air}}</span>
+                                <span class="text-xs">{{$car->critAir->nom}}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Émission</span>
@@ -226,7 +226,7 @@
                 </div>
                 
                 <!-- Interface modale pour afficher tous les équipements -->
-                <div x-show="showEquipments" @click.away="showEquipments = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+                <div x-cloak x-show="showEquipments" @click.away="showEquipments = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
                     <div class="relative w-3/4 p-4 bg-white rounded-lg">
                         <button @click="showEquipments = false" class="absolute top-0 right-0 px-4 py-2 mt-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">Fermer</button>
                         <h2 class="mb-4 text-lg font-medium md:text-xl">Tous les équipements</h2>
@@ -270,15 +270,15 @@
                 </div>
                 <button class="w-full px-4 py-2 mt-4 text-white !bg-[#3380CC] rounded-lg" @click="if (auctionEnded) { alert('Enchère terminée, il n\'est plus possible d\'enchérir'); } else { alert('Enchère non terminée, il est possible d\'enchérir'); }">Faire une offre</button>
                 <p class="mt-2 text-center text-gray-500">Ou</p>
-                <div class="flex flex-col mt-2 space-y-2">
+                <div class="flex flex-col w-full gap-2 mt-2">
                     <button class="px-4 py-2 text-white !bg-[#3380CC] rounded-lg ">Envoyer un message</button>
                     <!-- Bouton "Voir le numéro de téléphone" -->
                     @auth
                     <div x-data="{ showPhone: false }">
-                        <button @click="showPhone = !showPhone" class="px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                        <button @click="showPhone = !showPhone" class="w-full px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
                             Voir le numéro de téléphone
                         </button>
-                        <div x-show="showPhone" x-transition class="mt-2 text-gray-700">
+                        <div x-cloak x-show="showPhone" x-transition class="flex justify-center w-full mt-2 text-gray-700">
                             {{ $car->user->telephone }}
                         </div>
                     </div>
@@ -290,9 +290,9 @@
                     </a>
                     @endguest                    
                 </div>
-                <div class="p-4 mt-4 bg-gray-100 rounded-lg">
-                    <livewire:countdown :deadline="$car->deadline" :key="$car->id" />
-                </div>
+
+                {{-- Temps restant --}}
+                <livewire:remaining-time :car="$car" />
             </div>
 
             <!-- Section vendeur pour l'interface téléphone -->

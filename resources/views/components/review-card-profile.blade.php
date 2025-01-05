@@ -11,7 +11,7 @@
         </div>
         <div class="text-sm font-bold opacity-50">{{ number_format($review->nb_of_star, 1) }}</div>
     </div>
-    <a href="{{ route('user.show', $review->writer) }}">
+    <a href="{{ route('user.index', $review->writer) }}">
         <div class="flex items-center gap-1">
             <img src="{{ $review->writer->profile_picture ? asset('storage/' . $review->writer->profile_picture) : asset('assets/default_pfp.png')
             }}" alt="Avatar" class="rounded-full size-8">

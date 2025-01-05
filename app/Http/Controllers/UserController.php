@@ -4,30 +4,34 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Livewire\WithPagination;
 
 class UserController extends Controller
 {
-    public function index($id = null)
-    {
-        if ($id === null || $id == Auth::id()) {
-            $id = Auth::id();
-        }
+    use WithPagination;
+    use AuthorizesRequests;
 
+    public function index($id)
+    {
         $user = User::findOrFail($id);
-        $cars = $user->cars;
+        $cars = $user->cars()->paginate(8);
         $reviews = $user->userReviewsReceived;
+
         return view('user.index', compact('user', 'cars', 'reviews'));
     }
 
-    public function edit()
+    public function edit($id)
     {
-        return view('user.edit');
+        $user = User::findOrFail($id);
+        $this->authorize('update', $user);
+
+        return view('user.edit', compact('user'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
         $donnees = $request->validate([
             'profile_picture' => 'nullable|file|mimes:webp,png,jpg,jpeg|max:2048',
@@ -41,7 +45,8 @@ class UserController extends Controller
             'telephone' => 'nullable|string|max:20',
         ]);
 
-        $user = User::find(Auth::user()->id);
+        $user = User::findOrFail($id);
+        $this->authorize('update', $user);
 
         if ($request->hasFile('profile_picture')) {
             $donnees['profile_picture'] = $request->file('profile_picture')->store('profile_pictures', 'public');
@@ -53,17 +58,25 @@ class UserController extends Controller
 
         $user->update($donnees);
 
-        return redirect()->route('user.index')->with('status', 'Profil mis à jour avec succès.');
+        if ($request->query('from') === 'admin') {
+            return redirect()->route('admin.users.index')->with([
+                'status' => "Profil de {$user->first_name} {$user->last_name} mis à jour avec succès.",
+                'edited_user_id' => $user->id
+            ]);
+        }
+
+        return redirect()->route('user.index', $user->id)->with('status', 'Profil mis à jour avec succès.');
     }
 
-    public function updatePassword(Request $request)
+    public function updatePassword(Request $request, $id)
     {
         $request->validate([
             'current_password' => 'required',
             'new_password' => 'required|confirmed|min:4',
         ]);
 
-        $user = User::find(Auth::user()->id);
+        $user = User::findOrFail($id);
+        $this->authorize('update', $user);
 
         if (!Hash::check($request->current_password, $user->password)) {
             return back()->withErrors(['current_password' => 'Le mot de passe actuel est incorrect.']);

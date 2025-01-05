@@ -9,9 +9,10 @@
         @if($document->document_type == 'image')
             { src: '{{ asset('storage/' . $document->document_content) }}', alt: 'Car Image' },
         @endif
-    @endforeach
-]}">
-    <div x-data="photoCarousel()" class="max-w-5xl mx-auto mt-10">
+    @endforeach 
+    ]}">
+    
+    <div x-data="photoCarousel()" class="max-w-5xl mx-auto">
         <!-- Conteneur principal -->
         <div class="flex flex-col md:flex-row">
             <!-- Informations sur le véhicule -->
@@ -69,7 +70,7 @@
                 </div>
 
                 <!-- Carousel en plein écran -->
-                <div x-show="showCarousel" @click.away="showCarousel = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+                <div x-cloak x-show="showCarousel" @click.away="showCarousel = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
                     <div class="relative w-3/4 h-3/4">
                         <button @click="showCarousel = false" class="absolute top-0 right-0 z-50 px-4 py-2 mt-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">Fermer</button>
                         <template x-for="(photo, index) in photos" :key="index">
@@ -137,7 +138,7 @@
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Nombre de portes</span>
-                                <span class="text-xs">{{$car->nb_door}}</span>
+                                <span class="text-xs">{{$car->nbDoor->nb_doors}}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Provenance</span>
@@ -158,7 +159,7 @@
                         <ul class="mt-2 space-y-2">
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Type de moteur</span>
-                                <span class="text-xs">{{$car->carburant}}</span>
+                                <span class="text-xs">{{$car->fuelType->nom}}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Puissance fiscale</span>
@@ -190,7 +191,7 @@
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Crit'air</span>
-                                <span class="text-xs">{{$car->crit_air}}</span>
+                                <span class="text-xs">{{$car->critAir->nom}}</span>
                             </li>
                             <li class="flex justify-between">
                                 <span class="text-xs opacity-50">Émission</span>
@@ -222,7 +223,7 @@
                 </div>
 
                 <!-- Interface modale pour afficher tous les équipements -->
-                <div x-show="showEquipments" @click.away="showEquipments = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+                <div x-cloak x-show="showEquipments" @click.away="showEquipments = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
                     <div class="relative w-3/4 p-4 bg-white rounded-lg">
                         <button @click="showEquipments = false" class="absolute top-0 right-0 px-4 py-2 mt-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">Fermer</button>
                         <h2 class="mb-4 text-lg font-medium md:text-xl">Tous les équipements</h2>
@@ -264,47 +265,45 @@
                         <p class="text-sm text-gray-500">★★★★★</p>
                     </div>
                 </div>
-                <button class="w-full px-4 py-2 mt-4 text-white !bg-[#3380CC] rounded-lg">Faire une offre</button>
+                <button class="w-full px-4 py-2 mt-4 text-white !bg-primary-500 rounded-lg">Faire une offre</button>
                 <p class="mt-2 text-center text-gray-500">Ou</p>
-                <div class="flex flex-col mt-2 space-y-2">
-                    <button class="px-4 py-2 text-white !bg-[#3380CC] rounded-lg ">Envoyer un message</button>
+                <div class="flex flex-col w-full gap-2 mt-2">
+                    <button class="px-4 py-2 text-white !bg-primary-500 rounded-lg ">Envoyer un message</button>
                     <!-- Bouton "Voir le numéro de téléphone" -->
                     @auth
                     <div x-data="{ showPhone: false }">
-                        <button @click="showPhone = !showPhone" class="px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                        <button @click="showPhone = !showPhone" class="w-full px-4 py-2 border-2 rounded-lg text-primary-500 border-primary-500 border-opacity-20">
                             Voir le numéro de téléphone
                         </button>
-                        <div x-show="showPhone" x-transition class="mt-2 text-gray-700">
+                        <div x-cloak x-show="showPhone" x-transition class="flex justify-center w-full mt-2 text-gray-700">
                             {{ $car->user->telephone }}
                         </div>
                     </div>
                     @endauth
                     @guest
-                    <div class="text-center">
-                        <a href="{{ route('auth.login') }}" 
-                           class="flex items-center justify-center h-12 px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
-                           Voir le numéro de téléphone
-                        </a>
-                    </div>
+                    <a href="{{ route('auth.login') }}" 
+                       class="flex items-center justify-center h-12 px-4 py-2 border-2 rounded-lg text-primary-500 border-primary-500 border-opacity-20">
+                       Voir le numéro de téléphone
+                    </a>
                     @endguest                    
                 </div>
             </div>
             <!-- Section vendeur pour l'interface téléphone -->
             <div id="seller-section-phone" class="fixed left-0 right-0 flex items-center justify-center p-4 bg-white bottom-16 md:hidden">
                 <div class="flex w-full space-x-2">
-                    <button class="flex-1 px-4 py-2 text-white text-xs !bg-[#3380CC] rounded-lg">Offre</button>
-                    <button class="flex-1 px-4 py-2 text-white text-xs !bg-[#3380CC] rounded-lg">Message</button>
+                    <button class="flex-1 px-4 py-2 text-white text-xs !bg-primary-500 rounded-lg">Offre</button>
+                    <button class="flex-1 px-4 py-2 text-white text-xs !bg-primary-500 rounded-lg">Message</button>
                     <!-- Bouton "Voir le numéro de téléphone" -->
                     @auth
                     <div x-data="{ showPhone: false }" class="flex-1">
-                        <button @click="copyToClipboard('{{ $car->user->telephone }}')" class="w-full text-xs px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                        <button @click="copyToClipboard('{{ $car->user->telephone }}')" class="w-full px-4 py-2 text-xs border-2 rounded-lg text-primary-500 border-primary-500 border-opacity-20">
                             N° Tél
                         </button>
                     </div>
                     @endauth
                     @guest
                     <a href="{{ route('auth.login') }}" 
-                    class="flex items-center justify-center text-xs w-full h-12 px-4 py-2 text-[#3380CC] border-2 border-[#3380CC] border-opacity-20 rounded-lg">
+                    class="flex items-center justify-center w-full h-12 px-4 py-2 text-xs border-2 rounded-lg text-primary-500 border-primary-500 border-opacity-20">
                     N° Tél
                     </a>
                     @endguest

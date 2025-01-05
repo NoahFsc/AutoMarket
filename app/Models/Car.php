@@ -74,4 +74,34 @@ class Car extends Model
     {
         return $this->hasMany(Bid::class)->latest();
     }
+
+    // Récupérer le crit'air de la voiture
+    public function critAir()
+    {
+        return $this->belongsTo(ReferentielsCritAir::class, 'crit_air_id');
+    }
+
+    // Récupérer le nombre de portes de la voiture
+    public function nbDoor()
+    {
+        return $this->belongsTo(ReferentielsNbDoor::class, 'nb_door_id');
+    }
+
+    // Récupérer le type de carburant de la voiture
+    public function fuelType()
+    {
+        return $this->belongsTo(ReferentielsFuelType::class, 'carburant_id');
+    }
+
+    // Récupérer la boîte de vitesse de la voiture
+    public function gearBox()
+    {
+        return $this->belongsTo(ReferentielsGearBox::class, 'boite_vitesse_id');
+    }
+
+    // Récupérer le type de voiture
+    public function typeOfCar()
+    {
+        return $this->belongsTo(ReferentielsVehiculeType::class, 'type_of_car_id');
+    }
 }

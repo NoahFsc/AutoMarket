@@ -6,6 +6,10 @@ use Livewire\Component;
 use App\Models\Car;
 use App\Models\Brand;
 use App\Models\CarModel;
+use App\Models\ReferentielsCritAir;
+use App\Models\ReferentielsFuelType;
+use App\Models\ReferentielsNbDoor;
+use App\Models\ReferentielsGearBox;
 use Livewire\WithPagination;
 
 class CarCatalog extends Component
@@ -20,14 +24,6 @@ class CarCatalog extends Component
     public ?int $kilometrage_max = null;
     public ?int $price_min = null;
     public ?int $price_max = null;
-    public ?int $portes = null;
-    public ?int $sieges = null;
-    public bool $diesel = false;
-    public bool $essence = false;
-    public bool $electrique = false;
-    public bool $hybride = false;
-    public bool $manuelle = false;
-    public bool $automatique = false;
     public bool $non_verifie = false;
     public bool $verifie = false;
 
@@ -44,11 +40,31 @@ class CarCatalog extends Component
     public array $carModels = [];
     public string $selectedCarModel = '';
 
+    // Champs de sélection de boîte de vitesse
+    public array $gearBoxes = [];
+    public array $selectedGearBoxes = [];
+
+    // Champs de sélection de carburant
+    public array $carburants = [];
+    public array $selectedCarburants = [];
+
+    // Champs de sélection de nombres de portes
+    public array $nbDoors = [];
+    public array $selectedNbDoors = [];
+
+    // Champs de sélection du crit'air
+    public array $critairs = [];
+    public array $selectedCritairs = [];
+
     // Récupération des marques et modèles de voitures au chargement du composant
     public function mount(?int $type = null)
     {
         $this->brands = Brand::all()->toArray();
         $this->carModels = CarModel::all()->toArray();
+        $this->carburants = ReferentielsFuelType::all()->toArray();
+        $this->nbDoors = ReferentielsNbDoor::all()->toArray();
+        $this->critairs = ReferentielsCritAir::all()->toArray();
+        $this->gearBoxes = ReferentielsGearBox::all()->toArray();
         $this->type = $type;
 
         // Récupérer les filtres de la session
@@ -108,8 +124,6 @@ class CarCatalog extends Component
             ['selling_price', '<=', $this->price_max],
             ['mileage', '>=', $this->kilometrage_min],
             ['mileage', '<=', $this->kilometrage_max],
-            ['nb_door', '=', $this->portes],
-            ['nb_door', '=', $this->sieges],
         ];
 
         // Comparer chaque filtre avec sa valeur
@@ -119,35 +133,25 @@ class CarCatalog extends Component
             }
         }
 
-        $carburants = [
-            'diesel' => $this->diesel,
-            'essence' => $this->essence,
-            'électrique' => $this->electrique,
-            'hybride' => $this->hybride,
-        ];
-
-        $boites = [
-            'manuelle' => $this->manuelle,
-            'automatique' => $this->automatique,
-        ];
+        // Filtre boîte de vitesse
+        if (!empty($this->selectedGearBoxes)) {
+            $requete->whereIn('boite_vitesse_id', $this->selectedGearBoxes);
+        }
 
         // Filtre carburant
-        $requete->where(function ($q) use ($carburants) {
-            foreach ($carburants as $carburant => $valeur) {
-                if ($valeur) {
-                    $q->orWhere('carburant', $carburant);
-                }
-            }
-        });
+        if (!empty($this->selectedCarburants)) {
+            $requete->whereIn('carburant_id', $this->selectedCarburants);
+        }
 
-        // Filtre boîte de vitesse
-        $requete->where(function ($q) use ($boites) {
-            foreach ($boites as $boite => $valeur) {
-                if ($valeur) {
-                    $q->orWhere('boite_vitesse', $boite);
-                }
-            }
-        });
+        // Filtre crit_air
+        if (!empty($this->selectedCritairs)) {
+            $requete->whereIn('crit_air_id', $this->selectedCritairs);
+        }
+
+        // Filtre nb_door
+        if (!empty($this->selectedNbDoors)) {
+            $requete->whereIn('nb_door_id', $this->selectedNbDoors);
+        }
 
         // Filtre utilisateurs non vérifiés
         if ($this->non_verifie) {
@@ -205,6 +209,14 @@ class CarCatalog extends Component
         // Récupération des voitures paginées (9 par page)
         $cars = $requete->paginate(9);
 
-        return view('components.car-catalog', ['cars' => $cars, 'brands' => $this->brands, 'carModels' => $this->carModels]);
+        return view('components.car-catalog', [
+            'cars' => $cars,
+            'brands' => $this->brands,
+            'carModels' => $this->carModels,
+            'carburants' => $this->carburants,
+            'nbDoors' => $this->nbDoors,
+            'critairs' => $this->critairs,
+            'boites' => $this->gearBoxes,
+        ]);
     }
 }

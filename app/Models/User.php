@@ -21,6 +21,7 @@ class User extends Authenticatable
         'telephone',
         'profile_picture',
         'description',
+        'is_admin',
     ];
 
     protected $hidden = [
@@ -34,6 +35,12 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Nom complet de l'utilisateur
+    public function fullName()
+    {
+        return $this->first_name . ' ' . $this->last_name;
     }
 
     // Voitures mises en vente par l'utilisateur
