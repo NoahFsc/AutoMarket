@@ -36,16 +36,16 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block text-gray-500 font-medium mb-2">Type d'annonce</label>
-                    <select
+                    <select name="type_annonce"
                         class="w-full border-gray-300 text-gray-500 rounded-md shadow-sm focus:ring focus:ring-blue-300">
                         <option value="" disabled selected>Sélectionner un type d'annonce</option>
-                        <option>Vente directe</option>
-                        <option>Vente aux enchères</option>
+                        <option value="0">Vente directe</option>
+                        <option value="1">Vente aux enchères</option>
                     </select>
                 </div>
                 <div>
                     <label class="block text-gray-500 font-medium mb-2">Prix de vente</label>
-                    <input type="number"
+                    <input type="number" name="prix_vente"
                         class="w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300"
                         placeholder="Entrez un prix">
                 </div>
@@ -53,7 +53,7 @@
         </div>
         <div>
             <div class="text-2xl font-semibold text-gray-800 mt-6 mb-6">Commentaire du vendeur</div>
-            <textarea name="comment" id="comment"
+            <textarea name="commentaire_vendeur"
                 class="w-full h-32 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300"></textarea>
         </div>
         <div class="flex justify-center mt-8 gap-4">

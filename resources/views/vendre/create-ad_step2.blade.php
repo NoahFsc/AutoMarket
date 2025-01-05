@@ -41,9 +41,11 @@
                     <label
                         class="w-full text-gray-500 focus:outline-none focus:ring focus:ring-blue-300 cursor-pointer">
                         <span class="text-gray-500">Déposez vos fichiers au format pdf</span>
-                        <input type="file" name="carte_grise" accept="application/pdf" class="hidden">
+                        <input type="file" name="carte_grise" accept="application/pdf" class="hidden"
+                            onchange="uploadPDF(event, 'carte_grise_preview')">
                     </label>
                 </div>
+                <div id="carte_grise_preview" class="mt-2"></div>
             </div>
             <div>
                 <label class="block text-gray-500 font-medium mb-2">Fiche Technique</label>
@@ -52,9 +54,11 @@
                     <label
                         class="w-full text-gray-500 focus:outline-none focus:ring focus:ring-blue-300 cursor-pointer">
                         <span class="text-gray-500">Déposez vos fichiers au format pdf</span>
-                        <input type="file" name="fiche_technique" accept="application/pdf" class="hidden">
+                        <input type="file" name="fiche_technique" accept="application/pdf" class="hidden"
+                            onchange="uploadPDF(event, 'fiche_technique_preview')">
                     </label>
                 </div>
+                <div id="fiche_technique_preview" class="mt-2"></div>
             </div>
             <div>
                 <label class="block text-gray-500 font-medium mb-2">Contrôle Technique</label>
@@ -63,9 +67,11 @@
                     <label
                         class="w-full text-gray-500 focus:outline-none focus:ring focus:ring-blue-300 cursor-pointer">
                         <span class="text-gray-500">Déposez vos fichiers au format pdf</span>
-                        <input type="file" name="controle_technique" accept="application/pdf" class="hidden">
+                        <input type="file" name="controle_technique" accept="application/pdf" class="hidden"
+                            onchange="uploadPDF(event, 'controle_technique_preview')">
                     </label>
                 </div>
+                <div id="controle_technique_preview" class="mt-2"></div>
             </div>
             <div>
                 <label class="block text-gray-500 font-medium mb-2">Divers</label>
@@ -74,9 +80,11 @@
                     <label
                         class="w-full text-gray-500 focus:outline-none focus:ring focus:ring-blue-300 cursor-pointer">
                         <span class="text-gray-500">Déposez vos fichiers au format pdf</span>
-                        <input type="file" name="divers" accept="application/pdf" class="hidden">
+                        <input type="file" name="divers" accept="application/pdf" class="hidden"
+                            onchange="uploadPDF(event, 'divers_preview')">
                     </label>
                 </div>
+                <div id="divers_preview" class="mt-2"></div>
             </div>
         </div>
         <div class="text-2xl font-semibold text-gray-800 mt-6 mb-6">Photos et vidéos</div>
@@ -159,6 +167,32 @@
             .catch(error => console.error('Error:', error));
         });
     });
+
+    function uploadPDF(event, previewId) {
+        var files = event.target.files;
+        var formData = new FormData();
+        formData.append('pdf', files[0]);
+
+        fetch('{{ route("vendre.uploadPDF") }}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.path) {
+                var previewContainer = document.getElementById(previewId);
+                previewContainer.innerHTML = '';
+
+                var fileName = document.createElement('p');
+                fileName.textContent = files[0].name;
+                previewContainer.appendChild(fileName);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    }
 </script>
 
 @endsection

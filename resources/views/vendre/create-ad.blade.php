@@ -37,7 +37,7 @@
                 <livewire:create-search />
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Type de Véhicule</label>
                 <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-300 text-gray-500"
-                    name="type_of_car">
+                    name="type_of_car_id">
                     <option value="" disabled selected>Sélectionnez un niveau</option>
                     @foreach ($vehiculeTypes as $vehiculeType)
                     <option value="{{ $vehiculeType->id }}">{{$vehiculeType->nom}}</option>
@@ -45,7 +45,8 @@
                 </select>
 
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Contrôle Technique</label>
-                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-300 text-gray-500">
+                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-300 text-gray-500"
+                    name="status_ct">
                     <option value="" disabled selected>Sélectionner un état</option>
                     <option>À Jour</option>
                     <option>À Faire</option>
@@ -54,16 +55,16 @@
             <div>
                 <label class="block text-gray-500 font-medium mb-2">Année</label>
                 <input type="number" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-300"
-                    placeholder="Entrez l'année de mise en circulation">
+                    placeholder="Entrez l'année de mise en circulation" name="car_year">
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Provenance</label>
                 <input type="text" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-300"
-                    placeholder="Entrez la provenance">
+                    placeholder="Entrez la provenance" name="provenance">
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Kilométrage</label>
                 <input type="number" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-300"
-                    placeholder="Entrez le kilométrage">
+                    placeholder="Entrez le kilométrage" name="mileage">
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Nombres de portes</label>
-                <select
-                    class="w-full border-gray-300 text-gray-500 rounded-md shadow-sm focus:ring focus:ring-blue-300">
+                <select class="w-full border-gray-300 text-gray-500 rounded-md shadow-sm focus:ring focus:ring-blue-300"
+                    name="nb_door_id">
                     <option value="" disabled selected>Sélectionnez un niveau</option>
                     @foreach ($nbdoors as $nbdoor)
                     <option value="{{ $nbdoor->id }}">{{$nbdoor->nb_doors}}</option>
@@ -75,8 +76,8 @@
             <div>
                 <div class="text-2xl font-semibold text-gray-800 mb-6">Moteur</div>
                 <label class="block text-gray-500 font-medium mb-2">Type de carburant</label>
-                <select
-                    class="w-full border-gray-300 text-gray-500 rounded-md shadow-sm focus:ring focus:ring-blue-300">
+                <select class="w-full border-gray-300 text-gray-500 rounded-md shadow-sm focus:ring focus:ring-blue-300"
+                    name="carburant_id">
                     <option value="" disabled selected>Sélectionner un type de carburant</option>
                     @foreach ($fueltypes as $fueltype)
                     <option value="{{ $fueltype->id }}">{{$fueltype->nom}}</option>
@@ -85,21 +86,21 @@
 
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Puissance Fiscale</label>
                 <input type="number" class="w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300"
-                    placeholder="Entrez la puissance fiscale">
+                    placeholder="Entrez la puissance fiscale" name="puissance_fiscale">
 
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Puissance DIN</label>
                 <input type="number" class="w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300"
-                    placeholder="Entrez la puissance DIN">
+                    placeholder="Entrez la puissance DIN" name="puissance_din">
             </div>
             <div>
                 <div class="text-2xl font-semibold text-gray-800 mb-6">Pollution</div>
                 <label class="block text-gray-500 font-medium mb-2">Consommation</label>
                 <input type="number" class="w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300"
-                    placeholder="Entrez la consommation (/100km)">
+                    placeholder="Entrez la consommation (/100km)" name="consommation">
 
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Crit'Air</label>
-                <select
-                    class="w-full border-gray-300 text-gray-500 rounded-md shadow-sm focus:ring focus:ring-blue-300">
+                <select class="w-full border-gray-300 text-gray-500 rounded-md shadow-sm focus:ring focus:ring-blue-300"
+                    name="crit_air_id">
                     <option value="" disabled selected>Sélectionnez un niveau</option>
                     @foreach ($critairs as $critair)
                     <option value="{{ $critair->id }}">{{$critair->nom}}</option>
@@ -109,7 +110,7 @@
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Émission de CO2</label>
                 <input type="number"
                     class="w-full border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring focus:ring-blue-300"
-                    placeholder="Entrez l'émission de CO2">
+                    placeholder="Entrez l'émission de CO2" name="co2_emission">
             </div>
         </div>
         <div class="flex justify-start text-2xl font-semibold text-gray-800 mt-6">Équipement</div>
@@ -117,7 +118,7 @@
             <div>
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Sélection</label>
                 <select id="equipment-select"
-                    class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500">
+                    class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500" name="equipment_id">
                     <option value="" disabled selected>Sélectionnez un niveau</option>
                     @foreach ($equipments as $equipment)
                     <option value="{{ $equipment->id }}">{{$equipment->equipment_name}}</option>
@@ -126,7 +127,8 @@
             </div>
             <div>
                 <label class="block text-gray-500 font-medium mt-4 mb-2">Boîte de vitesse</label>
-                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500">
+                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500"
+                    name="boite_vitesse_id">
                     <option value="" disabled selected>Sélectionnez un type boîte de vitesse</option>
                     @foreach ($gearboxes as $gearboxe)
                     <option value="{{ $gearboxe->id }}">{{$gearboxe->nom}}</option>

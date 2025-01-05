@@ -35,7 +35,7 @@ Route::post('/vendre/step2', [VendreController::class, 'doStep2'])->name('vendre
 Route::get('/vendre/step3', [VendreController::class, 'showStep3'])->name('vendre.step3');
 Route::post('/vendre/step3', [VendreController::class, 'doStep3'])->name('vendre.step3');
 Route::post('/vendre/upload-media', [VendreController::class, 'uploadMedia'])->name('vendre.uploadMedia');
-
+Route::post('/vendre/upload-pdf', [VendreController::class, 'uploadPdf'])->name('vendre.uploadPDF');
 
 Route::get('/vendre', [VendreController::class, 'index'])->name('vendre.index');
 

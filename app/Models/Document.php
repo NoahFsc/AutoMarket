@@ -12,6 +12,8 @@ class Document extends Model
         'document_content',
     ];
 
+    public $timestamps = false;
+
     // Voiture à laquelle appartient le document
     public function car()
     {
