@@ -37,19 +37,6 @@ Route::get('/encherir', [CatalogController::class, 'encherir'])->name('catalog.e
 Route::get('/produit/{id}', [ProduitController::class, 'vente'])->name('produit.vente');
 Route::get('/enchere/{id}', [ProduitController::class, 'enchere'])->name('produit.enchere');
 
-// Routes de vente
-Route::prefix('vendre')->group(function () {
-    Route::get('/', [VendreController::class, 'index'])->name('vendre.index');
-    Route::get('/step1', [VendreController::class, 'showStep1'])->name('vendre.step1');
-    Route::post('/step1', [VendreController::class, 'doStep1']);
-    Route::get('/step2', [VendreController::class, 'showStep2'])->name('vendre.step2');
-    Route::post('/step2', [VendreController::class, 'doStep2']);
-    Route::get('/step3', [VendreController::class, 'showStep3'])->name('vendre.step3');
-    Route::post('/step3', [VendreController::class, 'doStep3']);
-    Route::post('/upload-media', [VendreController::class, 'uploadMedia'])->name('vendre.uploadMedia');
-    Route::post('/upload-pdf', [VendreController::class, 'uploadPdf'])->name('vendre.uploadPDF');
-});
-
 // Nécessite d'être connecté pour accéder aux routes suivantes
 Route::middleware('auth')->group(function () {
 
@@ -59,6 +46,19 @@ Route::middleware('auth')->group(function () {
         Route::get('/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
         Route::post('/{id}/edit', [UserController::class, 'update'])->name('user.update');
         Route::post('/{id}/update-password', [UserController::class, 'updatePassword'])->name('user.updatePassword');
+    });
+
+    // Routes de vente
+    Route::prefix('vendre')->group(function () {
+        Route::get('/', [VendreController::class, 'index'])->name('vendre.index');
+        Route::get('/step1', [VendreController::class, 'showStep1'])->name('vendre.step1');
+        Route::post('/step1', [VendreController::class, 'doStep1']);
+        Route::get('/step2', [VendreController::class, 'showStep2'])->name('vendre.step2');
+        Route::post('/step2', [VendreController::class, 'doStep2']);
+        Route::get('/step3', [VendreController::class, 'showStep3'])->name('vendre.step3');
+        Route::post('/step3', [VendreController::class, 'doStep3']);
+        Route::post('/upload-media', [VendreController::class, 'uploadMedia'])->name('vendre.uploadMedia');
+        Route::post('/upload-pdf', [VendreController::class, 'uploadPdf'])->name('vendre.uploadPDF');
     });
 });
 
