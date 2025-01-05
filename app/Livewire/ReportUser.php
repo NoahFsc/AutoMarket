@@ -5,7 +5,6 @@ namespace App\Livewire;
 use App\Models\Report;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class ReportUser extends Component

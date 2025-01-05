@@ -59,7 +59,7 @@ class UserController extends Controller
         $user->update($donnees);
 
         if ($request->query('from') === 'admin') {
-            return redirect()->route('admin.users.index')->with([
+            return redirect()->route('admin.users-list')->with([
                 'status' => "Profil de {$user->first_name} {$user->last_name} mis à jour avec succès.",
                 'edited_user_id' => $user->id
             ]);

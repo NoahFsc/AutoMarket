@@ -11,11 +11,8 @@ use App\Models\ReferentielsFuelType;
 use App\Models\ReferentielsGearBox;
 use App\Models\ReferentielsNbDoor;
 use App\Models\ReferentielsVehiculeType;
-use App\Models\Bid;
-use App\Models\Offer;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class VendreController extends Controller

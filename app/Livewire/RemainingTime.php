@@ -2,7 +2,6 @@
 
 namespace App\Livewire;
 
-use App\Models\Car;
 use Livewire\Component;
 use Carbon\Carbon;
 
