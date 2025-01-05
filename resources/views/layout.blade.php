@@ -60,7 +60,7 @@
                                 <a href="{{ route('user.index', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
                                     <i class="fa-regular fa-circle-user"></i> <p>Profil</p>
                                 </a>
-                                <a href="{{ route('user.index', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
+                                <a href="{{ route('chat.index', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
                                     <i class="fa-regular fa-message-dots"></i> <p>Messages</p>
                                 </a>
                                 <a href="{{ route('user.index', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-gray-100" role="menuitem">
@@ -109,8 +109,8 @@
                 class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('catalog.encherir') ? 'text-primary-500' : 'text-gray-400' }}">
                 <i class="fa-regular fa-building-columns fa-xl"></i><span class="text-sm">Enchérir</span>
             </a>
-            <a href="{{ route('vendre.index') }}"
-                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('vendre.index') ? 'text-primary-500' : 'text-gray-400' }}">
+            <a href="{{ route('chat.index') }}"
+                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('chat.index') ? 'text-primary-500' : 'text-gray-400' }}">
                 <i class="fa-regular fa-messages fa-xl"></i><span class="text-sm">Messagerie</span>
             </a>
             @if(auth()->check())
@@ -127,7 +127,7 @@
         </div>
     </div>
 
-    <div class="flex-grow flex flex-col {{ request()->is('admin/*') ? '' : 'md:mx-16 md:my-16'}}">
+    <div class="flex-grow flex flex-col {{ request()->is('chat') ? '' : 'md:mx-16 md:my-16'}}">
 
         @yield('contenu')
 

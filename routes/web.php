@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\ReferencesController;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChatController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\VendreController;
@@ -60,6 +61,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/upload-media', [VendreController::class, 'uploadMedia'])->name('vendre.uploadMedia');
         Route::post('/upload-pdf', [VendreController::class, 'uploadPdf'])->name('vendre.uploadPDF');
     });
+
+    // Route de chat
+    Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
 });
 
 // Nécessite d'être admin pour accéder aux routes suivantes
