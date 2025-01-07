@@ -21,7 +21,7 @@ class Offer extends Model
     // Utilisateur ayant proposé l'offre
     public function buyer()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 
     // Voiture concernée par l'offre

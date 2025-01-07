@@ -4,6 +4,7 @@ namespace App\Livewire\Chat;
 
 use App\Models\Chat;
 use App\Models\Conversation;
+use App\Models\Offer;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;

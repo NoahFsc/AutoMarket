@@ -6,6 +6,7 @@ use App\Models\Car;
 use App\Models\CarsEquipment;
 use App\Models\Document;
 use App\Models\Equipment;
+use App\Models\Offer;
 use App\Models\ReferentielsCritAir;
 use App\Models\ReferentielsFuelType;
 use App\Models\ReferentielsGearBox;
@@ -210,7 +211,7 @@ class VendreController extends Controller
             'co2_emission' => $step1Data['co2_emission'],
             'model_id' => $step1Data['model_id'],
             'status_ct' => $step1Data['status_ct'],
-            'selling_price' => $validated['prix_vente'],
+            'minimum_price' => $validated['prix_vente'],
             'commentaire_vendeur' => $validated['commentaire_vendeur'],
             'vente_enchere' => $validated['type_annonce'],
             'user_id' => $validated['user_id'],
@@ -243,5 +244,23 @@ class VendreController extends Controller
         $request->session()->forget(['create-ad-step1', 'create-ad-step2', 'uploaded_images', 'uploaded_documents']);
 
         return redirect()->route('vendre.index');
+    }
+
+    public function showCompleteSaleForm($offerId)
+    {
+        $offer = Offer::findOrFail($offerId);
+        return view('vendre.complete-sale', compact('offer'));
+    }
+
+    public function completeSale(Request $request, $offerId)
+    {
+        // Logique pour compléter la vente
+
+        // 1. Vérifier les champs du formulaire
+        // 2. Ajouter un nouvel enregistrement dans la table d'historique d'achat
+        // 3. Mettre à jour le statut de l'offre dans Offers (status = 1)
+        // 4. Mettre à jour le statut de l'annonce dans Cars (status = 1)
+        // 5. Mettre à jour le selling_price de l'annonce au prix de vente de l'offre (proposed_price)
+        // 5. Renvoyer vers la page de chat (route chat.index)
     }
 }

@@ -60,6 +60,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/step3', [VendreController::class, 'doStep3']);
         Route::post('/upload-media', [VendreController::class, 'uploadMedia'])->name('vendre.uploadMedia');
         Route::post('/upload-pdf', [VendreController::class, 'uploadPdf'])->name('vendre.uploadPDF');
+        Route::get('/complete-sale/{offerId}', [VendreController::class, 'showCompleteSaleForm'])->name('vendre.complete-sale');
+        Route::post('/complete-sale/{offerId}', [VendreController::class, 'completeSale']);
     });
 
     // Route de chat
