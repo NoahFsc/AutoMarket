@@ -114,9 +114,9 @@ class CarCatalog extends Component
     {
         // Requête de récupération des voitures
         if ($this->type === 0) {
-            $requete = Car::where('vente_enchere', 0);
+            $requete = Car::where('status', 0)->where('vente_enchere', 0);
         } else {
-            $requete = Car::where('vente_enchere', 1);
+            $requete = Car::where('status', 0)->where('vente_enchere', 1);
         }
 
         $filtres = [

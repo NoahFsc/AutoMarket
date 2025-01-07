@@ -33,8 +33,12 @@
                             <span>Vous</span>
                             <span class="text-sm opacity-50">{{ $message->formatted_date }}</span>
                         </div>
-                        <div class="p-4 text-white rounded-lg rounded-tr-none bg-primary-500 min-w-64">
-                            {{ $message->content }}
+                        <div class="text-white rounded-lg rounded-tr-none {{ $message->offer ? '' : 'bg-primary-500 p-4'}} min-w-64">
+                            @if ($message->offer)
+                                <livewire:chat.offer-card :offer="$message->offer" :key="$message->id" />
+                            @else
+                                {{ $message->content }}
+                            @endif
                         </div>
                     </div>
                     <img src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('assets/default_pfp.png') }}" class="ml-2 rounded-full size-12" alt="avatar">
@@ -48,8 +52,12 @@
                             <span>{{ $cible->first_name . ' ' . $cible->last_name }}</span>
                             <span class="text-sm opacity-50">{{ $message->formatted_date }}</span>
                         </div>
-                        <div class="p-4 bg-gray-300 rounded-lg rounded-tl-none min-w-64">
-                            {{ $message->content }}
+                        <div class="{{ $message->offer ? '' : 'bg-gray-300 p-4'}} rounded-lg rounded-tl-none min-w-64">
+                            @if ($message->offer)
+                                <livewire:chat.offer-card :offer="$message->offer" :key="$message->id" />
+                            @else
+                                {{ $message->content }}
+                            @endif
                         </div>
                     </div>
                 </div>

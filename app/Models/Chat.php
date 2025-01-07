@@ -11,6 +11,7 @@ class Chat extends Model
         'send_at',
         'conversation_id',
         'user_id',
+        'offer_id',
     ];
 
     public $timestamps = false;
@@ -23,5 +24,10 @@ class Chat extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function offer()
+    {
+        return $this->belongsTo(Offer::class);
     }
 }

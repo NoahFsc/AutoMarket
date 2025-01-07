@@ -265,7 +265,7 @@
                         <p class="text-sm text-gray-500">★★★★★</p>
                     </div>
                 </div>
-                <button class="w-full px-4 py-2 mt-4 text-white !bg-primary-500 rounded-lg">Faire une offre</button>
+                <livewire:offer-form :carId="$car->id" />
                 <p class="mt-2 text-center text-gray-500">Ou</p>
                 <div class="flex flex-col w-full gap-2 mt-2">
                     <a href="{{ route('chat.start', $car->user->id) }}" class="px-4 py-2 text-white !bg-primary-500 rounded-lg text-center">Envoyer un message</a>
