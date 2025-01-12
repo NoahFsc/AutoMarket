@@ -29,7 +29,7 @@
 <br />
 <div align="center">
   <a href="https://github.com/NoahFsc/IUT-SAE-S5">
-    <img src="public/assets/logo.png" alt="Logo" width="80" height="80">
+    <img src="public/assets/logo_automarket.webp" alt="Logo" width="80" height="80">
   </a>
 
   <h3 align="center">AutoMarket</h3>
