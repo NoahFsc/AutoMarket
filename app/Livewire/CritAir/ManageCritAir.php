@@ -12,8 +12,11 @@ class ManageCritAir extends Component
     use WithFileUploads;
 
     public $crit_air_id;
+
     public $nom;
+
     public $image;
+
     public $currentImage;
 
     protected $rules = [

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class CarsEquipment extends Model
 {
     protected $primaryKey = 'car_equipment_id';
+
     protected $table = 'cars_equipments';
 
     protected $fillable = [

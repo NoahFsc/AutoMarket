@@ -26,7 +26,7 @@ class NbDoorsCatalog extends Component
 
     public function render()
     {
-        $nbDoors = ReferentielsNbDoor::where('nb_doors', 'like', '%' . $this->search . '%')
+        $nbDoors = ReferentielsNbDoor::where('nb_doors', 'like', '%'.$this->search.'%')
             ->paginate(6);
 
         return view('components.admin.nb-door.nb-doors-catalog', ['nbDoors' => $nbDoors]);

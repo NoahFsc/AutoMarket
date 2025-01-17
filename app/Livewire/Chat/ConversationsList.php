@@ -9,7 +9,9 @@ use Livewire\Component;
 class ConversationsList extends Component
 {
     public $conversations;
+
     public $activeConversationId;
+
     public string $search = '';
 
     public function mount()
@@ -33,12 +35,12 @@ class ConversationsList extends Component
         })
             ->where(function ($query) {
                 $query->whereHas('sender', function ($query) {
-                    $query->where('first_name', 'like', '%' . $this->search . '%')
-                        ->orWhere('last_name', 'like', '%' . $this->search . '%');
+                    $query->where('first_name', 'like', '%'.$this->search.'%')
+                        ->orWhere('last_name', 'like', '%'.$this->search.'%');
                 })
                     ->orWhereHas('receiver', function ($query) {
-                        $query->where('first_name', 'like', '%' . $this->search . '%')
-                            ->orWhere('last_name', 'like', '%' . $this->search . '%');
+                        $query->where('first_name', 'like', '%'.$this->search.'%')
+                            ->orWhere('last_name', 'like', '%'.$this->search.'%');
                     });
             })
             ->get();

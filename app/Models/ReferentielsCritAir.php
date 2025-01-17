@@ -10,7 +10,7 @@ class ReferentielsCritAir extends Model
 
     protected $fillable = [
         'image',
-        'nom'
+        'nom',
     ];
 
     public $timestamps = false;

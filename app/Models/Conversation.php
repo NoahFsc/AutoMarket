@@ -13,6 +13,7 @@ class Conversation extends Model
     ];
 
     public $timestamps = false;
+
     public $CREATED_AT = 'created_at';
 
     public function chats()

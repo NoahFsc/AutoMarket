@@ -26,7 +26,7 @@ class FuelTypesCatalog extends Component
 
     public function render()
     {
-        $fuelTypes = ReferentielsFuelType::where('nom', 'like', '%' . $this->search . '%')
+        $fuelTypes = ReferentielsFuelType::where('nom', 'like', '%'.$this->search.'%')
             ->paginate(6);
 
         return view('components.admin.fuel-type.fuel-types-catalog', ['fuelTypes' => $fuelTypes]);

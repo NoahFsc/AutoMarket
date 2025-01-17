@@ -8,6 +8,7 @@ use Livewire\Component;
 class ManageNbDoor extends Component
 {
     public $nb_door_id;
+
     public $nb_doors;
 
     protected $rules = [

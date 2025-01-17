@@ -8,6 +8,7 @@ use Livewire\Component;
 class ManageGearbox extends Component
 {
     public $gearbox_id;
+
     public $nom;
 
     protected $rules = [

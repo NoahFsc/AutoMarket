@@ -3,13 +3,15 @@
 namespace App\Livewire;
 
 use App\Models\Car;
-use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Component;
 
 class SellMenu extends Component
 {
     public $sells;
+
     public $auctions;
+
     public string $search = '';
 
     public function mount()
@@ -38,16 +40,16 @@ class SellMenu extends Component
 
             if ($this->search) {
                 $sellsQuery->whereHas('carModel', function ($q) {
-                    $q->where('model_name', 'like', '%' . $this->search . '%')
+                    $q->where('model_name', 'like', '%'.$this->search.'%')
                         ->orWhereHas('brand', function ($q) {
-                            $q->where('brand_name', 'like', '%' . $this->search . '%');
+                            $q->where('brand_name', 'like', '%'.$this->search.'%');
                         });
                 });
 
                 $auctionsQuery->whereHas('carModel', function ($q) {
-                    $q->where('model_name', 'like', '%' . $this->search . '%')
+                    $q->where('model_name', 'like', '%'.$this->search.'%')
                         ->orWhereHas('brand', function ($q) {
-                            $q->where('brand_name', 'like', '%' . $this->search . '%');
+                            $q->where('brand_name', 'like', '%'.$this->search.'%');
                         });
                 });
             }

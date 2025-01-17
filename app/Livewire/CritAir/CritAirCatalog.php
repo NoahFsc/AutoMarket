@@ -26,7 +26,7 @@ class CritAirCatalog extends Component
 
     public function render()
     {
-        $critairs = ReferentielsCritAir::where('nom', 'like', '%' . $this->search . '%')
+        $critairs = ReferentielsCritAir::where('nom', 'like', '%'.$this->search.'%')
             ->paginate(6);
 
         return view('components.admin.critair.critair-catalog', ['critairs' => $critairs]);

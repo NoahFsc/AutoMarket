@@ -10,7 +10,9 @@ use Livewire\Component;
 class ReportUser extends Component
 {
     public $userId;
+
     public $reason;
+
     public User $user;
 
     protected $rules = [

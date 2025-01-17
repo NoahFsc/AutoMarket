@@ -10,7 +10,7 @@ class ReferentielsVehiculeType extends Model
 
     protected $fillable = [
         'segment',
-        'nom'
+        'nom',
     ];
 
     public $timestamps = false;

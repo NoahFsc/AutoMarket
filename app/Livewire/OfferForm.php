@@ -11,6 +11,7 @@ use Livewire\Component;
 class OfferForm extends Component
 {
     public $carId;
+
     public $proposedPrice;
 
     protected $rules = [
@@ -42,7 +43,7 @@ class OfferForm extends Component
                 ->where('user_id_receiver', $acheteur_id);
         })->first();
 
-        if (!$conversation) {
+        if (! $conversation) {
             $conversation = Conversation::create([
                 'user_id_sender' => $acheteur_id,
                 'user_id_receiver' => $vendeur_id,
@@ -51,7 +52,7 @@ class OfferForm extends Component
 
         // Envoyer l'offre comme message dans le chat du vendeur
         Chat::create([
-            'content' => "Nouvelle offre de " . Auth::user()->name . " : " . $this->proposedPrice . "€",
+            'content' => 'Nouvelle offre de '.Auth::user()->name.' : '.$this->proposedPrice.'€',
             'conversation_id' => $conversation->id,
             'user_id' => Auth::id(),
             'offer_id' => $offer->id,

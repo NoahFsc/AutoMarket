@@ -31,7 +31,7 @@ class ChatController extends Controller
         })->first();
 
         // Si la conversation n'existe pas, la créer
-        if (!$conversation) {
+        if (! $conversation) {
             $conversation = Conversation::create([
                 'user_id_sender' => $currentUserId,
                 'user_id_receiver' => $userId,

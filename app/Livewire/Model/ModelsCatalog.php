@@ -26,7 +26,7 @@ class ModelsCatalog extends Component
 
     public function render()
     {
-        $models = CarModel::where('model_name', 'like', '%' . $this->search . '%')
+        $models = CarModel::where('model_name', 'like', '%'.$this->search.'%')
             ->paginate(6);
 
         return view('components.admin.model.models-catalog', ['models' => $models]);

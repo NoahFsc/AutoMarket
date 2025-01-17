@@ -3,16 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
-use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Livewire\WithPagination;
 
 class UserController extends Controller
 {
-    use WithPagination;
     use AuthorizesRequests;
+    use WithPagination;
 
     public function index($id)
     {
@@ -61,7 +61,7 @@ class UserController extends Controller
         if ($request->query('from') === 'admin') {
             return redirect()->route('admin.users-list')->with([
                 'status' => "Profil de {$user->first_name} {$user->last_name} mis à jour avec succès.",
-                'edited_user_id' => $user->id
+                'edited_user_id' => $user->id,
             ]);
         }
 
@@ -78,7 +78,7 @@ class UserController extends Controller
         $user = User::findOrFail($id);
         $this->authorize('update', $user);
 
-        if (!Hash::check($request->current_password, $user->password)) {
+        if (! Hash::check($request->current_password, $user->password)) {
             return back()->withErrors(['current_password' => 'Le mot de passe actuel est incorrect.']);
         }
 

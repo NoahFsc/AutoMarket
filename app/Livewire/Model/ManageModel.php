@@ -8,6 +8,7 @@ use Livewire\Component;
 class ManageModel extends Component
 {
     public $model_id;
+
     public $model_name;
 
     protected $rules = [

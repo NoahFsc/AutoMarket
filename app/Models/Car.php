@@ -61,7 +61,7 @@ class Car extends Model
         return $this->belongsTo(CarModel::class, 'model_id');
     }
 
-    //Récupérer les équipements de la voiture
+    // Récupérer les équipements de la voiture
     public function equipments()
     {
         return $this->hasMany(CarsEquipment::class, 'car_id');

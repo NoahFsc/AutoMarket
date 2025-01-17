@@ -9,8 +9,11 @@ use Livewire\Component;
 class AddUser extends Component
 {
     public $first_name;
+
     public $last_name;
+
     public $email;
+
     public $password;
 
     protected $rules = [

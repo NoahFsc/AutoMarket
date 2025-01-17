@@ -9,10 +9,12 @@ use Livewire\Component;
 class CreateSearch extends Component
 {
     public array $carModels = [];
+
     public array $brands = [];
 
-    public $marqueSelectionnee = "";
-    public $modeleSelectionne = "";
+    public $marqueSelectionnee = '';
+
+    public $modeleSelectionne = '';
 
     public function mount()
     {

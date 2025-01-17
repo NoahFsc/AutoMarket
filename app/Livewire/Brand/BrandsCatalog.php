@@ -26,7 +26,7 @@ class BrandsCatalog extends Component
 
     public function render()
     {
-        $brands = Brand::where('brand_name', 'like', '%' . $this->search . '%')
+        $brands = Brand::where('brand_name', 'like', '%'.$this->search.'%')
             ->paginate(6);
 
         return view('components.admin.brand.brands-catalog', ['brands' => $brands]);

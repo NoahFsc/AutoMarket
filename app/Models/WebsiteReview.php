@@ -10,7 +10,7 @@ class WebsiteReview extends Model
         'nb_of_star',
         'comment',
         'user_id',
-        'nb_of_star'
+        'nb_of_star',
     ];
 
     public $timestamps = false;

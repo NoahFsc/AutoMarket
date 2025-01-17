@@ -8,7 +8,9 @@ use Livewire\Component;
 class ManageType extends Component
 {
     public $type_of_car_id;
+
     public $segment;
+
     public $nom;
 
     protected $rules = [

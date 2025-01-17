@@ -4,7 +4,6 @@ namespace App\Livewire\Chat;
 
 use App\Models\Chat;
 use App\Models\Conversation;
-use App\Models\Offer;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Attributes\On;
@@ -13,8 +12,11 @@ use Livewire\Component;
 class ChatBox extends Component
 {
     public $conversationId;
+
     public $messages;
+
     public $newMessage;
+
     public $cible;
 
     #[On('conversationSelected')]
@@ -27,6 +29,7 @@ class ChatBox extends Component
         $this->messages = Chat::where('conversation_id', $conversationId)
             ->orderBy('send_at', 'desc')->get()->map(function ($message) {
                 $message->formatted_date = $this->formatDate($message->send_at);
+
                 return $message;
             });
     }
@@ -36,6 +39,7 @@ class ChatBox extends Component
         $this->messages = Chat::where('conversation_id', $this->conversationId)
             ->orderBy('send_at', 'desc')->get()->map(function ($message) {
                 $message->formatted_date = $this->formatDate($message->send_at);
+
                 return $message;
             });
     }
@@ -56,9 +60,9 @@ class ChatBox extends Component
     {
         $carbonDate = Carbon::parse($date);
         if ($carbonDate->isToday()) {
-            return 'Aujourd\'hui à ' . $carbonDate->format('H:i');
+            return 'Aujourd\'hui à '.$carbonDate->format('H:i');
         } elseif ($carbonDate->isYesterday()) {
-            return 'Hier à ' . $carbonDate->format('H:i');
+            return 'Hier à '.$carbonDate->format('H:i');
         } else {
             return $carbonDate->format('d/m/Y H:i');
         }

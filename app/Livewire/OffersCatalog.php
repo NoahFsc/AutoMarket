@@ -25,16 +25,16 @@ class OffersCatalog extends Component
     public function render()
     {
         $cars = Car::whereHas('typeOfCar', function ($query) {
-            $query->where('nom', 'like', '%' . $this->search . '%');
+            $query->where('nom', 'like', '%'.$this->search.'%');
         })
             ->orWhereHas('user', function ($query) {
-                $query->where('last_name', 'like', '%' . $this->search . '%')
-                    ->orWhere('first_name', 'like', '%' . $this->search . '%');
+                $query->where('last_name', 'like', '%'.$this->search.'%')
+                    ->orWhere('first_name', 'like', '%'.$this->search.'%');
             })
             ->orWhereHas('carModel', function ($query) {
-                $query->where('model_name', 'like', '%' . $this->search . '%')
+                $query->where('model_name', 'like', '%'.$this->search.'%')
                     ->orWhereHas('brand', function ($query) {
-                        $query->where('brand_name', 'like', '%' . $this->search . '%');
+                        $query->where('brand_name', 'like', '%'.$this->search.'%');
                     });
             })
             ->paginate(6);

@@ -3,12 +3,12 @@
 namespace App\Livewire\Brand;
 
 use App\Models\Brand;
-use Illuminate\Support\Facades\Log;
 use Livewire\Component;
 
 class ManageBrand extends Component
 {
     public $brand_id;
+
     public $brand_name;
 
     protected $rules = [

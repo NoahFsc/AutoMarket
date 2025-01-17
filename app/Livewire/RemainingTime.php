@@ -2,12 +2,13 @@
 
 namespace App\Livewire;
 
-use Livewire\Component;
 use Carbon\Carbon;
+use Livewire\Component;
 
 class RemainingTime extends Component
 {
     public $car;
+
     public $remainingTime;
 
     public function mount($car)

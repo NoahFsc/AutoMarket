@@ -8,6 +8,7 @@ use Livewire\Component;
 class ManageFuelType extends Component
 {
     public $carburant_id;
+
     public $nom;
 
     protected $rules = [

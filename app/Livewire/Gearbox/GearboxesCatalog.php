@@ -26,7 +26,7 @@ class GearboxesCatalog extends Component
 
     public function render()
     {
-        $gearboxes = ReferentielsGearBox::where('nom', 'like', '%' . $this->search . '%')
+        $gearboxes = ReferentielsGearBox::where('nom', 'like', '%'.$this->search.'%')
             ->paginate(6);
 
         return view('components.admin.gearbox.gearboxes-catalog', ['gearboxes' => $gearboxes]);

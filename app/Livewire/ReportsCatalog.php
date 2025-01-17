@@ -39,14 +39,14 @@ class ReportsCatalog extends Component
     public function render()
     {
         $reports = Report::whereHas('receiver', function ($query) {
-            $query->where('last_name', 'like', '%' . $this->search . '%')
-                ->orWhere('first_name', 'like', '%' . $this->search . '%');
+            $query->where('last_name', 'like', '%'.$this->search.'%')
+                ->orWhere('first_name', 'like', '%'.$this->search.'%');
         })
             ->orWhereHas('writer', function ($query) {
-                $query->where('last_name', 'like', '%' . $this->search . '%')
-                    ->orWhere('first_name', 'like', '%' . $this->search . '%');
+                $query->where('last_name', 'like', '%'.$this->search.'%')
+                    ->orWhere('first_name', 'like', '%'.$this->search.'%');
             })
-            ->orWhere('reason', 'like', '%' . $this->search . '%')
+            ->orWhere('reason', 'like', '%'.$this->search.'%')
             ->orderBy('created_at', 'desc')
             ->paginate(6);
 

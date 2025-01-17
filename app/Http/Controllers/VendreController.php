@@ -12,8 +12,8 @@ use App\Models\ReferentielsFuelType;
 use App\Models\ReferentielsGearBox;
 use App\Models\ReferentielsNbDoor;
 use App\Models\ReferentielsVehiculeType;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class VendreController extends Controller
@@ -218,7 +218,7 @@ class VendreController extends Controller
         ]);
 
         // Associer les équipements à la voiture
-        if (!empty($step1Data['equipments'])) {
+        if (! empty($step1Data['equipments'])) {
             foreach ($step1Data['equipments'] as $equipmentId) {
                 CarsEquipment::create([
                     'car_id' => $car->id,
@@ -249,6 +249,7 @@ class VendreController extends Controller
     public function showCompleteSaleForm($offerId)
     {
         $offer = Offer::findOrFail($offerId);
+
         return view('vendre.complete-sale', compact('offer'));
     }
 

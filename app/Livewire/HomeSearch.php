@@ -9,13 +9,16 @@ use Livewire\Component;
 class HomeSearch extends Component
 {
     public array $carModels = [];
+
     public array $brands = [];
 
-    public $marqueSelectionnee = "";
-    public $modeleSelectionne = "";
+    public $marqueSelectionnee = '';
+
+    public $modeleSelectionne = '';
 
     public ?int $kmMax = null;
-    public string $codePostal = "";
+
+    public string $codePostal = '';
 
     public function mount()
     {

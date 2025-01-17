@@ -39,7 +39,7 @@ class User extends Authenticatable
     // Nom complet de l'utilisateur
     public function fullName()
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return $this->first_name.' '.$this->last_name;
     }
 
     // Voitures mises en vente par l'utilisateur

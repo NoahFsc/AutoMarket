@@ -26,8 +26,8 @@ class TypesCatalog extends Component
 
     public function render()
     {
-        $types = ReferentielsVehiculeType::where('nom', 'like', '%' . $this->search . '%')
-            ->orWhere('segment', 'like', '%' . $this->search . '%')
+        $types = ReferentielsVehiculeType::where('nom', 'like', '%'.$this->search.'%')
+            ->orWhere('segment', 'like', '%'.$this->search.'%')
             ->paginate(6);
 
         return view('components.admin.type.types-catalog', ['vehicleTypes' => $types]);
