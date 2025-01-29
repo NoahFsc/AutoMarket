@@ -25,12 +25,11 @@ jobs:
         echo -e "${{ secrets.ENT_USERNAME }}\n${{ secrets.ENT_PASSWORD }}" | sudo tee /etc/openvpn/ent_credentials > /dev/null
         sudo sed -i 's/auth-user-pass/auth-user-pass \/etc\/openvpn\/ent_credentials/' /etc/openvpn/config.ovpn
         sudo openvpn --config /etc/openvpn/config.ovpn --daemon
-        sleep 10 # Attendre que la connexion VPN soit établie
-        sudo cat /var/log/syslog | grep openvpn # Afficher les journaux OpenVPN pour le débogage
 
-    - name: Verify VPN Connection
-      run: |
-        ping -c 4 10.1.138.4
+    # - name: Verify VPN Connection
+    #   run: |
+    #     sleep 10 # Attendre que la connexion VPN soit établie
+    #     ping -c 4 10.1.138.4
 
     - name: Setup SSH Key
       run: |
