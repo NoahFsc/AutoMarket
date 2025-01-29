@@ -32,9 +32,13 @@ jobs:
       run: |
         echo "Setting up SSH key..."
         mkdir -p ~/.ssh
+        echo "mkdir effectue ..."
         echo "${{ secrets.SSH_KEY }}" > id_rsa
+        echo "id_rsa effectue ..."
         sudo mv id_rsa ~/.ssh/id_rsa
+        echo "mv effectue ..."
         sudo chmod 600 ~/.ssh/id_rsa
+        echo "chmod effectue ..."
         ssh-keyscan -H 10.1.138.4 >> ~/.ssh/known_hosts
         echo "SSH key setup complete."
         echo "Contents of ~/.ssh:"
