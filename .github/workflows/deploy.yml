@@ -37,7 +37,7 @@ jobs:
         echo "mv effectue ..."
         sudo chmod 600 ~/.ssh/id_rsa
         echo "chmod effectue ..."
-        ssh-keyscan -T 20 -p 22 10.1.138.4 >> ~/.ssh/known_hosts
+        ssh-keyscan -v 10.1.138.4 >> ~/.ssh/known_hosts
         echo "SSH key setup complete."
         echo "Contents of ~/.ssh:"
         ls -l ~/.ssh
