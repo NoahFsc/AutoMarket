@@ -22,10 +22,6 @@ jobs:
         ssh-keyscan -H 10.1.138.4 >> ~/.ssh/known_hosts
         eval $(ssh-agent -s)
         echo "$SSH_KEY" | tr -d '\r' | ssh-add - > /dev/null
-        ssh-add -l # Ajout d'une commande pour lister les clés ajoutées
-        echo "$SSH_KEY" | tr -d '\r' > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        cat ~/.ssh/id_rsa # Affiche le contenu de la clé pour vérifier
 
     - name: Deploy to server
       run: |
