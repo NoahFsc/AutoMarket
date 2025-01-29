@@ -19,14 +19,12 @@ jobs:
 
     - name: Setup VPN
       run: |
-        echo "Setting up VPN..."
         sudo mkdir -p /etc/openvpn
         echo "${{ secrets.VPN_CONFIG }}" > config.ovpn
         sudo mv config.ovpn /etc/openvpn/config.ovpn
         echo -e "${{ secrets.ENT_USERNAME }}\n${{ secrets.ENT_PASSWORD }}" | sudo tee /etc/openvpn/ent_credentials > /dev/null
         sudo sed -i 's/auth-user-pass/auth-user-pass \/etc\/openvpn\/ent_credentials/' /etc/openvpn/config.ovpn
         sudo openvpn --config /etc/openvpn/config.ovpn --daemon
-        echo "VPN setup complete."
 
     - name: Setup SSH Key
       run: |
@@ -39,7 +37,7 @@ jobs:
         echo "mv effectue ..."
         sudo chmod 600 ~/.ssh/id_rsa
         echo "chmod effectue ..."
-        ssh-keyscan -H 10.1.138.4 >> ~/.ssh/known_hosts
+        sudo ssh-keyscan -H 10.1.138.4 >> ~/.ssh/known_hosts
         echo "SSH key setup complete."
         echo "Contents of ~/.ssh:"
         ls -l ~/.ssh
@@ -48,11 +46,9 @@ jobs:
 
     - name: Deploy to server
       run: |
-        echo "Deploying to server..."
         ssh etudiant@10.1.138.4 << 'EOF'
           cd /home/etudiant/AutoMarket &&
           git pull &&
           docker-compose down &&
           docker-compose up -d --build
         EOF
-        echo "Deployment complete."
