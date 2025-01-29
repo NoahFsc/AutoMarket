@@ -8,29 +8,25 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      SSH_KEY: ${{ secrets.SSH_KEY }}
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Debug SSH Key
+    - name: Setup SSH Key
       run: |
-        echo "$SSH_KEY" | wc -c
         mkdir -p ~/.ssh
-        echo "$SSH_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H 10.1.138.4 >> ~/.ssh/known_hosts
+        eval $(ssh-agent -s)
+        echo "$SSH_KEY" | tr -d '\r' | ssh-add - > /dev/null
 
     - name: Deploy to server
-      env:
-        SSH_KEY: ${{ secrets.SSH_KEY }}
       run: |
-        mkdir -p ~/.ssh
-        echo "$SSH_KEY" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H 10.1.138.4 >> ~/.ssh/known_hosts
-        ssh -i ~/.ssh/id_rsa etudiant@10.1.138.4 '
+        ssh etudiant@10.1.138.4 << 'EOF'
           cd /home/etudiant/AutoMarket &&
           git pull &&
           docker-compose down &&
           docker-compose up -d --build
-        '
+        EOF
