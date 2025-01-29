@@ -14,8 +14,10 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install OpenVPN
-      run: sudo apt-get update && sudo apt-get install -y openvpn
+    - name: Install Dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y openvpn traceroute
 
     - name: Setup VPN
       run: |
@@ -29,6 +31,15 @@ jobs:
         sleep 10 # Attendre que la connexion VPN soit établie
         sudo cat /var/log/syslog | grep openvpn # Afficher les journaux OpenVPN pour le débogage
         echo "VPN setup complete."
+
+    - name: Configure Routing and Firewall
+      run: |
+        echo "Configuring routing and firewall..."
+        sudo ip route add default dev tun0
+        sudo iptables -A FORWARD -i tun0 -j ACCEPT
+        sudo iptables -A FORWARD -o tun0 -j ACCEPT
+        sudo iptables -A INPUT -i tun0 -j ACCEPT
+        echo "Routing and firewall configuration complete."
 
     - name: Verify VPN Connection
       run: |
