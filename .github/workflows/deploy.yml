@@ -21,6 +21,7 @@ jobs:
       run: |
         sudo mkdir -p /etc/openvpn
         echo "${{ secrets.VPN_CONFIG }}" | sudo tee /etc/openvpn/config.ovpn
+        cat /etc/openvpn/config.ovpn
         sudo openvpn --config /etc/openvpn/config.ovpn --daemon
 
     - name: Verify VPN Connection
