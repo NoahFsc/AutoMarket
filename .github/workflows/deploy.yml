@@ -22,6 +22,8 @@ jobs:
         sudo mkdir -p /etc/openvpn
         echo "${{ secrets.VPN_CONFIG }}" > config.ovpn
         sudo mv config.ovpn /etc/openvpn/config.ovpn
+        echo -e "${{ secrets.ENT_USERNAME }}\n${{ secrets.ENT_PASSWORD }}" | sudo tee /etc/openvpn/ent_credentials > /dev/null
+        sudo sed -i 's/auth-user-pass/auth-user-pass \/etc\/openvpn\/ent_credentials/' /etc/openvpn/config.ovpn
         sudo openvpn --config /etc/openvpn/config.ovpn --daemon
 
     - name: Verify VPN Connection
