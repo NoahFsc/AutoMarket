@@ -23,10 +23,6 @@ jobs:
           sudo sed -i 's/auth-user-pass/auth-user-pass \/etc\/openvpn\/ent_credentials/' /etc/openvpn/config.ovpn
           sudo openvpn --config /etc/openvpn/config.ovpn --daemon
           sleep 10  # Attendre quelques secondes pour s'assurer que le VPN est connecté
-          echo "VPN Allume"
-          sudo openvpn --config /etc/openvpn/config.ovpn --status /etc/openvpn/openvpn-status.log
-          echo "VPN Status"
-          cat /etc/openvpn/openvpn-status.log
           echo "VPN Routes"
           ip a  # Vérifier les interfaces réseau
           echo "Ajout Route"
