@@ -11,29 +11,32 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Setup and Connect VPN
-      run: |
-        sudo apt-get update && sudo apt-get install -y openvpn
-        sudo mkdir -p /etc/openvpn
-        echo "${{ secrets.VPN_CONFIG }}" | sudo tee /etc/openvpn/config.ovpn > /dev/null
-        echo -e "${{ secrets.ENT_USERNAME }}\n${{ secrets.ENT_PASSWORD }}" | sudo tee /etc/openvpn/ent_credentials > /dev/null
-        sudo sed -i 's/auth-user-pass/auth-user-pass \/etc\/openvpn\/ent_credentials/' /etc/openvpn/config.ovpn
-        sudo openvpn --config /etc/openvpn/config.ovpn --daemon
-        sleep 10
-        ping -c 4 10.1.138.4
+      - name: Setup and Connect VPN
+        run: |
+          sudo apt-get update && sudo apt-get install -y openvpn
+          sudo mkdir -p /etc/openvpn
+          echo "${{ secrets.VPN_CONFIG }}" | sudo tee /etc/openvpn/config.ovpn > /dev/null
+          echo -e "${{ secrets.ENT_USERNAME }}\n${{ secrets.ENT_PASSWORD }}" | sudo tee /etc/openvpn/ent_credentials > /dev/null
+          sudo sed -i 's/auth-user-pass/auth-user-pass \/etc\/openvpn\/ent_credentials/' /etc/openvpn/config.ovpn
+          sudo openvpn --config /etc/openvpn/config.ovpn --daemon
+          sleep 10  # Attendre quelques secondes pour s'assurer que le VPN est connecté
+          sudo openvpn --config /etc/openvpn/config.ovpn --status /etc/openvpn/openvpn-status.log
+          cat /etc/openvpn/openvpn-status.log
+          ip a  # Vérifier les interfaces réseau
+          ping -c 4 10.1.138.4
 
-    - name: Setup SSH Key and Deploy
-      run: |
-        mkdir -p ~/.ssh
-        echo "${{ secrets.SSH_KEY }}" | sudo tee ~/.ssh/id_rsa > /dev/null
-        sudo chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H 10.1.138.4 | sudo tee -a ~/.ssh/known_hosts
-        ssh etudiant@10.1.138.4 << 'EOF'
-          cd /home/etudiant/AutoMarket &&
-          git pull &&
-          docker-compose down &&
-          docker-compose up -d --build
-        EOF
+      - name: Setup SSH Key and Deploy
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_KEY }}" | sudo tee ~/.ssh/id_rsa > /dev/null
+          sudo chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 10.1.138.4 | sudo tee -a ~/.ssh/known_hosts
+          ssh etudiant@10.1.138.4 << 'EOF'
+            cd /home/etudiant/AutoMarket &&
+            git pull &&
+            docker-compose down &&
+            docker-compose up -d --build
+          EOF
