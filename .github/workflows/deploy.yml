@@ -26,7 +26,7 @@ jobs:
           echo "VPN Routes"
           ip a  # Vérifier les interfaces réseau
           echo "Ajout Route"
-          sudo ip route add 10.1.138.4 via 10.1.239.254 dev tun1 || true  # Ajouter la route si elle n'existe pas
+          sudo ip route add 10.1.138.4 via 10.1.239.254 dev tun0 || true  # Ajouter la route si elle n'existe pas
           echo "Liste Routes"
           sudo ip route show  # Afficher les routes pour vérifier
           echo "Ping Serveur"
