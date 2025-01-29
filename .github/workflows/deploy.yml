@@ -23,22 +23,17 @@ jobs:
           sudo sed -i 's/auth-user-pass/auth-user-pass \/etc\/openvpn\/ent_credentials/' /etc/openvpn/config.ovpn
           sudo openvpn --config /etc/openvpn/config.ovpn --daemon
           sleep 10  # Attendre quelques secondes pour s'assurer que le VPN est connecté
-          echo "VPN Routes"
-          ip a  # Vérifier les interfaces réseau
-          echo "Ajout Route"
           sudo ip route add 10.1.138.4 via 10.1.239.254 dev tun0 || true  # Ajouter la route si elle n'existe pas
-          echo "Liste Routes"
           sudo ip route show  # Afficher les routes pour vérifier
-          echo "Ping Serveur"
           ping -c 4 10.1.138.4
 
       - name: Setup SSH Key and Deploy
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_KEY }}" | sudo tee ~/.ssh/id_rsa > /dev/null
-          sudo chmod 600 ~/.ssh/id_rsa
-          ssh-keyscan -H 10.1.138.4 | sudo tee -a ~/.ssh/known_hosts
-          ssh etudiant@10.1.138.4 << 'EOF'
+          echo "${{ secrets.SSH_KEY }}" | tee ~/.ssh/id_rsa > /dev/null
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H 10.1.138.4 | tee -a ~/.ssh/known_hosts
+          ssh -i ~/.ssh/id_rsa etudiant@10.1.138.4 << 'EOF'
             cd /home/etudiant/AutoMarket &&
             git pull &&
             docker-compose down &&
