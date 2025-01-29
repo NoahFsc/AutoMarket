@@ -26,6 +26,13 @@ jobs:
         sudo sed -i 's/auth-user-pass/auth-user-pass \/etc\/openvpn\/ent_credentials/' /etc/openvpn/config.ovpn
         sudo openvpn --config /etc/openvpn/config.ovpn --daemon
 
+    - name: Verify VPN Connection
+      run: |
+        ip addr show tun0 # Afficher les informations de l'interface tun0
+        ip route # Afficher les routes réseau
+        sudo iptables -L -v -n # Afficher les règles de pare-feu
+        ping -c 4 10.1.138.4
+    
     - name: Setup SSH Key
       run: |
         echo "Setting up SSH key..."
