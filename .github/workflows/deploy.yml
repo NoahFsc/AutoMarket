@@ -20,7 +20,8 @@ jobs:
     - name: Setup VPN
       run: |
         sudo mkdir -p /etc/openvpn
-        echo "${{ secrets.VPN_CONFIG }}" | sudo tee /etc/openvpn/config.ovpn
+        echo "${{ secrets.VPN_CONFIG }}" > config.ovpn
+        sudo mv config.ovpn /etc/openvpn/config.ovpn
         sudo openvpn --config /etc/openvpn/config.ovpn --daemon
 
     - name: Verify VPN Connection
