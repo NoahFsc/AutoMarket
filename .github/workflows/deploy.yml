@@ -14,67 +14,26 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Install Dependencies
+    - name: Setup and Connect VPN
       run: |
-        sudo apt-get update
-        sudo apt-get install -y openvpn traceroute
-
-    - name: Setup VPN
-      run: |
-        echo "Setting up VPN..."
+        sudo apt-get update && sudo apt-get install -y openvpn
         sudo mkdir -p /etc/openvpn
-        echo "${{ secrets.VPN_CONFIG }}" > config.ovpn
-        sudo mv config.ovpn /etc/openvpn/config.ovpn
+        echo "${{ secrets.VPN_CONFIG }}" | sudo tee /etc/openvpn/config.ovpn > /dev/null
         echo -e "${{ secrets.ENT_USERNAME }}\n${{ secrets.ENT_PASSWORD }}" | sudo tee /etc/openvpn/ent_credentials > /dev/null
         sudo sed -i 's/auth-user-pass/auth-user-pass \/etc\/openvpn\/ent_credentials/' /etc/openvpn/config.ovpn
         sudo openvpn --config /etc/openvpn/config.ovpn --daemon
-        sleep 10 # Attendre que la connexion VPN soit établie
-        sudo cat /var/log/syslog | grep openvpn # Afficher les journaux OpenVPN pour le débogage
-        echo "VPN setup complete."
+        sleep 10
+        ping -c 4 10.1.138.4
 
-    - name: Configure Routing and Firewall
+    - name: Setup SSH Key and Deploy
       run: |
-        echo "Configuring routing and firewall..."
-        sudo ip route add default dev tun0
-        sudo iptables -A FORWARD -i tun0 -j ACCEPT
-        sudo iptables -A FORWARD -o tun0 -j ACCEPT
-        sudo iptables -A INPUT -i tun0 -j ACCEPT
-        echo "Routing and firewall configuration complete."
-
-    - name: Verify VPN Connection
-      run: |
-        echo "Verifying VPN connection..."
-        ip addr show tun0 || echo "Device tun0 does not exist"
-        ip route
-        sudo iptables -L -v -n
-        traceroute 10.1.138.4 || echo "Traceroute failed"
-        echo "VPN connection verification complete."
-
-    - name: Setup SSH Key
-      run: |
-        echo "Setting up SSH key..."
         mkdir -p ~/.ssh
-        echo "mkdir effectue ..."
-        echo "${{ secrets.SSH_KEY }}" > id_rsa
-        echo "id_rsa effectue ..."
-        sudo mv id_rsa ~/.ssh/id_rsa
-        echo "mv effectue ..."
+        echo "${{ secrets.SSH_KEY }}" | sudo tee ~/.ssh/id_rsa > /dev/null
         sudo chmod 600 ~/.ssh/id_rsa
-        echo "chmod effectue ..."
-        ssh-keyscan -v 10.1.138.4 >> ~/.ssh/known_hosts || { echo "ssh-keyscan failed"; exit 1; }
-        echo "SSH key setup complete."
-        echo "Contents of ~/.ssh:"
-        ls -l ~/.ssh
-        echo "Contents of ~/.ssh/id_rsa:"
-        cat ~/.ssh/id_rsa
-
-    - name: Deploy to server
-      run: |
-        echo "Deploying to server..."
+        ssh-keyscan -H 10.1.138.4 | sudo tee -a ~/.ssh/known_hosts
         ssh etudiant@10.1.138.4 << 'EOF'
           cd /home/etudiant/AutoMarket &&
           git pull &&
           docker-compose down &&
           docker-compose up -d --build
         EOF
-        echo "Deployment complete."
