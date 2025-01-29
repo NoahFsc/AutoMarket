@@ -19,20 +19,26 @@ jobs:
 
     - name: Setup VPN
       run: |
+        echo "Setting up VPN..."
         sudo mkdir -p /etc/openvpn
         echo "${{ secrets.VPN_CONFIG }}" > config.ovpn
         sudo mv config.ovpn /etc/openvpn/config.ovpn
         echo -e "${{ secrets.ENT_USERNAME }}\n${{ secrets.ENT_PASSWORD }}" | sudo tee /etc/openvpn/ent_credentials > /dev/null
         sudo sed -i 's/auth-user-pass/auth-user-pass \/etc\/openvpn\/ent_credentials/' /etc/openvpn/config.ovpn
         sudo openvpn --config /etc/openvpn/config.ovpn --daemon
+        sleep 10 # Attendre que la connexion VPN soit établie
+        sudo cat /var/log/syslog | grep openvpn # Afficher les journaux OpenVPN pour le débogage
+        echo "VPN setup complete."
 
     - name: Verify VPN Connection
       run: |
-        ip addr show tun0 # Afficher les informations de l'interface tun0
-        ip route # Afficher les routes réseau
-        sudo iptables -L -v -n # Afficher les règles de pare-feu
-        ping -c 4 10.1.138.4
-    
+        echo "Verifying VPN connection..."
+        ip addr show tun0 || echo "Device tun0 does not exist"
+        ip route
+        sudo iptables -L -v -n
+        ping -c 4 10.1.138.4 || echo "Ping failed"
+        echo "VPN connection verification complete."
+
     - name: Setup SSH Key
       run: |
         echo "Setting up SSH key..."
@@ -44,7 +50,7 @@ jobs:
         echo "mv effectue ..."
         sudo chmod 600 ~/.ssh/id_rsa
         echo "chmod effectue ..."
-        ssh-keyscan -v 10.1.138.4 >> ~/.ssh/known_hosts
+        ssh-keyscan -v 10.1.138.4 >> ~/.ssh/known_hosts || { echo "ssh-keyscan failed"; exit 1; }
         echo "SSH key setup complete."
         echo "Contents of ~/.ssh:"
         ls -l ~/.ssh
@@ -53,9 +59,11 @@ jobs:
 
     - name: Deploy to server
       run: |
+        echo "Deploying to server..."
         ssh etudiant@10.1.138.4 << 'EOF'
           cd /home/etudiant/AutoMarket &&
           git pull &&
           docker-compose down &&
           docker-compose up -d --build
         EOF
+        echo "Deployment complete."
