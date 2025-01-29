@@ -35,7 +35,10 @@ jobs:
       run: |
         install -m 600 -D /dev/null ~/.ssh/id_rsa
         echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H 10.1.138.4 >> ~/.ssh/known_hosts
+        cat ~/.ssh/id_rsa # Afficher le contenu de la clé SSH pour vérification
+        ls -l ~/.ssh # Vérifier les permissions des fichiers dans ~/.ssh
 
     - name: Deploy to server
       run: |
