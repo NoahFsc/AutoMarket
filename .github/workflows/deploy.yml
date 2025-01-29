@@ -36,7 +36,7 @@ jobs:
         ip addr show tun0 || echo "Device tun0 does not exist"
         ip route
         sudo iptables -L -v -n
-        ping -c 4 10.1.138.4 || echo "Ping failed"
+        traceroute 10.1.138.4 || echo "Traceroute failed"
         echo "VPN connection verification complete."
 
     - name: Setup SSH Key
