@@ -19,7 +19,7 @@ jobs:
 
     - name: Setup VPN
       run: |
-        mkdir -p /etc/openvpn
+        sudo mkdir -p /etc/openvpn
         echo "${{ secrets.VPN_CONFIG }}" > /etc/openvpn/config.ovpn
         sudo openvpn --config /etc/openvpn/config.ovpn --daemon
 
