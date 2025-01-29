@@ -19,28 +19,36 @@ jobs:
 
     - name: Setup VPN
       run: |
+        echo "Setting up VPN..."
         sudo mkdir -p /etc/openvpn
         echo "${{ secrets.VPN_CONFIG }}" > config.ovpn
         sudo mv config.ovpn /etc/openvpn/config.ovpn
         echo -e "${{ secrets.ENT_USERNAME }}\n${{ secrets.ENT_PASSWORD }}" | sudo tee /etc/openvpn/ent_credentials > /dev/null
         sudo sed -i 's/auth-user-pass/auth-user-pass \/etc\/openvpn\/ent_credentials/' /etc/openvpn/config.ovpn
         sudo openvpn --config /etc/openvpn/config.ovpn --daemon
+        echo "VPN setup complete."
 
     - name: Setup SSH Key
       run: |
+        echo "Setting up SSH key..."
         mkdir -p ~/.ssh
         echo "${{ secrets.SSH_KEY }}" > id_rsa
         sudo mv id_rsa ~/.ssh/id_rsa
         sudo chmod 600 ~/.ssh/id_rsa
         ssh-keyscan -H 10.1.138.4 >> ~/.ssh/known_hosts
-        cat ~/.ssh/id_rsa # Afficher le contenu de la clé SSH pour vérification
-        ls -l ~/.ssh # Vérifier les permissions des fichiers dans ~/.ssh
+        echo "SSH key setup complete."
+        echo "Contents of ~/.ssh:"
+        ls -l ~/.ssh
+        echo "Contents of ~/.ssh/id_rsa:"
+        cat ~/.ssh/id_rsa
 
     - name: Deploy to server
       run: |
+        echo "Deploying to server..."
         ssh etudiant@10.1.138.4 << 'EOF'
           cd /home/etudiant/AutoMarket &&
           git pull &&
           docker-compose down &&
           docker-compose up -d --build
         EOF
+        echo "Deployment complete."
