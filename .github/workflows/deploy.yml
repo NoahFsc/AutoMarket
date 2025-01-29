@@ -26,6 +26,8 @@ jobs:
           sudo openvpn --config /etc/openvpn/config.ovpn --status /etc/openvpn/openvpn-status.log
           cat /etc/openvpn/openvpn-status.log
           ip a  # Vérifier les interfaces réseau
+          sudo ip route add 10.1.138.4 via 10.1.239.254 dev tun1 || true  # Ajouter la route si elle n'existe pas
+          sudo ip route show  # Afficher les routes pour vérifier
           ping -c 4 10.1.138.4
 
       - name: Setup SSH Key and Deploy
