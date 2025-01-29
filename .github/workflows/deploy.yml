@@ -9,19 +9,30 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    env:
-      SSH_KEY: ${{ secrets.SSH_KEY }}
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Install OpenVPN
+      run: sudo apt-get update && sudo apt-get install -y openvpn
+
+    - name: Setup VPN
+      run: |
+        mkdir -p /etc/openvpn
+        echo "${{ secrets.VPN_CONFIG }}" > /etc/openvpn/config.ovpn
+        sudo openvpn --config /etc/openvpn/config.ovpn --daemon
+
+    - name: Verify VPN Connection
+      run: |
+        sleep 10 # Attendre que la connexion VPN soit établie
+        ping -c 4 10.1.138.4
+
     - name: Setup SSH Key
       run: |
-        mkdir -p ~/.ssh
+        install -m 600 -D /dev/null ~/.ssh/id_rsa
+        echo "${{ secrets.SSH_KEY }}" > ~/.ssh/id_rsa
         ssh-keyscan -H 10.1.138.4 >> ~/.ssh/known_hosts
-        eval $(ssh-agent -s)
-        echo "$SSH_KEY" | tr -d '\r' | ssh-add - > /dev/null
 
     - name: Deploy to server
       run: |
