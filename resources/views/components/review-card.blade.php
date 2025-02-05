@@ -1,4 +1,4 @@
-<div class="p-4 bg-white rounded-lg shadow-md ">
+<div class="p-4 rounded-lg shadow-md bg-select-background ">
     <div class="flex items-center justify-between mb-2">
         <div class="stars">
             @for ($i = 1; $i <= 5; $i++) @if ($i <=$review->nb_of_star)

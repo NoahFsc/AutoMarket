@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }" x-init="$watch('darkMode', value => localStorage.setItem('darkMode', value))" x-bind:class="{ 'dark': darkMode }">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ darkMode: false }" x-init="darkMode = localStorage.getItem('theme') === 'dark'; $watch('darkMode', value => { localStorage.setItem('theme', value ? 'dark' : 'light'); document.documentElement.setAttribute('data-theme', value ? 'dark' : 'light'); })" :class="{ 'dark': darkMode }">
 
 <head>
     <meta charset="utf-8">
@@ -16,6 +16,13 @@
     <livewire:styles />
     <link rel="stylesheet" href="https://noahfsc.github.io/FontAwesome-6.2.0-Pro/css/all.min.css" >
     <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const theme = localStorage.getItem('theme');
+            if (theme) {
+                document.documentElement.setAttribute('data-theme', theme);
+            }
+        });
+        
         document.addEventListener('livewire:load', function () {
             if (typeof Alpine === 'undefined') {
                 var script = document.createElement('script');
@@ -27,7 +34,7 @@
     </script>
 </head>
 
-<body class="flex flex-col min-h-screen bg-background dark:bg-background-dark">
+<body class="flex flex-col min-h-screen bg-background text-default">
     <livewire:scripts />
 
     {{-- Ordinateur --}}
@@ -35,7 +42,7 @@
         <div class="flex items-center mx-auto md:justify-between">
             <a href="{{ route('home') }}">
                 <div class="flex items-center">
-                    <img src="{{ asset('assets/logo_automarket.webp') }}" alt="Logo" class="h-24 mb-2">
+                    <img :src="darkMode ? '{{ asset('assets/logo_automarket_light.png') }}' : '{{ asset('assets/logo_automarket.webp') }}'" alt="Logo" class="h-24 mb-2">
                     <span class="text-2xl font-medium">AutoMarket</span>
                 </div>
             </a>
@@ -90,11 +97,11 @@
                 <a class="px-4 py-2 text-white transition-all duration-300 rounded-lg bg-primary hover:bg-opacity-80"
                     href="{{ route('auth.login') }}">Connexion</a>
                 @endguest
+                <button @click="darkMode = !darkMode" class="ml-4">
+                    <i x-show="!darkMode" class="fa-solid fa-moon"></i>
+                    <i x-show="darkMode" class="fa-solid fa-sun"></i>
+                </button>
             </div>
-            <button @click="darkMode = !darkMode" class="ml-4 text-gray-900 dark:text-gray-100">
-                <i x-show="!darkMode" class="fa-solid fa-moon"></i>
-                <i x-show="darkMode" class="fa-solid fa-sun"></i>
-            </button>
         </div>
     </nav>
 
@@ -142,12 +149,12 @@
         <div class="flex flex-col gap-4">
             <div class="justify-between hidden md:flex">
                 <div class="flex items-center gap-2">
-                    <img src="{{ asset('assets/logo_automarket.webp') }}" alt="Logo" class="h-10 mb-2">
+                    <img :src="darkMode ? '{{ asset('assets/logo_automarket_light.png') }}' : '{{ asset('assets/logo_automarket.webp') }}'" alt="Logo" class="h-10 mb-2">
                     <span class="text-base">AutoMarket</span>
                 </div>
                 <form action="" class="flex h-10"> {{-- A remplacer par route newsletter --}}
                     @csrf
-                    <input type="email" class="w-48 px-4 py-2 text-xs border border-gray-300 rounded-l-lg"
+                    <input type="email" class="w-48 px-4 py-2 text-xs border rounded-l-lg border-select-border bg-select-background"
                         placeholder="Entrez votre e-mail">
                     <button type="submit"
                         class="px-4 py-2 text-xs text-white transition-all duration-300 rounded-r-lg bg-primary hover:bg-opacity-80">S'abonner</button>
