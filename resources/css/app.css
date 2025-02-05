@@ -145,7 +145,7 @@
     bottom: 0;
     background-color: #ccc;
     transition: 0.4s;
-    select-border-radius: 34px;
+    border-radius: 34px;
 }
 
 .slider:before {
@@ -157,7 +157,7 @@
     bottom: 3px;
     background-color: white;
     transition: 0.4s;
-    select-border-radius: 50%;
+    border-radius: 50%;
 }
 
 input:checked+.slider {
