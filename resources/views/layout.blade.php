@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="{ darkMode: localStorage.getItem('darkMode') === 'true' }" x-init="$watch('darkMode', value => localStorage.setItem('darkMode', value))" x-bind:class="{ 'dark': darkMode }">
 
 <head>
     <meta charset="utf-8">
@@ -27,7 +27,7 @@
     </script>
 </head>
 
-<body class="flex flex-col min-h-screen bg-background">
+<body class="flex flex-col min-h-screen bg-background dark:bg-background-dark">
     <livewire:scripts />
 
     {{-- Ordinateur --}}
@@ -73,7 +73,7 @@
                                 @endif
                                 <div class="mx-4 mt-2 border-t border-gray-200"></div>
                                 <div class="px-4 py-2 text-xs text-gray-400">Actions</div>
-                                <a href="#" class="block px-4 py-2 text-error-500 hover:bg-gray-100" role="menuitem"
+                                <a href="#" class="block px-4 py-2 text-error hover:bg-gray-100" role="menuitem"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                     <i class="fa-solid fa-arrow-right-start-on-rectangle"></i> Se déconnecter
                                 </a>
@@ -87,10 +87,14 @@
                 @endauth
 
                 @guest
-                <a class="px-4 py-2 text-white transition-all duration-300 rounded-lg bg-primary-500 hover:bg-primary-400"
+                <a class="px-4 py-2 text-white transition-all duration-300 rounded-lg bg-primary hover:bg-opacity-80"
                     href="{{ route('auth.login') }}">Connexion</a>
                 @endguest
             </div>
+            <button @click="darkMode = !darkMode" class="ml-4 text-gray-900 dark:text-gray-100">
+                <i x-show="!darkMode" class="fa-solid fa-moon"></i>
+                <i x-show="darkMode" class="fa-solid fa-sun"></i>
+            </button>
         </div>
     </nav>
 
@@ -98,29 +102,29 @@
     <div class="fixed bottom-0 left-0 right-0 md:hidden z-[10000]">
         <div class="flex items-end justify-around pb-2 bg-white min-h-[64px]">
             <a href="{{ route('home') }}"
-                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary-500' : 'text-gray-400' }}">
+                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary' : 'text-gray-400' }}">
                 <i class="fa-regular fa-house fa-xl"></i><span class="text-sm">Accueil</span>
             </a>
             <a href="{{ route('catalog.acheter') }}"
-                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('catalog.acheter') ? 'text-primary-500' : 'text-gray-400' }}">
+                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('catalog.acheter') ? 'text-primary' : 'text-gray-400' }}">
                 <i class="fa-regular fa-car-side fa-xl"></i><span class="text-sm">Acheter</span>
             </a>
             <a href="{{ route('catalog.encherir') }}"
-                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('catalog.encherir') ? 'text-primary-500' : 'text-gray-400' }}">
+                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('catalog.encherir') ? 'text-primary' : 'text-gray-400' }}">
                 <i class="fa-regular fa-building-columns fa-xl"></i><span class="text-sm">Enchérir</span>
             </a>
             <a href="{{ route('chat.index') }}"
-                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('chat.index') ? 'text-primary-500' : 'text-gray-400' }}">
+                class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('chat.index') ? 'text-primary' : 'text-gray-400' }}">
                 <i class="fa-regular fa-messages fa-xl"></i><span class="text-sm">Messagerie</span>
             </a>
             @if(auth()->check())
                 <a href="{{ route('user.index', ['id' => Auth::id()]) }}"
-                    class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is(['user.index', 'user.edit']) ? 'text-primary-500' : 'text-gray-400' }}">
+                    class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is(['user.index', 'user.edit']) ? 'text-primary' : 'text-gray-400' }}">
                     <i class="fa-regular fa-user fa-xl"></i><span class="text-sm">Profil</span>
                 </a>
             @else
                 <a href="{{ route('auth.login') }}"
-                    class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('auth.login') ? 'text-primary-500' : 'text-gray-400' }}">
+                    class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('auth.login') ? 'text-primary' : 'text-gray-400' }}">
                     <i class="fa-regular fa-user fa-xl"></i><span class="text-sm">Profil</span>
                 </a>
             @endif
@@ -146,7 +150,7 @@
                     <input type="email" class="w-48 px-4 py-2 text-xs border border-gray-300 rounded-l-lg"
                         placeholder="Entrez votre e-mail">
                     <button type="submit"
-                        class="px-4 py-2 text-xs text-white transition-all duration-300 rounded-r-lg bg-primary-500 hover:bg-primary-400">S'abonner</button>
+                        class="px-4 py-2 text-xs text-white transition-all duration-300 rounded-r-lg bg-primary hover:bg-opacity-80">S'abonner</button>
                 </form>
             </div>
             <div class="flex flex-col-reverse items-center justify-center gap-4 md:flex-row md:justify-between">

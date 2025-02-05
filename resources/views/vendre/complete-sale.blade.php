@@ -30,14 +30,14 @@
         <!-- Prix de vente -->
         <div class="mb-4">
             <label for="proposed_price" class="text-sm font-medium text-gray-700">Prix de vente</label>
-            <input type="text" name="proposed_price" value="{{ $offer->proposed_price }}" class="w-full border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500" readonly>
+            <input type="text" name="proposed_price" value="{{ $offer->proposed_price }}" class="w-full border-gray-300 rounded-md focus:border-primary focus:ring-primary" readonly>
         </div>
 
         <div class="flex gap-2 mb-4">
             <!-- Type de livraison -->
             <div class="w-full">
                 <label for="delivery_type" class="text-sm font-medium text-gray-700">Type de livraison</label>
-                <select name="delivery_type" id="delivery_type" class="w-full border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500">
+                <select name="delivery_type" id="delivery_type" class="w-full border-gray-300 rounded-md focus:border-primary focus:ring-primary">
                     <option value="Remise en main propre">Remise en main propre</option>
                     <option value="Livraison à domicile">Livraison à domicile</option>
                 </select>
@@ -45,12 +45,12 @@
             <!-- Date de l'échange -->
             <div class="w-full">
                 <label for="exchange_date" class="text-sm font-medium text-gray-700">Date de l'échange</label>
-                <input type="date" name="exchange_date" id="exchange_date" class="w-full border-gray-300 rounded-md focus:border-primary-500 focus:ring-primary-500">
+                <input type="date" name="exchange_date" id="exchange_date" class="w-full border-gray-300 rounded-md focus:border-primary focus:ring-primary">
             </div>
         </div>
         <!-- Bouton de confirmation -->
         <div class="flex justify-end gap-4">
-            <button type="submit" class="px-8 py-2 text-sm text-white transition-all duration-300 rounded-lg bg-primary-500 hover:bg-primary-600">Confirmer la vente</button>
+            <button type="submit" class="px-8 py-2 text-sm text-white transition-all duration-300 rounded-lg bg-primary hover:bg-opacity-80">Confirmer la vente</button>
         </div>
     </form>
 </div>

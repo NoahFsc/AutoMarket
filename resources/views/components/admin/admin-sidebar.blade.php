@@ -114,7 +114,7 @@
                 </a>
                 <div class="mx-4 mt-2 border-t border-gray-200"></div>
                 <div class="px-4 py-2 text-xs text-gray-400">Actions</div>
-                <a href="#" class="block px-4 py-2 text-error-500 hover:bg-gray-100" role="menuitem"
+                <a href="#" class="block px-4 py-2 text-error hover:bg-gray-100" role="menuitem"
                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fa-solid fa-arrow-right-start-on-rectangle"></i> Se déconnecter
                 </a>

@@ -10,7 +10,7 @@
     <div class="flex items-end justify-between">
         <p class="font-medium">Tous les utilisateurs <span class="font-medium opacity-50">({{ $users->total() }})</span></p>
         <div class="flex items-center gap-2">
-            <input type="text" wire:model.live='search' placeholder="Rechercher" class="w-full h-10 border-gray-300 rounded-t-md md:rounded-md md:w-96 focus:border-primary-500 focus:ring-primary-500">
+            <input type="text" wire:model.live='search' placeholder="Rechercher" class="w-full h-10 border-gray-300 rounded-t-md md:rounded-md md:w-96 focus:border-primary focus:ring-primary">
             <livewire:add-user />
         </div>
     </div>
@@ -37,7 +37,7 @@
                             <img class="rounded-full size-10" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('assets/default_pfp.png') }}" alt="Photo de profil">
                             <div>
                                 <a href="{{ route('user.index', $user->id) }}">
-                                    <div class="text-sm font-medium text-gray-900 hover:text-primary-500">{{ $user->first_name }} {{ $user->last_name }}</div>
+                                    <div class="text-sm font-medium text-gray-900 hover:text-primary">{{ $user->first_name }} {{ $user->last_name }}</div>
                                 </a>
                                 <div class="text-sm text-gray-500">{{ $user->email }}</div>
                             </div>

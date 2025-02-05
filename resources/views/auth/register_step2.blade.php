@@ -46,7 +46,7 @@
             </div>
         </div>
 
-        <button type="submit" class="px-4 py-2 text-sm text-white rounded-md md:duration-300 md:transition-all bg-primary-500 md:hover:bg-primary-400 focus:outline-none">Créer un compte</button>
+        <button type="submit" class="px-4 py-2 text-sm text-white rounded-md md:duration-300 md:transition-all bg-primary md:hover:bg-opacity-80 focus:outline-none">Créer un compte</button>
 
     </form>
     <div class="mt-2 text-center">

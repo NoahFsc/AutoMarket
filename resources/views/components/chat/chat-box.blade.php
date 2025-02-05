@@ -17,7 +17,7 @@
         {{-- Boutons d'action --}}
         <div class="flex items-center gap-2">
             <livewire:report-user :userId="$cible->id" />
-            <a href="{{ route('user.index', $cible->id) }}" class="px-8 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Voir le profil</a>
+            <a href="{{ route('user.index', $cible->id) }}" class="px-8 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">Voir le profil</a>
         </div>
     </div>
 
@@ -33,7 +33,7 @@
                             <span>Vous</span>
                             <span class="text-sm opacity-50">{{ $message->formatted_date }}</span>
                         </div>
-                        <div class="text-white rounded-lg rounded-tr-none {{ $message->offer ? '' : 'bg-primary-500 p-4'}} min-w-64">
+                        <div class="text-white rounded-lg rounded-tr-none {{ $message->offer ? '' : 'bg-primary p-4'}} min-w-64">
                             @if ($message->offer)
                                 <livewire:chat.offer-card :offer="$message->offer" :key="$message->id" />
                             @else
@@ -68,7 +68,7 @@
     {{-- Zone d'envoi --}}
     <div class="absolute bottom-0 flex w-full m-4">
         <input type="text" wire:model="newMessage" wire:keydown.enter="sendMessage" class="w-11/12 p-2 border-gray-300 rounded-l-md focus:outline-none" placeholder="Envoyer un message">
-        <button wire:click="sendMessage" class="px-4 py-2 text-white bg-primary-500 rounded-r-md hover:bg-primary-400"><i class="fa-regular fa-paper-plane-top"></i></button>
+        <button wire:click="sendMessage" class="px-4 py-2 text-white bg-primary rounded-r-md hover:bg-opacity-80"><i class="fa-regular fa-paper-plane-top"></i></button>
     </div>
 
     @else

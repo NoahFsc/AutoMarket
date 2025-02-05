@@ -10,7 +10,7 @@
     <div class="flex items-end justify-between">
         <p class="font-medium">Tous les signalements <span class="font-medium opacity-50">({{ $reports->total() }})</span></p>
         <div>
-            <input type="text" wire:model.live='search' placeholder="Rechercher" class="w-full h-10 mt-1 border-gray-300 rounded-t-md md:rounded-md md:w-96 focus:border-primary-500 focus:ring-primary-500">
+            <input type="text" wire:model.live='search' placeholder="Rechercher" class="w-full h-10 mt-1 border-gray-300 rounded-t-md md:rounded-md md:w-96 focus:border-primary focus:ring-primary">
         </div>
     </div>
 
@@ -34,7 +34,7 @@
                             <img class="rounded-full size-10" src="{{ $report->receiver->profile_picture ? asset('storage/' . $report->receiver->profile_picture) : asset('assets/default_pfp.png') }}" alt="Photo de profil">
                             <div>
                                 <a href="{{ route('user.index', $report->receiver->id) }}">
-                                    <div class="text-sm font-medium text-gray-900 hover:text-primary-500">{{ $report->receiver->first_name }} {{ $report->receiver->last_name }}</div>
+                                    <div class="text-sm font-medium text-gray-900 hover:text-primary">{{ $report->receiver->first_name }} {{ $report->receiver->last_name }}</div>
                                 </a>
                                 <div class="text-sm text-gray-500">{{ $report->receiver->email }}</div>
                             </div>
@@ -45,7 +45,7 @@
                             <img class="rounded-full size-10" src="{{ $report->writer->profile_picture ? asset('storage/' . $report->writer->profile_picture) : asset('assets/default_pfp.png') }}" alt="Photo de profil">
                             <div>
                                 <a href="{{ route('user.index', $report->writer->id) }}">
-                                    <div class="text-sm font-medium text-gray-900 hover:text-primary-500">{{ $report->writer->first_name }} {{ $report->writer->last_name }}</div>
+                                    <div class="text-sm font-medium text-gray-900 hover:text-primary">{{ $report->writer->first_name }} {{ $report->writer->last_name }}</div>
                                 </a>
                                 <div class="text-sm text-gray-500">{{ $report->writer->email }}</div>
                             </div>

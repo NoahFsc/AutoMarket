@@ -31,25 +31,25 @@
                 <form action="{{ route('auth.logout') }}" method="POST">
                     @method('DELETE')
                     @csrf
-                    <button type="submit" class="w-full px-4 py-2 text-sm transition-all duration-300 border rounded-lg border-opacity-20 hover:border-opacity-80 text-error-500 border-error-500">Déconnexion</button>
+                    <button type="submit" class="w-full px-4 py-2 text-sm transition-all duration-300 border rounded-lg border-opacity-20 hover:border-opacity-80 text-error border-error">Déconnexion</button>
                 </form>
-                <a href="{{ route('user.edit', $user->id) }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Modifier le profil</a>
+                <a href="{{ route('user.edit', $user->id) }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">Modifier le profil</a>
             </div>
             @else
             <div class="hidden gap-3 md:flex md:justify-end">
                 <livewire:report-user :userId="$user->id" />
-                    <a href="{{ route('chat.start', $user->id) }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Envoyer un message</a>
+                    <a href="{{ route('chat.start', $user->id) }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">Envoyer un message</a>
             </div>
             @endif
         
             {{-- Données importantes --}}
             <div class="flex w-full gap-3">
-                <div class="flex flex-col w-full gap-2 p-2 rounded-lg bg-opacity-20 bg-primary-500 md:p-4">
-                    <span class="text-xl font-bold text-primary-500 md:text-4xl"> {{ count($cars->where('status', 1)) }} </span>
+                <div class="flex flex-col w-full gap-2 p-2 rounded-lg bg-opacity-20 bg-primary md:p-4">
+                    <span class="text-xl font-bold text-primary md:text-4xl"> {{ count($cars->where('status', 1)) }} </span>
                     <span class="text-sm">Véhicules vendus</span>
                 </div>
-                <div class="flex flex-col w-full gap-2 p-2 rounded-lg bg-opacity-10 bg-primary-500 md:p-4">
-                    <span class="text-xl font-bold text-primary-500 md:text-4xl">{{ floor(\Carbon\Carbon::parse($user->created_at)->diffInYears(\Carbon\Carbon::now())) }}</span>
+                <div class="flex flex-col w-full gap-2 p-2 rounded-lg bg-opacity-10 bg-primary md:p-4">
+                    <span class="text-xl font-bold text-primary md:text-4xl">{{ floor(\Carbon\Carbon::parse($user->created_at)->diffInYears(\Carbon\Carbon::now())) }}</span>
                     <span class="text-sm">Années de présence</span>
                 </div>
             </div>
@@ -59,15 +59,15 @@
     {{-- Boutons Mobile --}}
     <div class="flex gap-3 md:hidden">
         @if ($user->id == Auth::id())
-        <a href="{{ route('user.edit', $user->id) }}" class="w-full py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Modifier le profil</a>
+        <a href="{{ route('user.edit', $user->id) }}" class="w-full py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">Modifier le profil</a>
         <form action="{{ route('auth.logout') }}" method="POST" class="w-full">
             @method('DELETE')
             @csrf
-            <button type="submit" class="w-full py-2 text-sm transition-all duration-300 border rounded-lg border-opacity-20 hover:border-opacity-80 text-error-500 border-error-500">Déconnexion</button>
+            <button type="submit" class="w-full py-2 text-sm transition-all duration-300 border rounded-lg border-opacity-20 hover:border-opacity-80 text-error border-error">Déconnexion</button>
         </form>
         @else
         <livewire:report-user :userId="$user->id" />
-        <a href="{{ route('chat.start', $user->id) }}" class="w-full py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Envoyer un message</a>
+        <a href="{{ route('chat.start', $user->id) }}" class="w-full py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">Envoyer un message</a>
         @endif
     </div>
 
@@ -130,7 +130,7 @@
 @if (session('status'))
     <div x-data="{ show: true }" x-show="show" x-init="setTimeout(() => show = false, 3000)" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="opacity-0 transform translate-y-4" x-transition:enter-end="opacity-100 transform translate-y-0" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="opacity-100 transform translate-y-0" x-transition:leave-end="opacity-0 transform translate-y-4" class="fixed bottom-0 right-0 p-4 mb-4 mr-4 text-white bg-gray-800 rounded-lg shadow-lg bg-opacity-80">
         <div class="flex items-center font-medium">
-            <i class="mr-2 text-xl fa-regular fa-circle-check text-validation-500"></i>
+            <i class="mr-2 text-xl fa-regular fa-circle-check text-validation"></i>
             {{ session('status') }}
         </div>
         @if (session('concerned_user_id'))

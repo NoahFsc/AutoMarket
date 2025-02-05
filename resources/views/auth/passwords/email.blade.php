@@ -14,11 +14,11 @@
             <label for="email" class="mb-1 text-sm text-gray-500">Adresse e-mail</label>
             <input type="email" name="email" id="email" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Entrez votre email" required>
             @error('email')
-                <div class="text-sm text-error-500">{{ $message }}</div>
+                <div class="text-sm text-error">{{ $message }}</div>
             @enderror
         </div>
 
-        <button type="submit" class="px-4 py-2 text-sm text-white rounded-md md:duration-300 md:transition-all bg-primary-500 md:hover:bg-primary-400 focus:outline-none">Envoyer le lien de réinitialisation</button>
+        <button type="submit" class="px-4 py-2 text-sm text-white rounded-md md:duration-300 md:transition-all bg-primary md:hover:bg-opacity-80 focus:outline-none">Envoyer le lien de réinitialisation</button>
     </form>
     <div class="mt-2 text-center">
         <a href="{{ route('auth.login') }}" class="text-sm text-gray-400 hover:text-gray-500">

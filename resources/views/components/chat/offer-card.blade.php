@@ -12,8 +12,8 @@
             {{-- Vue vendeur --}}
             @if(Auth::id() === $offer->car->user_id)
                 <div class="flex gap-2">
-                    <button wire:click="acceptOffer({{ $offer->id }})" class="w-full px-4 py-2 text-white rounded-lg bg-primary-500 hover:bg-primary-600">Accepter</button>
-                    <button wire:click="declineOffer({{ $offer->id }})" class="w-full px-4 py-2 text-white rounded-lg bg-error-500 hover:bg-error-600">Refuser</button>
+                    <button wire:click="acceptOffer({{ $offer->id }})" class="w-full px-4 py-2 text-white rounded-lg bg-primary hover:bg-opacity-80">Accepter</button>
+                    <button wire:click="declineOffer({{ $offer->id }})" class="w-full px-4 py-2 text-white rounded-lg bg-error hover:bg-opacity-90">Refuser</button>
                 </div>
             
             {{-- Vue acheteur --}}
@@ -28,20 +28,20 @@
             @if(Auth::id() === $offer->car->user_id)
                 <div class="flex flex-col gap-2"> 
                     @if ($offer->status === 0)
-                    <p class="flex items-center gap-2 text-validation-500"><i class="fa-solid fa-check"></i>Offre acceptée, complétion en attente</p>
-                    <button wire:click="completeSale({{ $offer->id }})" class="flex justify-center w-full px-4 py-2 text-white rounded-lg bg-primary-500 hover:bg-primary-600">Compléter la vente</button>
+                    <p class="flex items-center gap-2 text-validation"><i class="fa-solid fa-check"></i>Offre acceptée, complétion en attente</p>
+                    <button wire:click="completeSale({{ $offer->id }})" class="flex justify-center w-full px-4 py-2 text-white rounded-lg bg-primary hover:bg-opacity-80">Compléter la vente</button>
                     @else
-                    <p class="flex items-center gap-2 text-validation-500"><i class="fa-solid fa-check"></i>Offre acceptée, vente complétée</p>
+                    <p class="flex items-center gap-2 text-validation"><i class="fa-solid fa-check"></i>Offre acceptée, vente complétée</p>
                     @endif
                 </div>
                     {{-- Vue acheteur --}}
             @else
-                <p class="flex items-center gap-2 text-validation-500"><i class="fa-solid fa-check"></i>Offre acceptée, consultez votre historique d'achat</p>
+                <p class="flex items-center gap-2 text-validation"><i class="fa-solid fa-check"></i>Offre acceptée, consultez votre historique d'achat</p>
             @endif
 
         {{-- En cas d'offre refusée --}}
         @else
-            <p class="flex items-center gap-2 text-error-600"><i class="fa-regular fa-xmark"></i>Offre refusée</p>
+            <p class="flex items-center gap-2 text-error"><i class="fa-regular fa-xmark"></i>Offre refusée</p>
         @endif
     </div>
 </div>

@@ -1,16 +1,16 @@
-<div class=" bg-white shadow-md rounded-lg p-4">
-    <div class="flex justify-between items-center mb-2">
+<div class="p-4 bg-white rounded-lg shadow-md ">
+    <div class="flex items-center justify-between mb-2">
         <div class="stars">
             @for ($i = 1; $i <= 5; $i++) @if ($i <=$review->nb_of_star)
-                <i class="text-primary-500 fa-solid fa-star"></i>
+                <i class="text-primary fa-solid fa-star"></i>
                 @else
-                <i class="text-primary-500 fa-light fa-star"></i>
+                <i class="text-primary fa-light fa-star"></i>
                 @endif
                 @endfor
         </div>
         <div class="flex items-center gap-1">
             <i class="text-gray-500 fa-regular fa-badge-check"></i>
-            <p class="text-gray-500 text-sm">{{ "Certifié" }}</p>
+            <p class="text-sm text-gray-500">{{ "Certifié" }}</p>
         </div>
     </div>
     <div class="mb-4">

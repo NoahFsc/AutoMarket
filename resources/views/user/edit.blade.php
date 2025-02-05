@@ -17,7 +17,7 @@
     
             
             <span class="mx-auto font-medium md:text-3xl md:mb-8">Édition du profil</span>
-            <button type="submit" class="absolute right-0 font-medium md:hidden text-primary-500">Enregistrer</button>
+            <button type="submit" class="absolute right-0 font-medium md:hidden text-primary">Enregistrer</button>
         </div>
 
         {{-- Entête --}}
@@ -26,7 +26,7 @@
                 <img id="imageProfil" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('assets/default_pfp.png') }}" alt="Avatar" class="rounded-full size-20 md:size-24">
                 <button type="button" class="absolute flex items-center justify-center size-8" style="bottom: -5px; right: -5px;">
                     <span class="fa-stack fa-1x">
-                        <i class="fa fa-circle fa-stack-2x text-primary-500"></i>
+                        <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa-regular fa-pen fa-stack-1x fa-inverse"></i>
                     </span>
                 </button>
@@ -40,7 +40,7 @@
                 <a href="{{ route('user.index', ['id' => Auth::id()]) }}" class="hidden mr-4 text-sm text-gray-400 md:text-base md:block hover:text-gray-500">
                     Annuler 
                 </a>
-                <button type="submit" class="hidden px-4 py-2 text-sm text-center text-white rounded-lg md:text-base md:block md:duration-300 md:transition-all bg-primary-500 hover:bg-primary-400">Enregistrer</button>
+                <button type="submit" class="hidden px-4 py-2 text-sm text-center text-white rounded-lg md:text-base md:block md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">Enregistrer</button>
             </div>
         </div>
 
@@ -64,7 +64,7 @@
                         <label for="first_name" class="mb-1 text-gray-500">Prénom</label>
                         <input type="text" name="first_name" id="first_name" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre prénom" value="{{ $user->first_name }}">
                         @error('first_name')
-                            <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
+                            <div class="text-sm md:text-base text-error">{{ $message }}</div>
                         @enderror
                     </div>
                     
@@ -72,7 +72,7 @@
                         <label for="last_name" class="mb-1 text-gray-500">Nom</label>
                         <input type="text" name="last_name" id="last_name" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre nom" value="{{ $user->last_name }}">
                         @error('last_name')
-                            <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
+                            <div class="text-sm md:text-base text-error">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
@@ -81,7 +81,7 @@
                     <label for="description" class="mb-1 text-gray-500">A propos de moi</label>
                     <textarea name="description" id="description" rows="5" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez une description" value="{{ $user->description }}"></textarea>
                     @error('description')
-                        <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
+                        <div class="text-sm md:text-base text-error">{{ $message }}</div>
                     @enderror
                 </div>
             </div>
@@ -99,7 +99,7 @@
                     <label for="email" class="mb-1 text-gray-500">Adresse e-mail</label>
                     <input type="email" name="email" id="email" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre adresse e-mail" value="{{ $user->email }}">
                     @error('email')
-                        <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
+                        <div class="text-sm md:text-base text-error">{{ $message }}</div>
                     @enderror
                 </div>
         
@@ -108,7 +108,7 @@
                         <label for="current_password" class="mb-1 text-gray-500">Mot de passe (marche pas pr le mmt)</label>
                         <input type="password" name="current_password" id="current_password" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre mot de passe actuel">
                         @error('current_password')
-                            <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
+                            <div class="text-sm md:text-base text-error">{{ $message }}</div>
                         @enderror
                     </div>
             
@@ -116,21 +116,21 @@
                         <div class="flex flex-col md:flex-grow">
                             <input type="password" name="new_password" id="new_password" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Nouveau mot de passe">
                             @error('new_password')
-                                <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
+                                <div class="text-sm md:text-base text-error">{{ $message }}</div>
                             @enderror
                         </div>
                 
                         <div class="flex flex-col md:flex-grow">
                             <input type="password" name="new_password_confirmation" id="new_password_confirmation" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Confirmez le nouveau mot de passe">
                             @error('new_password_confirmation')
-                                <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
+                                <div class="text-sm md:text-base text-error">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
             
                     <form action="{{ route('user.updatePassword', $user->id) }}" method="POST">
                         @csrf
-                        <button type="button" class="w-full px-3 py-2 text-sm text-white rounded-md md:text-base bg-primary-500">Modifier le mot de passe</button>
+                        <button type="button" class="w-full px-3 py-2 text-sm text-white rounded-md md:text-base bg-primary">Modifier le mot de passe</button>
                     </form>
                 </div>
         
@@ -141,14 +141,14 @@
                             <label for="birth_date" class="mb-1 text-sm text-gray-500 md:text-base">Date de naissance</label>
                             <input type="date" name="birth_date" id="birth_date" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" value="{{ \Carbon\Carbon::parse($user->birth_date)->format('Y-m-d') }}">
                             @error('birth_date')
-                                <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
+                                <div class="text-sm md:text-base text-error">{{ $message }}</div>
                             @enderror
                         </div>
                         <div class="flex flex-col w-1/2">
                             <label for="identity_card" class="mb-1 text-sm text-gray-500 md:text-base">Carte d'identité</label>
                             <input type="file" name="identity_card" id="identity_card" class="w-full px-3 py-2 text-sm bg-white border border-gray-200 rounded-md md:text-base focus:outline-none" accept=".pdf,.jpg,.jpeg">
                             @error('identity_card')
-                                <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
+                                <div class="text-sm md:text-base text-error">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
@@ -156,14 +156,14 @@
                         <label for="adresse" class="mb-1 text-sm text-gray-500 md:text-base">Adresse</label>
                         <input type="text" name="adresse" id="adresse" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre adresse" value="{{ $user->adresse }}">
                         @error('adresse')
-                            <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
+                            <div class="text-sm md:text-base text-error">{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="flex flex-col mt-2">
                         <label for="telephone" class="mb-1 text-sm text-gray-500 md:text-base">Numéro de téléphone</label>
                         <input type="text" name="telephone" id="telephone" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md md:text-base focus:outline-none" placeholder="Entrez votre numéro de téléphone" value="{{ $user->telephone }}">
                         @error('telephone')
-                            <div class="text-sm md:text-base text-error-500">{{ $message }}</div>
+                            <div class="text-sm md:text-base text-error">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
@@ -205,8 +205,8 @@
                 <div class="flex flex-col gap-2">
                     <span class="text-gray-500">Suppression du compte</span>
                     <div class="flex items-center gap-2">
-                        <button type="button" class="w-full py-2 text-xs text-white rounded-md md:text-sm bg-error-500 focus:outline-none">Désactiver le compte</button>
-                        <button type="button" class="w-full py-2 text-xs transition-all duration-300 border rounded-lg md:text-sm border-opacity-20 hover:border-opacity-80 text-error-500 border-error-500">Supprimer le compte</button>
+                        <button type="button" class="w-full py-2 text-xs text-white rounded-md md:text-sm bg-error focus:outline-none">Désactiver le compte</button>
+                        <button type="button" class="w-full py-2 text-xs transition-all duration-300 border rounded-lg md:text-sm border-opacity-20 hover:border-opacity-80 text-error border-error">Supprimer le compte</button>
                     </div>
                 </div>
             </div>
@@ -303,7 +303,7 @@
 
     const tabs = document.querySelectorAll('[data-tab-target]');
     const classeActive = 'bg-white';
-    const classeTextPrimary = 'text-primary-500';
+    const classeTextPrimary = 'text-primary';
     const classeTextGray = 'text-gray-700';
 
     // Sélectionner la première tab par défaut

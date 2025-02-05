@@ -10,7 +10,7 @@
     <div class="flex items-end justify-between">
         <p class="font-medium">Toutes les boîtes de vitesse <span class="font-medium opacity-50">({{ $gearboxes->total() }})</span></p>
         <div class="flex items-center gap-2">
-            <input type="text" wire:model.live='search' placeholder="Rechercher" class="w-full h-10 mt-1 border-gray-300 rounded-t-md md:rounded-md md:w-96 focus:border-primary-500 focus:ring-primary-500">
+            <input type="text" wire:model.live='search' placeholder="Rechercher" class="w-full h-10 mt-1 border-gray-300 rounded-t-md md:rounded-md md:w-96 focus:border-primary focus:ring-primary">
             <livewire:gearbox.manage-gearbox />
         </div>
     </div>

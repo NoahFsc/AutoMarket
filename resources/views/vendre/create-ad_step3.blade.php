@@ -8,24 +8,24 @@
     <div class="flex justify-center mb-10 text-3xl font-semibold text-gray-800">Poster une annonce</div>
     <div class="relative mb-6">
         <div class="absolute inset-0 flex items-center">
-            <div class="w-full h-1 mt-8 ml-20 mr-8 bg-info-500"></div>
+            <div class="w-full h-1 mt-8 ml-20 mr-8 bg-info"></div>
         </div>
         <div class="relative flex items-center justify-between">
             <div class="flex flex-col items-center">
                 <div class="mb-2 text-gray-700">Informations Générales</div>
-                <div class="flex items-center justify-center w-8 h-8 rounded-full bg-info-500">
+                <div class="flex items-center justify-center w-8 h-8 rounded-full bg-info">
                     <i class="text-white fa-regular fa-check"></i>
                 </div>
             </div>
             <div class="flex flex-col items-center">
                 <div class="mb-2 text-gray-500">Documents</div>
-                <div class="flex items-center justify-center w-8 h-8 rounded-full bg-info-500">
+                <div class="flex items-center justify-center w-8 h-8 rounded-full bg-info">
                     <i class="text-white fa-regular fa-check"></i>
                 </div>
             </div>
             <div class="flex flex-col items-center">
                 <div class="mb-2 text-gray-500">Confirmation</div>
-                <div class="w-8 h-8 bg-white border-4 rounded-full border-info-500"></div>
+                <div class="w-8 h-8 bg-white border-4 rounded-full border-info"></div>
             </div>
         </div>
     </div>
@@ -59,7 +59,7 @@
         <div class="flex justify-center gap-4 mt-8">
             <button type="button" class="px-6 py-2 text-gray-500 border border-gray-300 rounded-md hover:bg-gray-100"
                 onclick="window.history.back()">Étape précédente</button>
-            <button type="submit" class="px-6 py-2 text-white rounded-md bg-primary-500 hover:bg-primary-400">Confirmer
+            <button type="submit" class="px-6 py-2 text-white rounded-md bg-primary hover:bg-opacity-80">Confirmer
                 la création</button>
         </div>
     </form>

@@ -19,7 +19,7 @@
                 <i class="absolute text-gray-500 transform -translate-y-1/2 cursor-pointer fa-regular fa-eye right-3 top-1/2" id="togglePassword"></i>
             </div>
             @error('password')
-                <div class="text-sm text-error-500">{{ $message }}</div>
+                <div class="text-sm text-error">{{ $message }}</div>
             @enderror
         </div>
 
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <button type="submit" class="px-4 py-2 text-sm text-white rounded-md md:duration-300 md:transition-all bg-primary-500 md:hover:bg-primary-400 focus:outline-none">Réinitialiser le mot de passe</button>
+        <button type="submit" class="px-4 py-2 text-sm text-white rounded-md md:duration-300 md:transition-all bg-primary md:hover:bg-opacity-80 focus:outline-none">Réinitialiser le mot de passe</button>
     </form>
 
     <div class="mt-2 text-center">

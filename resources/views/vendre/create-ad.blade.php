@@ -17,7 +17,7 @@
         <div class="relative flex items-center justify-between">
             <div class="flex flex-col items-center">
                 <div class="mb-2 text-gray-700">Informations Générales</div>
-                <div class="w-8 h-8 bg-white border-4 rounded-full border-info-500"></div>
+                <div class="w-8 h-8 bg-white border-4 rounded-full border-info"></div>
             </div>
             <div class="flex flex-col items-center">
                 <div class="mb-2 text-gray-500">Documents</div>
@@ -36,7 +36,7 @@
             <div>
                 <livewire:create-search />
                 <label class="block mt-4 mb-2 font-medium text-gray-500">Type de Véhicule</label>
-                <select class="w-full text-gray-500 border-gray-300 rounded-md focus:ring focus:ring-primary-300"
+                <select class="w-full text-gray-500 border-gray-300 rounded-md focus:ring focus:ring-primary"
                     name="type_of_car_id">
                     <option value="" disabled selected>Sélectionnez un niveau</option>
                     @foreach ($vehiculeTypes as $vehiculeType)
@@ -45,7 +45,7 @@
                 </select>
 
                 <label class="block mt-4 mb-2 font-medium text-gray-500">Contrôle Technique</label>
-                <select class="w-full text-gray-500 border-gray-300 rounded-md focus:ring focus:ring-primary-300"
+                <select class="w-full text-gray-500 border-gray-300 rounded-md focus:ring focus:ring-primary"
                     name="status_ct">
                     <option value="" disabled selected>Sélectionner un état</option>
                     <option>À Jour</option>
@@ -54,13 +54,13 @@
             </div>
             <div>
                 <label class="block mb-2 font-medium text-gray-500">Année</label>
-                <input type="number" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-300"
+                <input type="number" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary"
                     placeholder="Entrez l'année de mise en circulation" name="car_year">
                 <label class="block mt-4 mb-2 font-medium text-gray-500">Provenance</label>
-                <input type="text" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-300"
+                <input type="text" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary"
                     placeholder="Entrez la provenance" name="provenance">
                 <label class="block mt-4 mb-2 font-medium text-gray-500">Kilométrage</label>
-                <input type="number" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-300"
+                <input type="number" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary"
                     placeholder="Entrez le kilométrage" name="mileage">
                 <label class="block mt-4 mb-2 font-medium text-gray-500">Nombres de portes</label>
                 <select class="w-full text-gray-500 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-300"
@@ -117,7 +117,7 @@
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
                 <label class="block mt-4 mb-2 font-medium text-gray-500">Sélection</label>
-                <select id="equipment-select" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500" name="equipments[]">
+                <select id="equipment-select" class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary" name="equipments[]">
                     <option value="" disabled selected>Sélectionnez un niveau</option>
                     @foreach ($equipments as $equipment)
                         <option value="{{ $equipment->id }}">{{$equipment->equipment_name}}</option>
@@ -126,7 +126,7 @@
             </div>
             <div>
                 <label class="block mt-4 mb-2 font-medium text-gray-500">Boîte de vitesse</label>
-                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary-500"
+                <select class="w-full border-gray-300 rounded-md focus:ring focus:ring-primary"
                     name="boite_vitesse_id">
                     <option value="" disabled selected>Sélectionnez un type boîte de vitesse</option>
                     @foreach ($gearboxes as $gearboxe)
@@ -142,7 +142,7 @@
         <div class="flex justify-center gap-4 mt-8">
             <button type="button" class="px-6 py-2 text-gray-500 border border-gray-300 rounded-md hover:bg-gray-100"
                 onclick="window.history.back()">Étape précédente</button>
-            <button type="submit" class="px-6 py-2 text-white rounded-md bg-primary-500 hover:bg-primary-400">Étape
+            <button type="submit" class="px-6 py-2 text-white rounded-md bg-primary hover:bg-opacity-80">Étape
                 suivante</button>
         </div>
     </form>
