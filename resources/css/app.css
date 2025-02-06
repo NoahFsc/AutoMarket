@@ -2,89 +2,66 @@
 @tailwind components;
 @tailwind utilities;
 
+[data-theme] {
+    display: none;
+}
+
+[data-theme-loaded] {
+    display: block;
+}
+
 @layer base {
     :root {
         --background: 245, 243, 240;
-        /* #F5F3F0 */
-        --select-background: 255, 255, 255;
-        --select-border: 209, 213, 219;
+        --input: 255, 255, 255;
+        --input-border: 209, 213, 219;
         --primary: 51, 128, 204;
-        /* #3380CC */
         --secondary: 232, 223, 202;
-        /* #E8DFCA */
         --validation: 71, 133, 72;
-        /* #478548 */
         --info: 71, 96, 133;
-        /* #476085 */
         --error: 191, 64, 64;
-        /* #BF4040 */
         --text-color: 0, 0, 0;
-        /* Noir */
         --text-reverse: 255, 255, 255;
     }
 
     @media (prefers-color-scheme: dark) {
         :root {
-            --background: 12, 12, 12;
-            /* #121212 */
-            --select-background: 32, 32, 32;
-            /* #202020 */
-            --select-border: 32, 32, 32;
+            --background: 5, 12, 18;
+            --input: 33, 51, 67;
+            --input-border: 33, 51, 67;
             --primary: 51, 128, 204;
-            /* #3380CC */
             --secondary: 232, 223, 202;
-            /* #E8DFCA */
             --validation: 71, 133, 72;
-            /* #478548 */
             --info: 71, 96, 133;
-            /* #476085 */
             --error: 191, 64, 64;
-            /* #BF4040 */
             --text-color: 255, 255, 255;
-            /* Blanc */
             --text-reverse: 0, 0, 0;
         }
     }
 
     :root[data-theme="light"] {
         --background: 245, 243, 240;
-        /* #F5F3F0 */
-        --select-background: 255, 255, 255;
-        --select-border: 209, 213, 219;
+        --input: 255, 255, 255;
+        --input-border: 209, 213, 219;
         --primary: 51, 128, 204;
-        /* #3380CC */
         --secondary: 232, 223, 202;
-        /* #E8DFCA */
         --validation: 71, 133, 72;
-        /* #478548 */
         --info: 71, 96, 133;
-        /* #476085 */
         --error: 191, 64, 64;
-        /* #BF4040 */
         --text-color: 0, 0, 0;
-        /* Noir */
         --text-reverse: 255, 255, 255;
-        /* Blanc */
     }
 
     :root[data-theme="dark"] {
-        --background: 12, 12, 12;
-        /* #121212 */
-        --select-background: 32, 32, 32;
-        /* #202020 */
-        --select-border: 32, 32, 32;
+        --background: 5, 12, 18;
+        --input: 33, 51, 67;
+        --input-border: 33, 51, 67;
         --primary: 51, 128, 204;
-        /* #3380CC */
         --secondary: 232, 223, 202;
-        /* #E8DFCA */
         --validation: 71, 133, 72;
-        /* #478548 */
         --info: 71, 96, 133;
-        /* #476085 */
         --error: 191, 64, 64;
-        /* #BF4040 */
         --text-color: 255, 255, 255;
-        /* Blanc */
         --text-reverse: 0, 0, 0;
     }
 }
