@@ -23,6 +23,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
 
 # Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN composer dump-autoload
 
 # Définir le répertoire de travail à l'intérieur du conteneur
 WORKDIR /var/www/html
