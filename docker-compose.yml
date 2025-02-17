@@ -60,6 +60,7 @@ services:
       - sonarqube_db
     networks:
       - back-network
+      - front-network
 
   sonarqube_db:
     image: postgres:latest
