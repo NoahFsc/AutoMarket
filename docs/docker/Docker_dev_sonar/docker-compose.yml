@@ -11,7 +11,7 @@ services:
       MYSQL_USER: laravel_user
       MYSQL_PASSWORD: user_password
     volumes:
-      - ./mysql_data:/var/lib/mysql
+      - mysql_data:/var/lib/mysql
     ports:
       - "3306:3306"
     networks:
@@ -19,12 +19,14 @@ services:
 
   app:
     image: php:8.2-fpm
-    build: /app
+    build:
+      context: ./app
     container_name: laravel-app
     restart: unless-stopped
     working_dir: /var/www/html
     volumes:
       - ./app:/var/www/html
+    command: sh -c "chown -R www-data:www-data /var/www/html && php-fpm"
     networks:
       - back-network
       - front-network
@@ -49,9 +51,9 @@ services:
     container_name: sonarqube
     restart: unless-stopped
     environment:
-      SONARQUBE_JDBC_URL: jdbc:postgresql://sonarqube_db:5432/sonarqube
-      SONARQUBE_JDBC_USERNAME: sonar
-      SONARQUBE_JDBC_PASSWORD: sonar
+      SONAR_JDBC_URL: jdbc:postgresql://sonarqube_db:5432/sonarqube
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
     ports:
       - "9000:9000"
     depends_on:
@@ -73,6 +75,7 @@ services:
       - back-network
 
 volumes:
+  mysql_data:
   sonarqube_db_data:
 
 networks:
