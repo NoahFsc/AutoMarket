@@ -1,42 +1,38 @@
-# Utiliser l'image PHP officielle avec FPM
+# Utiliser l'image officielle PHP avec FPM
 FROM php:8.2-fpm
 
-# Installer les dépendances nécessaires
+# Installer les dépendances système
 RUN apt-get update && apt-get install -y \
-    build-essential \
-    libpng-dev \
-    libjpeg-dev \
-    libfreetype6-dev \
-    libonig-dev \
-    libzip-dev \
-    zip \
-    unzip \
     git \
+    unzip \
     curl \
-    nano \
-    libmcrypt-dev \
     && docker-php-ext-install pdo pdo_mysql
-
-# Installer les extensions PHP nécessaires pour Laravel
-RUN docker-php-ext-configure gd --with-freetype --with-jpeg && \
-    docker-php-ext-install pdo pdo_mysql gd mbstring zip exif pcntl bcmath opcache
 
 # Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
-RUN composer dump-autoload
 
-# Définir le répertoire de travail à l'intérieur du conteneur
+# Définir le répertoire de travail
 WORKDIR /var/www/html
 
-# Copier les fichiers du projet Laravel dans le conteneur
+# Copier seulement les fichiers nécessaires pour installer les dépendances
+COPY composer.json composer.lock ./
+
+# Installer les dépendances avec Composer
+RUN composer install --no-dev --optimize-autoloader
+
+# Copier le reste du projet
 COPY . .
 
-# Donner les permissions au répertoire de stockage
+# Corriger les permissions
 RUN chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 RUN chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Lancer Composer pour installer les dépendances
-RUN composer install --no-dev --optimize-autoloader
+# Exécuter les commandes Artisan
+RUN php artisan key:generate
+RUN php artisan cache:clear
+RUN php artisan config:clear
+RUN php artisan route:clear
+RUN php artisan view:clear
 
 # Exposer le port 9000 pour PHP-FPM
 EXPOSE 9000
