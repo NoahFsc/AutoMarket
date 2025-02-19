@@ -1,5 +1,10 @@
 .git
-vendor
 node_modules
+vendor
 storage/logs
 storage/framework
+docker-compose.override.yml
+.env
+.env.local
+.env.*.local
+.DS_Store
