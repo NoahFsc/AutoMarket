@@ -10,27 +10,27 @@ RUN apk add --no-cache \
     && docker-php-ext-install pdo pdo_mysql \
     && rm -rf /var/cache/apk/*
 
-# Installer Composer en tant qu'utilisateur root
+# Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Définir le répertoire de travail
 WORKDIR /var/www/html
 
-# Copier le reste du projet et attribuer les bonnes permissions
+# Copier les fichiers du projet
 COPY . .
 
-# Installer les dépendances avec Composer en root
-RUN composer install
-
-# Changer les permissions après l'installation des dépendances
+# Assurer les bonnes permissions en tant que root
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache
 
-# Exposer le port 9000 pour PHP-FPM
-EXPOSE 9000
-
 # Passer à l’utilisateur www-data
 USER www-data
+
+# Installer les dépendances avec Composer
+RUN composer install
+
+# Exposer le port 9000 pour PHP-FPM
+EXPOSE 9000
 
 # Démarrer PHP-FPM
 CMD ["php-fpm"]
