@@ -4,7 +4,7 @@
 
 @section('contenu')
 
-<div class="flex flex-grow gap-16 bg-white">
+<div class="flex flex-grow gap-16 bg-reverse">
     <livewire:admin-sidebar />
     <livewire:reports-catalog />
 </div>

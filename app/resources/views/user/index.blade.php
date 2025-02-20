@@ -13,11 +13,11 @@
                 <img src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('assets/default_pfp.png') }}" alt="Avatar" class="rounded-full size-20 md:size-24">
                 <div class="flex flex-col w-full">
                     <span class="w-full text-2xl font-medium">{{$user->first_name . ' ' . $user->last_name }}</span>
-                    <span class="text-base text-gray-500 md:hidden">{{ '@' . strtolower($user->first_name . $user->last_name) }} </span>
+                    <span class="text-default/50 md:hidden">{{ '@' . strtolower($user->first_name . $user->last_name) }} </span>
                     <div class="flex items-baseline justify-end w-full gap-1 md:hidden">
                         <i class="text-yellow-400 fa-solid fa-star"></i>
                         <span class="text-sm font-bold">{{ number_format($reviews->avg('nb_of_star'), 1) }}</span>
-                        <span class="text-sm text-gray-500">({{ count($reviews) }})</span>
+                        <span class="text-sm text-default/50">({{ count($reviews) }})</span>
                     </div>
                 </div>
             </div>
@@ -74,19 +74,19 @@
 
     {{-- Informations supplémentaires --}}
     <div class="flex items-center justify-between w-full md:justify-normal md:gap-8">
-        <span class="hidden text-sm text-gray-500 md:block">{{ '@' . strtolower($user->first_name . $user->last_name) }} </span>
+        <span class="hidden text-sm text-default/50 md:block">{{ '@' . strtolower($user->first_name . $user->last_name) }} </span>
         <div>
-            <i class="text-gray-500 fa-regular fa-location-dot fa-sm"></i>
-            <span class="text-sm text-gray-500">{{ \Illuminate\Support\Str::after($user->adresse, ',') }}</span>
+            <i class="text-default/50 fa-regular fa-location-dot fa-sm"></i>
+            <span class="text-sm text-default/50">{{ \Illuminate\Support\Str::after($user->adresse, ',') }}</span>
         </div>
         <div>
-            <i class="text-gray-500 fa-regular fa-calendar fa-sm"></i>
-            <span class="text-sm text-gray-500">A rejoint le {{ \Carbon\Carbon::parse($user->created_at)->format('d M Y') }}</span>
+            <i class="text-default/50 fa-regular fa-calendar fa-sm"></i>
+            <span class="text-sm text-default/50">A rejoint le {{ \Carbon\Carbon::parse($user->created_at)->format('d M Y') }}</span>
         </div>
         <div class="items-baseline hidden gap-1 md:flex">
             <i class="text-yellow-400 fa-solid fa-star"></i>
             <span class="text-sm font-bold">{{ number_format($reviews->avg('nb_of_star'), 1) }}</span>
-            <span class="text-sm text-gray-500">({{ count($reviews) }})</span>
+            <span class="text-sm text-default/50">({{ count($reviews) }})</span>
         </div>
     </div>
 

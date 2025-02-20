@@ -6,17 +6,17 @@
 
 <div class="flex flex-col mx-8 md:w-1/3 md:mx-auto">
     <div class="w-full mb-1 text-2xl font-bold text-center md:text-4xl">Définir un nouveau mot de passe</div>
-    <div class="w-full text-base text-center text-gray-500">Doit faire au minimum 8 caractères dont un spécial</div>
+    <div class="w-full text-base text-center text-default/50">Doit faire au minimum 8 caractères dont un spécial</div>
     <form method="POST" action="{{ route('password.update') }}" class="flex flex-col w-full gap-2 mt-4 md:mt-6">
         @csrf
         <input type="hidden" name="token" value="{{ $token }}">
         <input type="hidden" name="email" value="{{ $email ?? old('email') }}">
 
         <div class="flex flex-col">
-            <label for="password" class="mb-1 text-sm text-gray-500">Mot de passe</label>
+            <label for="password" class="mb-1 text-sm text-default/50">Mot de passe</label>
             <div class="relative">
-                <input type="password" name="password" id="password" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Entrez votre mot de passe" required>
-                <i class="absolute text-gray-500 transform -translate-y-1/2 cursor-pointer fa-regular fa-eye right-3 top-1/2" id="togglePassword"></i>
+                <input type="password" name="password" id="password" class="w-full px-3 py-2 text-sm border rounded-md border-input-border bg-input focus:outline-none" placeholder="Entrez votre mot de passe" required>
+                <i class="absolute transform -translate-y-1/2 cursor-pointer text-default/50 fa-regular fa-eye right-3 top-1/2" id="togglePassword"></i>
             </div>
             @error('password')
                 <div class="text-sm text-error">{{ $message }}</div>
@@ -24,10 +24,10 @@
         </div>
 
         <div class="flex flex-col">
-            <label for="password_confirmation" class="mb-1 text-sm text-gray-500">Confirmation</label>
+            <label for="password_confirmation" class="mb-1 text-sm text-default/50">Confirmation</label>
             <div class="relative">
-                <input type="password" name="password_confirmation" id="password_confirmation" class="w-full px-3 py-2 text-sm border border-gray-200 rounded-md focus:outline-none" placeholder="Confirmez votre mot de passe" required>
-                <i class="absolute text-gray-500 transform -translate-y-1/2 cursor-pointer fa-regular fa-eye right-3 top-1/2" id="togglePasswordConfirmation"></i>
+                <input type="password" name="password_confirmation" id="password_confirmation" class="w-full px-3 py-2 text-sm border rounded-md border-input-border bg-input focus:outline-none" placeholder="Confirmez votre mot de passe" required>
+                <i class="absolute transform -translate-y-1/2 cursor-pointer text-default/50 fa-regular fa-eye right-3 top-1/2" id="togglePasswordConfirmation"></i>
             </div>
         </div>
 
@@ -35,7 +35,7 @@
     </form>
 
     <div class="mt-2 text-center">
-        <a href="{{ route('auth.login') }}" class="text-sm text-gray-400 hover:text-gray-500">
+        <a href="{{ route('auth.login') }}" class="text-sm text-default/50 hover:text-default/80">
             <i class="mr-1 fa-solid fa-arrow-left fa-sm"></i> Retour vers la connexion
         </a>
     </div>

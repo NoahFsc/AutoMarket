@@ -9,8 +9,8 @@
                 @endfor
         </div>
         <div class="flex items-center gap-1">
-            <i class="text-gray-500 fa-regular fa-badge-check"></i>
-            <p class="text-sm text-gray-500">{{ "Certifié" }}</p>
+            <i class="text-default/50 fa-regular fa-badge-check"></i>
+            <p class="text-sm text-default/50">{{ "Certifié" }}</p>
         </div>
     </div>
     <div class="mb-4">

@@ -2,15 +2,15 @@
     <button @click="open = true" class="w-full px-4 py-2 mt-4 text-white rounded-lg bg-primary hover:bg-opacity-80">Faire une offre</button>
 
     <div x-cloak x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" @click="open = false">
-        <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg" @click.stop>
+        <div class="w-full max-w-md p-6 rounded-lg shadow-lg bg-input" @click.stop>
             <div class="flex items-center gap-2 mb-4">
                 <i class="text-3xl fa-regular fa-circle-exclamation"></i>
                 <p class="text-xl font-medium">Faire une offre</p>
             </div>
             <form wire:submit.prevent="submit">
                 <div class="mb-4">
-                    <label for="proposedPrice" class="block text-sm font-medium text-gray-700">Prix proposé</label>
-                    <input type="number" id="proposedPrice" wire:model="proposedPrice" class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring-primary">
+                    <label for="proposedPrice" class="block text-sm font-medium text-default/50">Prix proposé</label>
+                    <input type="number" id="proposedPrice" wire:model="proposedPrice" class="w-full mt-1 rounded-md shadow-sm border-input-border bg-input focus:border-primary focus:ring-primary">
                     @error('proposedPrice') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                 </div>
                 <div class="flex justify-end gap-4">

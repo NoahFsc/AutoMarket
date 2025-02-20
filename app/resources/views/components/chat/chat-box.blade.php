@@ -2,7 +2,7 @@
     @if($messages && $conversationId)
 
     {{-- Barre supérieure --}}
-    <div class="flex items-center justify-between pr-8 border-b-2 border-gray-200">
+    <div class="flex items-center justify-between pr-8 border-b-2 border-input">
         {{-- Informations profil --}}
         <div class="flex gap-2 p-4">
             <img src="{{ $cible->profile_picture ? asset('storage/' . $cible->profile_picture) : asset('assets/default_pfp.png') }}" class="w-12 h-12 rounded-full" alt="avatar">
@@ -52,7 +52,7 @@
                             <span>{{ $cible->first_name . ' ' . $cible->last_name }}</span>
                             <span class="text-sm opacity-50">{{ $message->formatted_date }}</span>
                         </div>
-                        <div class="{{ $message->offer ? '' : 'bg-gray-300 p-4'}} rounded-lg rounded-tl-none min-w-64">
+                        <div class="{{ $message->offer ? '' : 'bg-input p-4'}} rounded-lg rounded-tl-none min-w-64">
                             @if ($message->offer)
                                 <livewire:chat.offer-card :offer="$message->offer" :key="$message->id" />
                             @else
@@ -67,12 +67,12 @@
 
     {{-- Zone d'envoi --}}
     <div class="absolute bottom-0 flex w-full m-4">
-        <input type="text" wire:model="newMessage" wire:keydown.enter="sendMessage" class="w-11/12 p-2 border-gray-300 rounded-l-md focus:outline-none" placeholder="Envoyer un message">
+        <input type="text" wire:model="newMessage" wire:keydown.enter="sendMessage" class="w-11/12 p-2 border-input-border bg-input rounded-l-md focus:outline-none" placeholder="Envoyer un message">
         <button wire:click="sendMessage" class="px-4 py-2 text-white bg-primary rounded-r-md hover:bg-opacity-80"><i class="fa-regular fa-paper-plane-top"></i></button>
     </div>
 
     @else
-    <span class="flex justify-center w-full my-24 opacity-50">Sélectionnez une conversation</span>
+    <span class="flex justify-center w-full my-24 text-default/50">Sélectionnez une conversation</span>
     @endif
 </div>
 

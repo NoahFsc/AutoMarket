@@ -2,12 +2,12 @@
     <div class="flex items-center justify-end mb-2">
         <div class="relative w-full md:w-1/3">
             <i
-                class="absolute text-gray-500 transform -translate-y-1/2 fa-light fa-magnifying-glass left-3 top-1/2"></i>
+                class="absolute transform -translate-y-1/2 text-default/50 fa-regular fa-magnifying-glass left-3 top-1/2"></i>
             <input type="text" wire:model.live='search' placeholder="Rechercher une annonce"
-                class="block w-full h-10 py-2 pl-10 pr-4 border-gray-300 rounded-md sm:text-sm">
+                class="block w-full h-10 py-2 pl-10 pr-4 rounded-md border-input-border bg-input sm:text-sm">
         </div>
         <button wire:click="createAd"
-            class="flex items-center justify-center w-full h-10 px-4 py-2 ml-4 border-4 rounded-lg md:w-auto border-secondary bg-secondary">
+            class="flex items-center justify-center w-full h-10 px-4 py-2 ml-4 border-4 rounded-lg md:w-auto border-primary bg-primary">
             <i class="mr-2 fa-light fa-plus"></i> Créer une annonce
         </button>
     </div>
@@ -27,7 +27,7 @@
             @endforeach
         </div>
     </section>
-    <hr class="border-gray-300">
+    <hr class="border-input-border">
 
     <!-- Vos enchères en cours -->
     <section class="py-8 mx-auto">

@@ -1,5 +1,5 @@
-<div wire:poll.1000ms="updateCard" class="text-black min-w-80">
-    <div class="flex flex-col gap-2 p-2 bg-white rounded-lg">
+<div wire:poll.1000ms="updateCard" class="min-w-80">
+    <div class="flex flex-col gap-2 p-2 rounded-lg bg-input">
         <div class="flex gap-2">
             <img src="{{ $offer->car->imageDocument->document_content }}" alt="Car Image" class="w-32 h-24 rounded-lg">
             <div>

@@ -4,7 +4,7 @@
 
 @section('contenu')
 
-<div class="mx-8 bg-gray-100 md:mx-0" x-data="{ showEquipments: false, showCarousel: false, currentPhoto: 0, photos: [
+<div class="mx-8 bg-background md:mx-0" x-data="{ showEquipments: false, showCarousel: false, currentPhoto: 0, photos: [
     @foreach($car->documents as $document)
         @if($document->document_type == 'image')
             { src: '{{ asset('storage/' . $document->document_content) }}', alt: 'Car Image' },
@@ -94,7 +94,7 @@
                     <div class="flex justify-between">
                         <div>
                             <h1 class="text-2xl font-bold">{{$car->carModel->brand->brand_name ." ". $car->carModel->model_name}}</h1>
-                            <p class="mt-1 text-sm text-gray-500">
+                            <p class="mt-1 text-sm text-default/50">
                                 @php
                                     use Carbon\Carbon;
                                     $createdAt = Carbon::parse($car->created_at);
@@ -115,13 +115,13 @@
                 <!-- Informations générales -->
                 <div class="w-full mt-4 space-y-4 md:space-y-0 md:flex md:space-x-4">
                     <!-- Informations générales -->
-                    <div class="p-4 bg-white rounded-lg md:w-3/5">
+                    <div class="p-4 rounded-lg bg-input md:w-3/5">
                         <div class="relative">
                             <div class="flex items-center space-x-2">
                                 <i class="fa-light fa-circle-info"></i>
                                 <h2 class="text-lg font-medium md:text-xl">Informations générales</h2>
                             </div>
-                            <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gray-300 opacity-50"></div>
+                            <div class="absolute inset-x-0 bottom-0 h-0.5 bg-input-border opacity-50"></div>
                         </div>
                         <ul class="mt-2 space-y-2">
                             <li class="flex justify-between">
@@ -148,13 +148,13 @@
                     </div>
 
                     <!-- Moteur -->
-                    <div class="p-4 bg-white rounded-lg md:w-2/5">
+                    <div class="p-4 rounded-lg bg-input md:w-2/5">
                         <div class="relative">
                             <div class="flex items-center space-x-2">
                                 <i class="fa-light fa-engine"></i>
                                 <h2 class="text-lg font-medium md:text-xl">Moteur</h2>
                             </div>
-                            <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gray-300 opacity-50"></div>
+                            <div class="absolute inset-x-0 bottom-0 h-0.5 bg-input-border opacity-50"></div>
                         </div>
                         <ul class="mt-2 space-y-2">
                             <li class="flex justify-between">
@@ -176,13 +176,13 @@
                 <!-- Impact et Équipement -->
                 <div class="w-full mt-4 space-y-4 md:space-y-0 md:flex md:space-x-4">
                     <!-- Impact -->
-                    <div class="p-4 bg-white rounded-lg md:w-2/5">
+                    <div class="p-4 rounded-lg bg-input md:w-2/5">
                         <div class="relative">
                             <div class="flex items-center space-x-2">
                                 <i class="fa-regular fa-leaf"></i>
                                 <h2 class="text-lg font-medium md:text-xl">Impact</h2>
                             </div>
-                            <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gray-300 opacity-50"></div>
+                            <div class="absolute inset-x-0 bottom-0 h-0.5 bg-input-border opacity-50"></div>
                         </div>
                         <ul class="mt-2 space-y-2">
                             <li class="flex justify-between">
@@ -201,7 +201,7 @@
                     </div>
 
                     <!-- Équipement -->
-                    <div class="p-4 bg-white rounded-lg md:w-3/5">
+                    <div class="p-4 rounded-lg bg-input md:w-3/5">
                         <div class="relative">
                             <div class="flex items-center justify-between">
                                 <div class="flex items-center space-x-2">
@@ -210,7 +210,7 @@
                                 </div>
                                 <a href="#" @click.prevent="showEquipments = true" class="text-xs text-blue-500 hover:underline">Voir plus</a>
                             </div>
-                            <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gray-300 opacity-50"></div>
+                            <div class="absolute inset-x-0 bottom-0 h-0.5 bg-input-border opacity-50"></div>
                         </div>
                         <div class="hidden md:grid md:gap-4 md:mt-4 md:grid-cols-4">
                             @foreach ($car->equipments->take(8) as $equipment)
@@ -224,7 +224,7 @@
 
                 <!-- Interface modale pour afficher tous les équipements -->
                 <div x-cloak x-show="showEquipments" @click.away="showEquipments = false" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
-                    <div class="relative w-3/4 p-4 bg-white rounded-lg">
+                    <div class="relative w-3/4 p-4 rounded-lg bg-input">
                         <button @click="showEquipments = false" class="absolute top-0 right-0 px-4 py-2 mt-4 mr-4 text-sm text-white bg-black bg-opacity-50 rounded-lg">Fermer</button>
                         <h2 class="mb-4 text-lg font-medium md:text-xl">Tous les équipements</h2>
                         <div class="grid gap-4 md:grid-cols-2">
@@ -238,14 +238,14 @@
                 </div>
 
                 <!-- Commentaire du vendeur -->
-                <div class="w-full p-4 mt-4 bg-white rounded-lg">
+                <div class="w-full p-4 mt-4 rounded-lg bg-input">
                     <div class="relative">
                         <div class="flex items-center justify-between">
                             <div class="flex items-center space-x-2">
                                 <i class="fa-regular fa-message"></i>
                                 <h2 class="text-lg font-medium">Commentaire du vendeur</h2>
                             </div>
-                            <div class="absolute inset-x-0 bottom-0 h-0.5 bg-gray-300 opacity-50"></div>
+                            <div class="absolute inset-x-0 bottom-0 h-0.5 bg-input-border opacity-50"></div>
                         </div>
                     </div>
                     <div class="mt-4">
@@ -262,11 +262,11 @@
                     <img src="{{ $car->user->profile_picture ? asset('storage/' . $car->user->profile_picture) : asset('assets/default_pfp.png') }}" alt="Photo vendeur" class="w-16 h-16 rounded-full">
                     <div>
                         <h2 class="text-lg font-semibold">{{$car->user->first_name ." ". $car->user->last_name}}</h2>
-                        <p class="text-sm text-gray-500">★★★★★</p>
+                        <p class="text-sm text-default/50">★★★★★</p>
                     </div>
                 </div>
                 <livewire:offer-form :carId="$car->id" />
-                <p class="mt-2 text-center text-gray-500">Ou</p>
+                <p class="mt-2 text-center text-default/50">Ou</p>
                 <div class="flex flex-col w-full gap-2 mt-2">
                     <a href="{{ route('chat.start', $car->user->id) }}" class="px-4 py-2 text-white !bg-primary rounded-lg text-center">Envoyer un message</a>
                     <!-- Bouton "Voir le numéro de téléphone" -->
@@ -289,7 +289,7 @@
                 </div>
             </div>
             <!-- Section vendeur pour l'interface téléphone -->
-            <div id="seller-section-phone" class="fixed left-0 right-0 flex items-center justify-center p-4 bg-white bottom-16 md:hidden">
+            <div id="seller-section-phone" class="fixed left-0 right-0 flex items-center justify-center p-4 bg-input bottom-16 md:hidden">
                 <div class="flex w-full space-x-2">
                     <button class="flex-1 px-4 py-2 text-white text-xs !bg-primary rounded-lg">Offre</button>
                     <a href="{{ route('chat.start', $car->user->id) }}" class="flex-1 px-4 py-2 text-white text-xs !bg-primary rounded-lg text-center">Message</a>

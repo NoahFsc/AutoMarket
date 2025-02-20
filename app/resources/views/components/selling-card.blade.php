@@ -5,8 +5,8 @@
             <p class="font-medium">{{ $car->carModel->brand->brand_name . ' ' . $car->carModel->model_name }}</p>
             <div class="flex justify-between max-w-card">
                 <div class="flex items-center gap-1">
-                    <i class="text-gray-500 fa-regular fa-badge-check"></i>
-                    <p class="text-sm text-gray-500">{{ $car->user->first_name . ' ' . $car->user->last_name }}</p>
+                    <i class="text-default/50 fa-regular fa-badge-check"></i>
+                    <p class="text-sm text-default/50">{{ $car->user->first_name . ' ' . $car->user->last_name }}</p>
                 </div>
                 <p class="font-semibold">{{ number_format($car->selling_price, 2) }}€</p>
             </div>
