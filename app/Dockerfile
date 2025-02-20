@@ -21,7 +21,9 @@ COPY . .
 
 # Assurer les bonnes permissions en tant que root
 RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 775 storage bootstrap/cache
+    && chmod -R 775 storage bootstrap/cache \
+    && sudo chmod 755 /var/www/ \
+    && sudo chmod -R 774 /var/www/html
 
 # Passer à l’utilisateur www-data
 USER www-data
