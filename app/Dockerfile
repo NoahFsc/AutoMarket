@@ -10,7 +10,7 @@ RUN apk add --no-cache \
     && docker-php-ext-install pdo pdo_mysql \
     && rm -rf /var/cache/apk/*
 
-# Installer Composer en tant qu'utilisateur non root
+# Installer Composer en tant qu'utilisateur root
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Définir le répertoire de travail
@@ -19,10 +19,10 @@ WORKDIR /var/www/html
 # Copier le reste du projet et attribuer les bonnes permissions
 COPY . .
 
-# Installer les dépendances avec Composer sans exécuter en root
+# Installer les dépendances avec Composer en root
 RUN composer install
 
-# Changer les permissions
+# Changer les permissions après l'installation des dépendances
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache
 
