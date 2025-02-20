@@ -14,6 +14,11 @@ RUN apk add --no-cache \
 # Installer Composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
+# Install SonarQube Scanner
+RUN wget -O /tmp/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.6.2.2472-linux.zip \
+    && unzip /tmp/sonar-scanner-cli.zip -d /opt \
+    && ln -s /opt/sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner /usr/bin/sonar-scanner
+
 # Définir le répertoire de travail
 WORKDIR /var/www/html
 
