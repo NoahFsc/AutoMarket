@@ -25,6 +25,7 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./app:/var/www/html
+      - /var/www/vendor
     command: php-fpm
     networks:
       - back-network
