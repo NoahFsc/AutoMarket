@@ -19,9 +19,5 @@ yarn-error.log
 /.idea
 /.vscode
 /.zed
-docker-compose.override.yml
-docker-compose.prod.yml
-mysql_data/
-nginx/logs/
 .phpunit.result.cache
 .php-cs-fixer.cache

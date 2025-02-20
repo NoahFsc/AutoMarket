@@ -1,0 +1,4 @@
+docker-compose.override.yml
+docker-compose.prod.yml
+mysql_data/
+nginx/logs
