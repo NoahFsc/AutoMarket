@@ -4,13 +4,13 @@
 
 @section('contenu')
 <div class="flex flex-col w-1/3 mx-auto">
-    <a href="{{ route('chat.index') }}" class="flex items-center gap-2 text-gray-400 hover:text-gray-500">
+    <a href="{{ route('chat.index') }}" class="flex items-center gap-2 text-default/50 hover:text-default/80">
         <i class="fa-solid fa-arrow-left"></i> Retour à la page précédente
     </a>
     <span class="my-3 text-3xl font-medium">Confirmer la vente du véhicule</span>
 
     {{-- Récapitulatif --}}
-    <div class="flex gap-4 p-3 mb-4 bg-white rounded-lg">
+    <div class="flex gap-4 p-3 mb-4 rounded-lg bg-input">
         <img src="{{ $offer->car->imageDocument->document_content }}" alt="Image de couverture" class="object-cover w-1/2 rounded-lg">
         <div class="flex flex-col">
             <h2 class="text-2xl font-medium">Récapitulatif</h2>
@@ -29,23 +29,23 @@
 
         <!-- Prix de vente -->
         <div class="mb-4">
-            <label for="proposed_price" class="text-sm font-medium text-gray-700">Prix de vente</label>
-            <input type="text" name="proposed_price" value="{{ $offer->proposed_price }}" class="w-full border-gray-300 rounded-md focus:border-primary focus:ring-primary" readonly>
+            <label for="proposed_price" class="text-sm font-medium text-default/50">Prix de vente</label>
+            <input type="text" name="proposed_price" value="{{ $offer->proposed_price }}" class="w-full rounded-md border-input-border bg-input focus:border-primary focus:ring-primary" readonly>
         </div>
 
         <div class="flex gap-2 mb-4">
             <!-- Type de livraison -->
             <div class="w-full">
-                <label for="delivery_type" class="text-sm font-medium text-gray-700">Type de livraison</label>
-                <select name="delivery_type" id="delivery_type" class="w-full border-gray-300 rounded-md focus:border-primary focus:ring-primary">
+                <label for="delivery_type" class="text-sm font-medium text-default/50">Type de livraison</label>
+                <select name="delivery_type" id="delivery_type" class="w-full rounded-md border-input-border bg-input focus:border-primary focus:ring-primary">
                     <option value="Remise en main propre">Remise en main propre</option>
                     <option value="Livraison à domicile">Livraison à domicile</option>
                 </select>
             </div>
             <!-- Date de l'échange -->
             <div class="w-full">
-                <label for="exchange_date" class="text-sm font-medium text-gray-700">Date de l'échange</label>
-                <input type="date" name="exchange_date" id="exchange_date" class="w-full border-gray-300 rounded-md focus:border-primary focus:ring-primary">
+                <label for="exchange_date" class="text-sm font-medium text-default/50">Date de l'échange</label>
+                <input type="date" name="exchange_date" id="exchange_date" class="w-full rounded-md border-input-border bg-input focus:border-primary focus:ring-primary">
             </div>
         </div>
         <!-- Bouton de confirmation -->

@@ -1,4 +1,4 @@
-<div class="p-4 bg-white rounded-md">
+<div class="p-4 rounded-md bg-input">
     <div class="flex items-center gap-2 mb-2">
         <div>
             @for ($i = 1; $i <= 5; $i++)

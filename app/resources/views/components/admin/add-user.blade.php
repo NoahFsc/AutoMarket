@@ -2,30 +2,30 @@
     <button @click="open = true" class="px-4 py-2 text-white rounded-md bg-primary hover:bg-opacity-80"><i class="fa-solid fa-user-plus"></i> Ajouter un utilisateur</button>
 
     <div x-cloak x-show="open" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50" @click="open = false">
-        <div class="w-full max-w-md p-6 bg-white rounded-lg shadow-lg" @click.stop>
+        <div class="w-full max-w-md p-6 rounded-lg shadow-lg bg-input" @click.stop>
             <div class="flex items-center gap-2 mb-4">
                 <i class="text-3xl fa-regular fa-user-plus"></i>
                 <p class="text-xl font-medium">Ajouter un utilisateur</p>
             </div>
             <form wire:submit.prevent="addUser">
                 <div class="mb-4">
-                    <label for="first_name" class="block text-sm font-medium text-gray-700">Prénom</label>
-                    <input type="text" id="first_name" wire:model="first_name" class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring-primary">
+                    <label for="first_name" class="block text-sm font-medium text-default/50">Prénom</label>
+                    <input type="text" id="first_name" wire:model="first_name" class="w-full mt-1 rounded-md shadow-sm border-input-border bg-background focus:border-primary">
                     @error('first_name') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
-                    <label for="last_name" class="block text-sm font-medium text-gray-700">Nom</label>
-                    <input type="text" id="last_name" wire:model="last_name" class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring-primary">
+                    <label for="last_name" class="block text-sm font-medium text-default/50">Nom</label>
+                    <input type="text" id="last_name" wire:model="last_name" class="w-full mt-1 rounded-md shadow-sm border-input-border bg-background focus:border-primary">
                     @error('last_name') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700">Adresse e-mail</label>
-                    <input type="email" id="email" wire:model="email" class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring-primary">
+                    <label for="email" class="block text-sm font-medium text-default/50">Adresse e-mail</label>
+                    <input type="email" id="email" wire:model="email" class="w-full mt-1 rounded-md shadow-sm border-input-border bg-background focus:border-primary">
                     @error('email') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                 </div>
                 <div class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700">Mot de passe</label>
-                    <input type="password" id="password" wire:model="password" class="w-full mt-1 border-gray-300 rounded-md shadow-sm focus:border-primary focus:ring-primary">
+                    <label for="password" class="block text-sm font-medium text-default/50">Mot de passe</label>
+                    <input type="password" id="password" wire:model="password" class="w-full mt-1 rounded-md shadow-sm border-input-border bg-background focus:border-primary">
                     @error('password') <span class="text-sm text-red-600">{{ $message }}</span> @enderror
                 </div>
                 <div class="flex justify-end gap-4">
