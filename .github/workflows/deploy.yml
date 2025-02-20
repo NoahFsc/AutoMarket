@@ -33,6 +33,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 10.1.138.4 | tee -a ~/.ssh/known_hosts
           ssh -i ~/.ssh/id_rsa etudiant@10.1.138.4 << 'EOF'
+            chmod -R ug+w .;
             cd /home/etudiant/AutoMarket &&
             git pull &&
             docker-compose down &&
