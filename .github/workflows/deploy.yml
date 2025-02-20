@@ -25,7 +25,7 @@ jobs:
           sleep 10  # Attendre quelques secondes pour s'assurer que le VPN est connecté
           sudo ip route add 10.1.138.4 via 10.1.239.254 dev tun0 || true  # Ajouter la route si elle n'existe pas
           ping -c 4 10.1.138.4
-
+        
       - name: Setup SSH Key and Deploy
         run: |
           mkdir -p ~/.ssh
