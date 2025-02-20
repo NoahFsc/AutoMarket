@@ -16,14 +16,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Définir le répertoire de travail
 WORKDIR /var/www/html
 
-# Copier seulement les fichiers nécessaires pour installer les dépendances
-COPY composer.json composer.lock ./
-
-# Installer les dépendances avec Composer sans exécuter en root
-RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
-
 # Copier le reste du projet et attribuer les bonnes permissions
 COPY . .
+
+# Installer les dépendances avec Composer sans exécuter en root
+RUN composer install
 
 # Changer les permissions
 RUN chown -R www-data:www-data /var/www/html \
