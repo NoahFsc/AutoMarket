@@ -1,16 +1,16 @@
-# Utiliser l'image officielle PHP avec FPM
-FROM php:8.2-fpm
+# Utiliser une image PHP-FPM plus légère
+FROM php:8.2-fpm-alpine
 
-# Installer les dépendances système et nettoyer le cache pour optimiser la taille de l'image
-RUN apt-get update && apt-get install -y \
+# Installer les dépendances système et les extensions PHP nécessaires
+RUN apk add --no-cache \
     git \
     unzip \
     curl \
     libzip-dev \
     && docker-php-ext-install pdo pdo_mysql \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/cache/apk/*
 
-# Installer Composer
+# Installer Composer en tant qu'utilisateur non root
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # Définir le répertoire de travail
@@ -19,17 +19,21 @@ WORKDIR /var/www/html
 # Copier seulement les fichiers nécessaires pour installer les dépendances
 COPY composer.json composer.lock ./
 
-# Installer les dépendances avec Composer
-RUN composer install --no-dev --optimize-autoloader
+# Installer les dépendances avec Composer sans exécuter en root
+RUN composer install --no-dev --optimize-autoloader --no-interaction --prefer-dist
 
-# Copier le reste du projet avec les bonnes permissions
-COPY --chown=www-data:www-data . .
+# Copier le reste du projet et attribuer les bonnes permissions
+COPY . .
 
-# Corriger les permissions des dossiers nécessaires
-RUN chmod -R 775 storage bootstrap/cache
+# Changer les permissions
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 storage bootstrap/cache
 
 # Exposer le port 9000 pour PHP-FPM
 EXPOSE 9000
 
-# Lancer PHP-FPM
+# Passer à l’utilisateur www-data
+USER www-data
+
+# Démarrer PHP-FPM
 CMD ["php-fpm"]
