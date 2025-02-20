@@ -23,7 +23,7 @@
         <div class="relative flex flex-col items-center gap-4 mt-8 md:mt-0 md:flex-row">
             <div class="relative">
                 <img id="imageProfil" src="{{ $user->profile_picture ? asset('storage/' . $user->profile_picture) : asset('assets/default_pfp.png') }}" alt="Avatar" class="rounded-full size-20 md:size-24">
-                <button type="button" class="absolute flex items-center justify-center size-8" style="bottom: -5px; right: -5px;">
+                <button type="button" id="changePPButton" class="absolute flex items-center justify-center size-8" style="bottom: -5px; right: -5px;">
                     <span class="fa-stack fa-1x">
                         <i class="fa fa-circle fa-stack-2x text-primary"></i>
                         <i class="fa-regular fa-pen fa-stack-1x fa-inverse"></i>
@@ -285,7 +285,7 @@
 </div>
 
 <script>
-    document.querySelector('button[type="button"]').addEventListener('click', function() {
+    document.getElementById('changePPButton').addEventListener('click', function() {
         document.getElementById('profile_picture').click();
     });
 
