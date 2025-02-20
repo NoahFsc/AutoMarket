@@ -22,14 +22,16 @@ COPY . .
 # Assurer les bonnes permissions en tant que root
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 775 storage bootstrap/cache \
-    && sudo chmod 755 /var/www/ \
-    && sudo chmod -R 774 /var/www/html
-
-# Passer à l’utilisateur www-data
-USER www-data
+    && chmod 755 /var/www/ \
+    && chmod -R 775 /var/www/html \
+    && chown -R www-data:www-data storage bootstrap/cache \
+    && chmod -R ugo+rw storage
 
 # Installer les dépendances avec Composer
 RUN composer install
+
+# Passer à l’utilisateur www-data
+USER www-data
 
 # Exposer le port 9000 pour PHP-FPM
 EXPOSE 9000
