@@ -1,0 +1,15 @@
+{
+    "NavHome": "Home",
+    "NavBuy": "Buy",
+    "NavBid": "Bid",
+    "NavSell": "Sell",
+    "Login": "Login",
+    "DropdownMenu": "Menus",
+    "DropdownProfile": "Profile",
+    "DropdownMessages": "Messages",
+    "DropdownHistory": "Purchase History",
+    "DropdownAdmin": "Admin Panel",
+    "DropdownDarkMode": "Dark Mode",
+    "DropdownLightMode": "Light Mode",
+    "DropdownLogout": "Logout"
+}

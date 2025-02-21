@@ -1,0 +1,15 @@
+{
+    "NavHome": "Accueil",
+    "NavBuy": "Acheter",
+    "NavBid": "Enchérir",
+    "NavSell": "Vendre",
+    "Login": "Connexion",
+    "DropdownMenu": "Menus",
+    "DropdownProfile": "Profil",
+    "DropdownMessages": "Messages",
+    "DropdownHistory": "Historique d'achat",
+    "DropdownAdmin": "Administration",
+    "DropdownDarkMode": "Mode sombre",
+    "DropdownLightMode": "Mode clair",
+    "DropdownLogout": "Se déconnecter"
+}
