@@ -35,7 +35,8 @@
             <h2 class="mb-4 text-2xl font-medium">Vos enchères en cours - <span class="text-primary">{{
                     $auctions->count() }} annonces</span></h2>
         </div>
-        <div class="grid gap-6 grid-cols-auto-fit-card">
+        <div class="grid grid-flow-col gap-6 overflow-hidden select-none auto-cols-max cursor-grab"
+        id="sells-container">
             @foreach ($auctions as $car)
             @livewire('auction-card', ['car' => $car], key($car->id))
             @endforeach
@@ -44,46 +45,44 @@
 </div>
 
 <script>
-    const container = document.getElementById('sells-container');
-    const cards = document.querySelectorAll('.auction-card-container');
+    // Appliquer le comportement sur toutes les listes (ventes et enchères)
+    const containers = document.querySelectorAll('.grid-flow-col');
 
-    let isDown = false;
-    let startX;
-    let scrollLeft;
+    containers.forEach(container => {
+        let isDown = false;
+        let startX;
+        let scrollLeft;
 
-    function handleMouseDown(e) {
-        isDown = true;
-        container.classList.add('cursor-grabbing');
-        startX = e.pageX - container.offsetLeft;
-        scrollLeft = container.scrollLeft;
-    }
+        // Gestion du drag avec la souris
+        container.addEventListener('mousedown', (e) => {
+            isDown = true;
+            container.classList.add('cursor-grabbing');
+            startX = e.pageX - container.offsetLeft;
+            scrollLeft = container.scrollLeft;
+        });
 
-    function handleMouseLeave() {
-        isDown = false;
-        container.classList.remove('cursor-grabbing');
-    }
+        container.addEventListener('mouseleave', () => {
+            isDown = false;
+            container.classList.remove('cursor-grabbing');
+        });
 
-    function handleMouseUp() {
-        isDown = false;
-        container.classList.remove('cursor-grabbing');
-    }
+        container.addEventListener('mouseup', () => {
+            isDown = false;
+            container.classList.remove('cursor-grabbing');
+        });
 
-    function handleMouseMove(e) {
-        if (!isDown) return;
-        e.preventDefault();
-        const x = e.pageX - container.offsetLeft;
-        const walk = (x - startX) * 1.5; // La vitesse du défilement
-        container.scrollLeft = scrollLeft - walk;
-    }
+        container.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - container.offsetLeft;
+            const walk = (x - startX) * 1.5; // Ajuste la vitesse du déplacement
+            container.scrollLeft = scrollLeft - walk;
+        });
 
-    container.addEventListener('mousedown', handleMouseDown);
-    container.addEventListener('mouseleave', handleMouseLeave);
-    container.addEventListener('mouseup', handleMouseUp);
-    container.addEventListener('mousemove', handleMouseMove);
-
-    cards.forEach(card => {
-        card.addEventListener('mousedown', handleMouseDown);
-        card.addEventListener('mouseup', handleMouseUp);
-        card.addEventListener('mousemove', handleMouseMove);
+        // Ajout du scroll horizontal avec la molette
+        container.addEventListener('wheel', (e) => {
+            e.preventDefault(); // Empêche le scroll vertical
+            container.scrollLeft += e.deltaY * 2; // Multiplier pour ajuster la vitesse
+        });
     });
 </script>
