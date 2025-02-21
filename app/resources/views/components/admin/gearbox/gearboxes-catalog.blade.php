@@ -18,6 +18,7 @@
     {{-- Tableau --}}
     <div class="overflow-x-auto">
         <table class="min-w-full rounded-lg bg-input-border">
+        <caption id="gearboxesTableDescription" class="sr-only">Tableau listant toutes les boîtes de vitesse disponibles sur AutoMarket avec des options pour modifier ou supprimer chaque boîte de vitesse.</caption>
             <thead>
                 <tr>
                     <th class="px-6 py-3 font-medium text-left">Nom de la boîte de vitesse</th>

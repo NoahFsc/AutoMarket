@@ -126,99 +126,9 @@ class CarCatalog extends Component
 
     public function render()
     {
-        // Requête de récupération des voitures
-        if ($this->type === 0) {
-            $requete = Car::where('status', 0)->where('vente_enchere', 0);
-        } else {
-            $requete = Car::where('status', 0)->where('vente_enchere', 1);
-        }
+        $requete = $this->initializeQuery();
 
-        $filtres = [
-            ['selling_price', '>=', $this->price_min],
-            ['selling_price', '<=', $this->price_max],
-            ['mileage', '>=', $this->kilometrage_min],
-            ['mileage', '<=', $this->kilometrage_max],
-        ];
-
-        // Comparer chaque filtre avec sa valeur
-        foreach ($filtres as $filtre) {
-            if ($filtre[2] !== null) {
-                $requete->where($filtre[0], $filtre[1], $filtre[2]);
-            }
-        }
-
-        // Filtre boîte de vitesse
-        if (! empty($this->selectedGearBoxes)) {
-            $requete->whereIn('boite_vitesse_id', $this->selectedGearBoxes);
-        }
-
-        // Filtre carburant
-        if (! empty($this->selectedCarburants)) {
-            $requete->whereIn('carburant_id', $this->selectedCarburants);
-        }
-
-        // Filtre crit_air
-        if (! empty($this->selectedCritairs)) {
-            $requete->whereIn('crit_air_id', $this->selectedCritairs);
-        }
-
-        // Filtre nb_door
-        if (! empty($this->selectedNbDoors)) {
-            $requete->whereIn('nb_door_id', $this->selectedNbDoors);
-        }
-
-        // Filtre utilisateurs non vérifiés
-        if ($this->non_verifie) {
-            $requete->whereHas('user', function ($q) {
-                $q->whereNull('email_verified_at');
-            });
-        }
-
-        // Filtre utilisateurs vérifiés
-        if ($this->verifie) {
-            $requete->whereHas('user', function ($q) {
-                $q->whereNotNull('email_verified_at');
-            });
-        }
-
-        // Filtre code postal
-        if ($this->postal_code) {
-            $requete->where('postal_code', 'like', substr($this->postal_code, 0, 2).'%');
-        }
-
-        // Filtre marque
-        if ($this->selectedBrand) {
-            $requete->whereHas('carModel.brand', function ($q) {
-                $q->where('id', $this->selectedBrand);
-            });
-        }
-
-        // Filtre modèle
-        if ($this->selectedCarModel) {
-            $requete->whereHas('carModel', function ($q) {
-                $q->where('id', $this->selectedCarModel);
-            });
-        }
-
-        // Tri par temps restant
-        if ($this->sortTime) {
-            $requete->orderBy('deadline', $this->sortTime);
-        }
-
-        // Tri par prix
-        if ($this->sortPrice) {
-            $requete->orderBy('selling_price', $this->sortPrice);
-        }
-
-        // Recherche par nom de modèle ou de marque
-        if ($this->search) {
-            $requete->whereHas('carModel', function ($q) {
-                $q->where('model_name', 'like', '%'.$this->search.'%')
-                    ->orWhereHas('brand', function ($q) {
-                        $q->where('brand_name', 'like', '%'.$this->search.'%');
-                    });
-            });
-        }
+        $this->applyFilters($requete);
 
         // Récupération des voitures paginées (9 par page)
         $cars = $requete->paginate(9);
@@ -232,5 +142,120 @@ class CarCatalog extends Component
             'critairs' => $this->critairs,
             'boites' => $this->gearBoxes,
         ]);
+    }
+
+    private function initializeQuery()
+    {
+        if ($this->type === 0) {
+            return Car::where('status', 0)->where('vente_enchere', 0);
+        } else {
+            return Car::where('status', 0)->where('vente_enchere', 1);
+        }
+    }
+
+    private function applyFilters($requete)
+    {
+        $this->applyRangeFilters($requete);
+        $this->applySelectionFilters($requete);
+        $this->applyUserFilters($requete);
+        $this->applyPostalCodeFilter($requete);
+        $this->applyBrandModelFilters($requete);
+        $this->applySorting($requete);
+        $this->applySearchFilter($requete);
+    }
+
+    private function applyRangeFilters($requete)
+    {
+        $filtres = [
+            ['selling_price', '>=', $this->price_min],
+            ['selling_price', '<=', $this->price_max],
+            ['mileage', '>=', $this->kilometrage_min],
+            ['mileage', '<=', $this->kilometrage_max],
+        ];
+
+        foreach ($filtres as $filtre) {
+            if ($filtre[2] !== null) {
+                $requete->where($filtre[0], $filtre[1], $filtre[2]);
+            }
+        }
+    }
+
+    private function applySelectionFilters($requete)
+    {
+        if (!empty($this->selectedGearBoxes)) {
+            $requete->whereIn('boite_vitesse_id', $this->selectedGearBoxes);
+        }
+
+        if (!empty($this->selectedCarburants)) {
+            $requete->whereIn('carburant_id', $this->selectedCarburants);
+        }
+
+        if (!empty($this->selectedCritairs)) {
+            $requete->whereIn('crit_air_id', $this->selectedCritairs);
+        }
+
+        if (!empty($this->selectedNbDoors)) {
+            $requete->whereIn('nb_door_id', $this->selectedNbDoors);
+        }
+    }
+
+    private function applyUserFilters($requete)
+    {
+        if ($this->non_verifie) {
+            $requete->whereHas('user', function ($q) {
+                $q->whereNull('email_verified_at');
+            });
+        }
+
+        if ($this->verifie) {
+            $requete->whereHas('user', function ($q) {
+                $q->whereNotNull('email_verified_at');
+            });
+        }
+    }
+
+    private function applyPostalCodeFilter($requete)
+    {
+        if ($this->postal_code) {
+            $requete->where('postal_code', 'like', substr($this->postal_code, 0, 2) . '%');
+        }
+    }
+
+    private function applyBrandModelFilters($requete)
+    {
+        if ($this->selectedBrand) {
+            $requete->whereHas('carModel.brand', function ($q) {
+                $q->where('id', $this->selectedBrand);
+            });
+        }
+
+        if ($this->selectedCarModel) {
+            $requete->whereHas('carModel', function ($q) {
+                $q->where('id', $this->selectedCarModel);
+            });
+        }
+    }
+
+    private function applySorting($requete)
+    {
+        if ($this->sortTime) {
+            $requete->orderBy('deadline', $this->sortTime);
+        }
+
+        if ($this->sortPrice) {
+            $requete->orderBy('selling_price', $this->sortPrice);
+        }
+    }
+
+    private function applySearchFilter($requete)
+    {
+        if ($this->search) {
+            $requete->whereHas('carModel', function ($q) {
+                $q->where('model_name', 'like', '%' . $this->search . '%')
+                    ->orWhereHas('brand', function ($q) {
+                        $q->where('brand_name', 'like', '%' . $this->search . '%');
+                    });
+            });
+        }
     }
 }

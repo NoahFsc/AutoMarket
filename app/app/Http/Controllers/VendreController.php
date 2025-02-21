@@ -37,15 +37,17 @@ class VendreController extends Controller
 
     public function doStep1(Request $request)
     {
+        $integerValidation = 'required|integer|min:0';
+
         $validated = $request->validate([
             'type_of_car_id' => 'required|exists:referentiels_vehicule_type,id',
             'car_year' => 'required|integer|min:1900|max:2025',
-            'mileage' => 'required|integer|min:0',
-            'consommation' => 'required|integer|min:0',
+            'mileage' => $integerValidation,
+            'consommation' => $integerValidation,
             'nb_door_id' => 'required|exists:referentiels_nb_doors,id',
             'provenance' => 'required|string',
-            'puissance_fiscale' => 'required|integer|min:0',
-            'puissance_din' => 'required|integer|min:0',
+            'puissance_fiscale' => $integerValidation,
+            'puissance_din' => $integerValidation,
             'boite_vitesse_id' => 'required|exists:referentiels_gearbox_type,id',
             'carburant_id' => 'required|exists:referentiels_fuel_type,id',
             'crit_air_id' => 'required|exists:referentiels_crit_air,id',
@@ -74,11 +76,13 @@ class VendreController extends Controller
 
     public function doStep2(Request $request)
     {
+        $pdfValidation = 'nullable|mimes:pdf|max:2048';
+        
         $validated = $request->validate([
-            'carte_grise' => 'nullable|mimes:pdf|max:2048',
-            'fiche_technique' => 'nullable|mimes:pdf|max:2048',
-            'controle_technique' => 'nullable|mimes:pdf|max:2048',
-            'divers' => 'nullable|mimes:pdf|max:2048',
+            'carte_grise' => $pdfValidation,
+            'fiche_technique' => $pdfValidation,
+            'controle_technique' => $pdfValidation,
+            'divers' => $pdfValidation,
             'media.*' => 'nullable|mimes:jpeg,png,jpg,mp4,mp3|max:2048',
         ]);
 
@@ -128,7 +132,7 @@ class VendreController extends Controller
 
     public function uploadMedia(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'media' => 'required|mimes:jpeg,png,jpg,mp4,mp3|max:2048',
         ]);
 
@@ -159,7 +163,7 @@ class VendreController extends Controller
 
     public function uploadPDF(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'pdf' => 'required|mimes:pdf|max:2048',
         ]);
 
@@ -192,7 +196,7 @@ class VendreController extends Controller
 
         // Récupérer les données des étapes précédentes depuis la session
         $step1Data = $request->session()->get('create-ad-step1');
-        $step2Data = $request->session()->get('create-ad-step2');
+        // $step2Data = $request->session()->get('create-ad-step2');
         $uploadedDocuments = $request->session()->get('uploaded_documents', []);
 
         // Créer la voiture
@@ -227,7 +231,8 @@ class VendreController extends Controller
             }
         }
 
-        // Déplacer les fichiers du dossier temporaire vers le dossier définitif et créer les enregistrements en base de données
+        // Déplacer les fichiers du dossier temporaire vers le dossier définitif
+        // Et créer les enregistrements en base de données
         foreach ($uploadedDocuments as $document) {
             $oldPath = $document['path'];
             $newPath = str_replace('create_ad_temp', 'document_content', $oldPath);
