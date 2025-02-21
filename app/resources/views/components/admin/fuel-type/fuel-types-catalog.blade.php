@@ -18,6 +18,7 @@
     {{-- Tableau --}}
     <div class="overflow-x-auto">
         <table class="min-w-full rounded-lg bg-input-border">
+        <caption id="fuelTypesTableDescription" class="sr-only">Tableau listant tous les types de carburant disponibles sur AutoMarket avec des options pour modifier ou supprimer chaque type de carburant.</caption>
             <thead>
                 <tr>
                     <th class="px-6 py-3 font-medium text-left">Nom du type de carburant</th>

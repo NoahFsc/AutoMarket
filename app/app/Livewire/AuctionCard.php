@@ -27,8 +27,6 @@ class AuctionCard extends Component
 
         if ($this->car->lastBid && $this->car->lastBid->isNotEmpty()) {
             $this->car->selling_price = $this->car->lastBid->first()->proposed_price;
-        } else {
-            $this->car->selling_price = $this->car->selling_price;
         }
     }
 

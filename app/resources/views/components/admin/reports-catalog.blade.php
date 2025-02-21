@@ -17,6 +17,7 @@
     {{-- Tableau --}}
     <div class="overflow-x-auto">
         <table class="min-w-full rounded-lg bg-input-border">
+        <caption id="reportsTableDescription" class="sr-only">Tableau listant tous les signalements des utilisateurs avec des options pour marquer comme traité, en traitement ou supprimer chaque signalement.</caption>
             <thead>
                 <tr>
                     <th class="px-6 py-3 font-medium text-left">Utilisateur concerné</th>

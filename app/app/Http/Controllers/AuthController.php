@@ -12,6 +12,8 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+    private const EMAIL_VALIDATION_RULE = 'required|email';
+
     public function login()
     {
         return view('auth.login');
@@ -20,7 +22,7 @@ class AuthController extends Controller
     public function doLogin(Request $request)
     {
         $validated = $request->validate([
-            'email' => 'required|email',
+            'email' => self::EMAIL_VALIDATION_RULE,
             'password' => 'required|min:4',
         ]);
 
@@ -58,7 +60,7 @@ class AuthController extends Controller
         $validated = $request->validate([
             'last_name' => 'required|string|min:3|max:255',
             'first_name' => 'required|string|min:3|max:255',
-            'email' => 'required|email|unique:users',
+            'email' => self::EMAIL_VALIDATION_RULE . '|unique:users',
             'password' => 'required|min:4|confirmed',
         ]);
 
@@ -112,7 +114,7 @@ class AuthController extends Controller
 
     public function sendResetLinkEmail(Request $request)
     {
-        $request->validate(['email' => 'required|email']);
+        $request->validate(['email' => self::EMAIL_VALIDATION_RULE]);
 
         $status = Password::sendResetLink(
             $request->only('email')
@@ -134,7 +136,7 @@ class AuthController extends Controller
     {
         $request->validate([
             'token' => 'required',
-            'email' => 'required|email',
+            'email' => self::EMAIL_VALIDATION_RULE,
             'password' => 'required|confirmed|min:4',
         ]);
 

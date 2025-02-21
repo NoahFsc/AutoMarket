@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 document.addEventListener('livewire:load', function () {
     if (typeof Alpine === 'undefined') {
-        var script = document.createElement('script');
+        let script = document.createElement('script');
         script.src = '//unpkg.com/alpinejs';
         script.defer = true;
         document.head.appendChild(script);

@@ -17,6 +17,7 @@
     {{-- Tableau --}}
     <div class="overflow-x-auto">
         <table class="min-w-full rounded-lg bg-input-border">
+        <caption id="offersTableDescription" class="sr-only">Tableau listant toutes les annonces disponibles sur AutoMarket avec des options pour modifier ou supprimer chaque annonce.</caption>
             <thead>
                 <tr>
                     <th class="px-6 py-3 font-medium text-left">Intitulé d'annonce</th>
