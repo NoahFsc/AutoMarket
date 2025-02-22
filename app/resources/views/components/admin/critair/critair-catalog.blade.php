@@ -18,6 +18,7 @@
     {{-- Tableau --}}
     <div class="overflow-x-auto">
         <table class="min-w-full rounded-lg bg-input-border">
+        <caption id="critairTableDescription" class="sr-only">Tableau listant tous les Crit'air disponibles sur AutoMarket avec des options pour modifier ou supprimer chaque Crit'air.</caption>
             <thead>
                 <tr>
                     <th class="px-6 py-3 font-medium text-left">Image</th>
