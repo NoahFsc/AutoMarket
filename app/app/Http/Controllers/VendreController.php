@@ -7,6 +7,7 @@ use App\Models\CarsEquipment;
 use App\Models\Document;
 use App\Models\Equipment;
 use App\Models\Offer;
+use App\Models\Order;
 use App\Models\ReferentielsCritAir;
 use App\Models\ReferentielsFuelType;
 use App\Models\ReferentielsGearBox;
@@ -255,13 +256,54 @@ class VendreController extends Controller
 
     public function completeSale(Request $request, $offerId)
     {
-        // Logique pour compléter la vente
-
         // 1. Vérifier les champs du formulaire
+        $validated = $request->validate([
+            'delivery_type' => 'required|string|in:Remise en main propre,Livraison à domicile',
+            'exchange_date' => 'required|date',
+        ]);
+
+        // Convertir 'Remise en main propre' en 0 et 'Livraison à domicile' en 1
+        $validated['delivery_type'] = $validated['delivery_type'] === 'Remise en main propre' ? 0 : 1;
+
         // 2. Ajouter un nouvel enregistrement dans la table d'historique d'achat
+        $offer = Offer::findOrFail($offerId);
+        Order::create([
+            'delivery_status' => 0,
+            'user_id' => $offer->buyer->id,
+            'car_id' => $offer->car->id,
+            'order_date' => now(),
+            'delivery_type' => $validated['delivery_type'],
+        ]);
+
         // 3. Mettre à jour le statut de l'offre dans Offers (status = 1)
+        $offer->update(['status' => 1]);
+
         // 4. Mettre à jour le statut de l'annonce dans Cars (status = 1)
+        $offer->car->update(['status' => 1]);
+
         // 5. Mettre à jour le selling_price de l'annonce au prix de vente de l'offre (proposed_price)
-        // 5. Renvoyer vers la page de chat (route chat.index)
+        $offer->car->update(['selling_price' => $offer->proposed_price]);
+
+        // 6. Renvoyer vers la page de chat (route chat.index)
+        return redirect()->route('chat.index');
+    }
+
+    public function showHA()
+    {
+        return view('user.historiqueachat');
+    }
+
+    public function showhaview($orderId)
+    {
+        $order = Order::with(['car.carModel.brand', 'car.user'])->findOrFail($orderId);
+        return view('user.ha-view', compact('order'));
+    }
+
+    public function markAsReceived($orderId)
+    {
+        $order = Order::findOrFail($orderId);
+        $order->update(['delivery_status' => 1]);
+
+        return redirect()->route('user.ha-view', ['orderId' => $orderId])->with('success', 'Commande marquée comme reçue.');
     }
 }

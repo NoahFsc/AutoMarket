@@ -62,6 +62,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/upload-pdf', [VendreController::class, 'uploadPdf'])->name('vendre.uploadPDF');
         Route::get('/complete-sale/{offerId}', [VendreController::class, 'showCompleteSaleForm'])->name('vendre.complete-sale');
         Route::post('/complete-sale/{offerId}', [VendreController::class, 'completeSale']);
+        Route::get('/historique-achats', [VendreController::class, 'showHA'])->name('user.historiqueachat');
+        Route::get('/historique-achats/{orderId}', [VendreController::class, 'showhaview'])->name('user.ha-view');
+        Route::post('/historique-achats/{orderId}/mark-received', [VendreController::class, 'markAsReceived'])->name('order.mark-received');
     });
 
     // Route de chat
