@@ -36,7 +36,7 @@ Route::middleware('localization')->group(function () {
         Route::get('/reset/{token}', [AuthController::class, 'showResetForm'])->name('password.reset');
         Route::post('/reset', [AuthController::class, 'reset'])->name('password.update');
     });
-    
+
     // Routes du catalogue
     Route::get('/acheter', [CatalogController::class, 'acheter'])->name('catalog.acheter');
     Route::get('/encherir', [CatalogController::class, 'encherir'])->name('catalog.encherir');
@@ -66,12 +66,14 @@ Route::middleware('localization')->group(function () {
             Route::post('/upload-pdf', [VendreController::class, 'uploadPdf'])->name('vendre.uploadPDF');
             Route::get('/complete-sale/{offerId}', [VendreController::class, 'showCompleteSaleForm'])->name('vendre.complete-sale');
             Route::post('/complete-sale/{offerId}', [VendreController::class, 'completeSale']);
+            Route::get('/historique-achats', [VendreController::class, 'showHA'])->name('user.historiqueachat');
+            Route::get('/historique-achats/{orderId}', [VendreController::class, 'showhaview'])->name('user.ha-view');
+            Route::post('/historique-achats/{orderId}/mark-received', [VendreController::class, 'markAsReceived'])->name('order.mark-received');
         });
     
         // Route de chat
         Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
         Route::get('/chat/start/{userId}', [ChatController::class, 'startConversation'])->name('chat.start');
-    });
     
     // Nécessite d'être admin pour accéder aux routes suivantes
     Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {

@@ -66,7 +66,7 @@
                                 <a href="{{ route('chat.index', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-default/10" role="menuitem">
                                     <i class="fa-regular fa-message-dots"></i> <p>{{ __('DropdownMessages') }}</p>
                                 </a>
-                                <a href="{{ route('user.index', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-default/10" role="menuitem">
+                                <a href="{{ route('user.historiqueachat', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-default/10" role="menuitem">
                                     <i class="fa-regular fa-clock-rotate-left"></i> <p>{{ __('DropdownHistory') }}</p>
                                 </a>
                                 @if (Auth::user()->is_admin)

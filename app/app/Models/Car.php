@@ -27,6 +27,7 @@ class Car extends Model
         'status_ct',
         'commentaire_vendeur',
         'user_id',
+        'status',
     ];
 
     protected $casts = [
