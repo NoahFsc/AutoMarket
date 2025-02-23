@@ -12,8 +12,8 @@
         <div class="flex flex-col flex-grow bg-background">
 
             {{-- Titre et barre de recherche --}}
-            <span class="mt-4 ml-4 text-xl font-medium">Messages</span>
-            <input type="text" wire:model.live='search' placeholder="Rechercher" class="h-10 m-4 mt-2 border-input-border bg-input rounded-t-md md:rounded-md focus:border-primary focus:ring-primary">
+            <span class="mt-4 ml-4 text-xl font-medium">{{ __('Messages') }}</span>
+            <input type="text" wire:model.live='search' placeholder="{{ __('Search') }}" class="h-10 m-4 mt-2 border-input-border bg-input rounded-t-md md:rounded-md focus:border-primary focus:ring-primary">
 
             {{-- Liste des conversations --}}
             @foreach($conversations as $conversation)
@@ -45,7 +45,7 @@
         
         {{-- Retour --}}
         <a href="{{ route('home') }}" class="flex items-center justify-center h-12 mb-8 text-default/50 hover:text-default/80">
-            <i class="mr-2 fa-regular fa-arrow-left"></i> Retour à l'accueil
+            <i class="mr-2 fa-regular fa-arrow-left"></i> {{ __('BackToHome') }}
         </a>
     </div>
 </div>

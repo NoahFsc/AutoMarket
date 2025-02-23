@@ -25,7 +25,7 @@
             {{ session('status') }}
         </div>
         @if (session('edited_user_id'))
-            <a href="{{ route('produit.vente', ['id' => session('edited_offer_id')]) }}" 
+            <a href="{{ route('produit.index', ['id' => session('edited_offer_id')]) }}" 
             class="block mt-2 text-sm text-white opacity-50 hover:opacity-75">Voir l'annonce</a>
         @endif
     </div>

@@ -6,7 +6,7 @@ use App\Models\Car;
 
 class ProduitController extends Controller
 {
-    public function vente($id)
+    public function index($id)
     {
         $car = Car::findOrFail($id);
         $recommandations = Car::where('type_of_car_id', $car->type_of_car_id)
@@ -14,13 +14,6 @@ class ProduitController extends Controller
                   ->limit(4)
                   ->get();
 
-        return view('produit.produit-vente', compact('car', 'recommandations'));
-    }
-
-    public function enchere($id)
-    {
-        $car = Car::findOrFail($id);
-
-        return view('produit.produit-enchere', compact('car'));
+        return view('produit.index', compact('car', 'recommandations'));
     }
 }

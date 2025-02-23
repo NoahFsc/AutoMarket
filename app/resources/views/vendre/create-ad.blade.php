@@ -1,70 +1,70 @@
 @extends('layout')
 
-@section('titre', 'Créer une annonce')
+@section('titre', __('CreateAd'))
 
 @section('contenu')
 
 <div class="mx-8 md:w-2/4 md:mx-auto">
     <div class="flex items-center justify-between mb-6">
-        <a href="{{ route('vendre.index') }}" class="text-default/50 hover:text-default/80">&larr; Retour à la page précédente</a>
+        <a href="{{ route('vendre.index') }}" class="text-default/50 hover:text-default/80">&larr; {{ __('BackToPreviousPage') }}</a>
     </div>
-    <div class="flex justify-center mb-10 text-3xl font-semibold text-default/80">Poster une annonce</div>
+    <div class="flex justify-center mb-10 text-3xl font-semibold text-default/80">{{ __('PostAd') }}</div>
     <div class="relative mb-6">
         <div class="absolute inset-0 flex items-center">
             <div class="w-full h-1 mt-8 ml-20 mr-8 bg-input"></div>
         </div>
         <div class="relative flex items-center justify-between">
             <div class="flex flex-col items-center">
-                <div class="mb-2 text-default/80">Informations Générales</div>
+                <div class="mb-2 text-default/80">{{ __('GeneralInformation') }}</div>
                 <div class="w-8 h-8 border-4 rounded-full bg-input border-info"></div>
             </div>
             <div class="flex flex-col items-center">
-                <div class="mb-2 text-default/50">Documents</div>
+                <div class="mb-2 text-default/50">{{ __('Documents') }}</div>
                 <div class="w-8 h-8 rounded-full bg-input"></div>
             </div>
             <div class="flex flex-col items-center">
-                <div class="mb-2 text-default/50">Confirmation</div>
+                <div class="mb-2 text-default/50">{{ __('Confirmation') }}</div>
                 <div class="w-8 h-8 rounded-full bg-input"></div>
             </div>
         </div>
     </div>
     <form action="{{ route('vendre.step1') }}" method="POST">
         @csrf
-        <div class="flex justify-start mb-6 text-2xl font-semibold text-default/80">Détails du véhicule</div>
+        <div class="flex justify-start mb-6 text-2xl font-semibold text-default/80">{{ __('VehicleDetails') }}</div>
         <div class="grid grid-cols-1 gap-6 mb-10 md:grid-cols-2">
             <div>
                 <livewire:create-search />
-                <label class="block mt-4 mb-2 font-medium text-default/50">Type de Véhicule</label>
+                <label class="block mt-4 mb-2 font-medium text-default/50">{{ __('VehicleType') }}</label>
                 <select class="w-full rounded-md border-input-border bg-input text-default/50 focus:ring focus:ring-primary"
                     name="type_of_car_id">
-                    <option value="" disabled selected>Sélectionnez un niveau</option>
+                    <option value="" disabled selected>{{ __('SelectLevel') }}</option>
                     @foreach ($vehiculeTypes as $vehiculeType)
                     <option value="{{ $vehiculeType->id }}">{{$vehiculeType->nom}}</option>
                     @endforeach
                 </select>
 
-                <label class="block mt-4 mb-2 font-medium text-default/50">Contrôle Technique</label>
+                <label class="block mt-4 mb-2 font-medium text-default/50">{{ __('TechnicalControl') }}</label>
                 <select class="w-full rounded-md border-input-border bg-input text-default/50 focus:ring focus:ring-primary"
                     name="status_ct">
-                    <option value="" disabled selected>Sélectionner un état</option>
-                    <option>À Jour</option>
-                    <option>À Faire</option>
+                    <option value="" disabled selected>{{ __('SelectState') }}</option>
+                    <option>{{ __('UpToDate') }}</option>
+                    <option>{{ __('ToBeDone') }}</option>
                 </select>
             </div>
             <div>
-                <label class="block mb-2 font-medium text-default/50">Année</label>
+                <label class="block mb-2 font-medium text-default/50">{{ __('Year') }}</label>
                 <input type="number" class="w-full rounded-md border-input-border bg-input focus:ring focus:ring-primary"
-                    placeholder="Entrez l'année de mise en circulation" name="car_year">
-                <label class="block mt-4 mb-2 font-medium text-default/50">Provenance</label>
+                    placeholder="{{ __('EnterYear') }}" name="car_year">
+                <label class="block mt-4 mb-2 font-medium text-default/50">{{ __('Origin') }}</label>
                 <input type="text" class="w-full rounded-md border-input-border bg-input focus:ring focus:ring-primary"
-                    placeholder="Entrez la provenance" name="provenance">
-                <label class="block mt-4 mb-2 font-medium text-default/50">Kilométrage</label>
+                    placeholder="{{ __('EnterOrigin') }}" name="provenance">
+                <label class="block mt-4 mb-2 font-medium text-default/50">{{ __('Mileage') }}</label>
                 <input type="number" class="w-full rounded-md border-input-border bg-input focus:ring focus:ring-primary"
-                    placeholder="Entrez le kilométrage" name="mileage">
-                <label class="block mt-4 mb-2 font-medium text-default/50">Nombres de portes</label>
+                    placeholder="{{ __('EnterMileage') }}" name="mileage">
+                <label class="block mt-4 mb-2 font-medium text-default/50">{{ __('NumberOfDoors') }}</label>
                 <select class="w-full rounded-md shadow-sm border-input-border bg-input text-default/50 focus:ring focus:ring-primary"
                     name="nb_door_id">
-                    <option value="" disabled selected>Sélectionnez un niveau</option>
+                    <option value="" disabled selected>{{ __('SelectLevel') }}</option>
                     @foreach ($nbdoors as $nbdoor)
                     <option value="{{ $nbdoor->id }}">{{$nbdoor->nb_doors}}</option>
                     @endforeach
@@ -73,61 +73,61 @@
         </div>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
-                <div class="mb-6 text-2xl font-semibold text-default/80">Moteur</div>
-                <label class="block mb-2 font-medium text-default/50">Type de carburant</label>
+                <div class="mb-6 text-2xl font-semibold text-default/80">{{ __('Engine') }}</div>
+                <label class="block mb-2 font-medium text-default/50">{{ __('FuelType') }}</label>
                 <select class="w-full rounded-md shadow-sm border-input-border bg-input text-default/50 focus:ring focus:ring-primary"
                     name="carburant_id">
-                    <option value="" disabled selected>Sélectionner un type de carburant</option>
+                    <option value="" disabled selected>{{ __('SelectFuelType') }}</option>
                     @foreach ($fueltypes as $fueltype)
                     <option value="{{ $fueltype->id }}">{{$fueltype->nom}}</option>
                     @endforeach
                 </select>
 
-                <label class="block mt-4 mb-2 font-medium text-default/50">Puissance Fiscale</label>
+                <label class="block mt-4 mb-2 font-medium text-default/50">{{ __('FiscalPower') }}</label>
                 <input type="number" class="w-full rounded-md shadow-sm border-input-border bg-input focus:ring focus:ring-primary"
-                    placeholder="Entrez la puissance fiscale" name="puissance_fiscale">
+                    placeholder="{{ __('EnterFiscalPower') }}" name="puissance_fiscale">
 
-                <label class="block mt-4 mb-2 font-medium text-default/50">Puissance DIN</label>
+                <label class="block mt-4 mb-2 font-medium text-default/50">{{ __('DINPower') }}</label>
                 <input type="number" class="w-full rounded-md shadow-sm border-input-border bg-input focus:ring focus:ring-primary"
-                    placeholder="Entrez la puissance DIN" name="puissance_din">
+                    placeholder="{{ __('EnterDINPower') }}" name="puissance_din">
             </div>
             <div>
-                <div class="mb-6 text-2xl font-semibold text-default/80">Pollution</div>
-                <label class="block mb-2 font-medium text-default/50">Consommation</label>
+                <div class="mb-6 text-2xl font-semibold text-default/80">{{ __('Pollution') }}</div>
+                <label class="block mb-2 font-medium text-default/50">{{ __('Consumption') }}</label>
                 <input type="number" class="w-full rounded-md shadow-sm border-input-border bg-input focus:ring focus:ring-primary"
-                    placeholder="Entrez la consommation (/100km)" name="consommation">
+                    placeholder="{{ __('EnterConsumption') }}" name="consommation">
 
-                <label class="block mt-4 mb-2 font-medium text-default/50">Crit'Air</label>
+                <label class="block mt-4 mb-2 font-medium text-default/50">{{ __('CritAir') }}</label>
                 <select class="w-full rounded-md shadow-sm border-input-border bg-input text-default/50 focus:ring focus:ring-primary"
                     name="crit_air_id">
-                    <option value="" disabled selected>Sélectionnez un niveau</option>
+                    <option value="" disabled selected>{{ __('SelectLevel') }}</option>
                     @foreach ($critairs as $critair)
                     <option value="{{ $critair->id }}">{{$critair->nom}}</option>
                     @endforeach
                 </select>
 
-                <label class="block mt-4 mb-2 font-medium text-default/50">Émission de CO2</label>
+                <label class="block mt-4 mb-2 font-medium text-default/50">{{ __('CO2Emission') }}</label>
                 <input type="number"
                     class="w-full rounded-md shadow-sm border-input-border bg-input focus:border-blue-500 focus:ring focus:ring-primary"
-                    placeholder="Entrez l'émission de CO2" name="co2_emission">
+                    placeholder="{{ __('EnterCO2Emission') }}" name="co2_emission">
             </div>
         </div>
-        <div class="flex justify-start mt-6 text-2xl font-semibold text-default/80">Équipement</div>
+        <div class="flex justify-start mt-6 text-2xl font-semibold text-default/80">{{ __('Equipment') }}</div>
         <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
-                <label class="block mt-4 mb-2 font-medium text-default/50">Sélection</label>
+                <label class="block mt-4 mb-2 font-medium text-default/50">{{ __('Selection') }}</label>
                 <select id="equipment-select" class="w-full rounded-md border-input-border bg-input focus:ring focus:ring-primary" name="equipments[]">
-                    <option value="" disabled selected>Sélectionnez un niveau</option>
+                    <option value="" disabled selected>{{ __('SelectLevel') }}</option>
                     @foreach ($equipments as $equipment)
                         <option value="{{ $equipment->id }}">{{$equipment->equipment_name}}</option>
                     @endforeach
                 </select>
             </div>
             <div>
-                <label class="block mt-4 mb-2 font-medium text-default/50">Boîte de vitesse</label>
+                <label class="block mt-4 mb-2 font-medium text-default/50">{{ __('Gearbox') }}</label>
                 <select class="w-full rounded-md border-input-border bg-input focus:ring focus:ring-primary"
                     name="boite_vitesse_id">
-                    <option value="" disabled selected>Sélectionnez un type boîte de vitesse</option>
+                    <option value="" disabled selected>{{ __('SelectGearboxType') }}</option>
                     @foreach ($gearboxes as $gearboxe)
                     <option value="{{ $gearboxe->id }}">{{$gearboxe->nom}}</option>
                     @endforeach
@@ -140,9 +140,8 @@
         </div>
         <div class="flex justify-center gap-4 mt-8">
             <button type="button" class="px-6 py-2 border rounded-md border-input-border bg-input text-default/50 hover:bg-input/50"
-                onclick="window.history.back()">Étape précédente</button>
-            <button type="submit" class="px-6 py-2 text-white rounded-md bg-primary hover:bg-opacity-80">Étape
-                suivante</button>
+                onclick="window.history.back()">{{ __('PreviousStep') }}</button>
+            <button type="submit" class="px-6 py-2 text-white rounded-md bg-primary hover:bg-opacity-80">{{ __('NextStep') }}</button>
         </div>
     </form>
 </div>

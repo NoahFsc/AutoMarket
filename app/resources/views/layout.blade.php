@@ -43,13 +43,13 @@
                 </div>
             </a>
             <div class="items-center hidden gap-12 md:flex">
-                <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">Accueil</a>
+                <a href="{{ route('home') }}" class="nav-link {{ Route::is('home') ? 'active' : '' }}">{{ __('NavHome') }}</a>
                 <a href="{{ route('catalog.acheter') }}"
-                    class="nav-link {{ Route::is('catalog.acheter') ? 'active' : '' }}">Acheter</a>
+                    class="nav-link {{ Route::is('catalog.acheter') ? 'active' : '' }}">{{ __('NavBuy') }}</a>
                 <a href="{{ route('catalog.encherir') }}"
-                    class="nav-link {{ Route::is('catalog.encherir') ? 'active' : '' }}">Enchérir</a>
+                    class="nav-link {{ Route::is('catalog.encherir') ? 'active' : '' }}">{{ __('NavBid') }}</a>
                 <a href="{{ route('vendre.index') }}"
-                    class="nav-link {{ Route::is('vendre.index') ? 'active' : '' }}">Vendre</a>
+                    class="nav-link {{ Route::is('vendre.index') ? 'active' : '' }}">{{ __('NavSell') }}</a>
 
                 @auth
                     <div class="relative inline-block text-left" x-data="{ open: false }">
@@ -59,30 +59,30 @@
                         </button>
                         <div x-cloak x-show="open" @click.away="open = false" class="absolute right-0 z-50 w-56 mt-2 rounded-md shadow-lg bg-input ring-1 ring-black ring-opacity-5" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-95">
                             <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
-                                <div class="px-4 py-2 text-xs text-default/40">Menus</div>
+                                <div class="px-4 py-2 text-xs text-default/40">{{ __('DropdownMenu') }}</div>
                                 <a href="{{ route('user.index', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-default/10" role="menuitem">
-                                    <i class="fa-regular fa-circle-user"></i> <p>Profil</p>
+                                    <i class="fa-regular fa-circle-user"></i> <p>{{ __('DropdownProfile') }}</p>
                                 </a>
                                 <a href="{{ route('chat.index', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-default/10" role="menuitem">
-                                    <i class="fa-regular fa-message-dots"></i> <p>Messages</p>
+                                    <i class="fa-regular fa-message-dots"></i> <p>{{ __('DropdownMessages') }}</p>
                                 </a>
                                 <a href="{{ route('user.historiqueachat', ['id' => Auth::id()]) }}" class="flex items-center gap-2 px-4 py-2 hover:bg-default/10" role="menuitem">
-                                    <i class="fa-regular fa-clock-rotate-left"></i> <p>Historique d'achats</p>
+                                    <i class="fa-regular fa-clock-rotate-left"></i> <p>{{ __('DropdownHistory') }}</p>
                                 </a>
                                 @if (Auth::user()->is_admin)
                                 <a href="{{ route('admin.users-list') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-default/10" role="menuitem">
-                                    <i class="fa-regular fa-gear"></i> <p>Administration</p>
+                                    <i class="fa-regular fa-gear"></i> <p>{{ __('DropdownAdmin') }}</p>
                                 </a>
                                 @endif
                                 <div class="mx-4 mt-2 border-t border-gray-200"></div>
-                                <div class="px-4 py-2 text-xs text-default/40">Actions</div>
+                                <div class="px-4 py-2 text-xs text-default/40">{{ __('DropdownActions') }}</div>
                                 <a href="#" @click="darkMode = !darkMode" class="flex items-center gap-2 px-4 py-2 hover:bg-default/10" role="menuitem">
                                     <i class="fa-regular" :class="darkMode ? 'fa-moon-stars' : 'fa-sun-bright'"></i> 
-                                    <p x-text="darkMode ? 'Mode sombre' : 'Mode clair'"></p>
+                                    <p x-text="darkMode ? '{{ __('DropdownDarkMode') }}' : '{{ __('DropdownLightMode') }}'"></p>
                                 </a>
                                 <a href="#" class="block px-4 py-2 text-error hover:bg-default/10" role="menuitem"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                    <i class="fa-solid fa-arrow-right-start-on-rectangle"></i> Se déconnecter
+                                    <i class="fa-solid fa-arrow-right-start-on-rectangle"></i> {{ __('DropdownLogout') }}
                                 </a>
                                 <form id="logout-form" action="{{ route('auth.logout') }}" method="POST" class="hidden">
                                     @csrf
@@ -95,7 +95,7 @@
 
                 @guest
                 <a class="px-4 py-2 text-white transition-all duration-300 rounded-lg bg-primary hover:bg-opacity-80"
-                    href="{{ route('auth.login') }}">Connexion</a>
+                    href="{{ route('auth.login') }}">{{ __('Login') }}</a>
                 @endguest
             </div>
         </div>
@@ -106,29 +106,29 @@
         <div class="flex items-end justify-around pb-2 bg-input min-h-[64px]">
             <a href="{{ route('home') }}"
                 class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary' : 'text-default/40' }}">
-                <i class="fa-regular fa-house fa-xl"></i><span class="text-sm">Accueil</span>
+                <i class="fa-regular fa-house fa-xl"></i><span class="text-sm">{{ __('NavHome') }}</span>
             </a>
             <a href="{{ route('catalog.acheter') }}"
                 class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('catalog.acheter') ? 'text-primary' : 'text-default/40' }}">
-                <i class="fa-regular fa-car-side fa-xl"></i><span class="text-sm">Acheter</span>
+                <i class="fa-regular fa-car-side fa-xl"></i><span class="text-sm">{{ __('NavBuy') }}</span>
             </a>
             <a href="{{ route('catalog.encherir') }}"
                 class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('catalog.encherir') ? 'text-primary' : 'text-default/40' }}">
-                <i class="fa-regular fa-building-columns fa-xl"></i><span class="text-sm">Enchérir</span>
+                <i class="fa-regular fa-building-columns fa-xl"></i><span class="text-sm">{{ __('NavBid') }}</span>
             </a>
             <a href="{{ route('chat.index') }}"
                 class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('chat.index') ? 'text-primary' : 'text-default/40' }}">
-                <i class="fa-regular fa-messages fa-xl"></i><span class="text-sm">Messagerie</span>
+                <i class="fa-regular fa-messages fa-xl"></i><span class="text-sm">{{ __('DropdownMessages') }}</span>
             </a>
             @if(auth()->check())
                 <a href="{{ route('user.index', ['id' => Auth::id()]) }}"
                     class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is(['user.index', 'user.edit']) ? 'text-primary' : 'text-default/40' }}">
-                    <i class="fa-regular fa-user fa-xl"></i><span class="text-sm">Profil</span>
+                    <i class="fa-regular fa-user fa-xl"></i><span class="text-sm">{{ __('Profile') }}</span>
                 </a>
             @else
                 <a href="{{ route('auth.login') }}"
                     class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('auth.login') ? 'text-primary' : 'text-default/40' }}">
-                    <i class="fa-regular fa-user fa-xl"></i><span class="text-sm">Profil</span>
+                    <i class="fa-regular fa-user fa-xl"></i><span class="text-sm">{{ __('Profile') }}</span>
                 </a>
             @endif
         </div>
@@ -148,12 +148,12 @@
                     <img :src="darkMode ? '{{ asset('assets/logo_automarket_light.png') }}' : '{{ asset('assets/logo_automarket.webp') }}'" alt="Logo" class="h-10 mb-2">
                     <span class="text-base">AutoMarket</span>
                 </div>
-                <form action="" class="flex h-10"> {{-- A remplacer par route newsletter --}}
+                <form action="" class="flex h-10">
                     @csrf
                     <input type="email" class="w-48 px-4 py-2 text-xs border rounded-l-lg border-input-border bg-input"
-                        placeholder="Entrez votre e-mail">
+                        placeholder="{{ __("FooterEmail") }}">
                     <button type="submit"
-                        class="px-4 py-2 text-xs text-white transition-all duration-300 rounded-r-lg bg-primary hover:bg-opacity-80">S'abonner</button>
+                        class="px-4 py-2 text-xs text-white transition-all duration-300 rounded-r-lg bg-primary hover:bg-opacity-80">{{ __("FooterSubscribe") }}</button>
                 </form>
             </div>
             <div class="flex items-center justify-center gap-4 flex-col-default md:flex-row md:justify-between">
@@ -170,11 +170,9 @@
                     </a>
                 </div>
                 <div class="flex gap-2 md:gap-4">
-                    <a href="{{ route('home') }}" class="text-xs text-gray-500 hover:text-gray-700">A propos de nous</a>
-                    <a href="{{ route('home') }}" class="text-xs text-gray-500 hover:text-gray-700">Conditions
-                        Générales</a>
-                    <a href="{{ route('home') }}" class="text-xs text-gray-500 hover:text-gray-700">Politique de
-                        confidentialité</a>
+                    @foreach (config('localization.locales') as $locale => $lang)
+                    <a href="{{ route('localization', $locale) }}" class="text-xs text-gray-500 hover:text-gray-700">{{ __($lang) }}</a>
+                    @endforeach
                 </div>
                 <span class="hidden text-xs text-gray-500 md:block">©2024 AutoMarket</span>
             </div>

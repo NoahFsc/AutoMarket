@@ -1,0 +1,3 @@
+Je travaille actuellement sur la traduction de mon site. Il est sur Laravel 11, avec Livewire, TailwindCSS et AlpineJS.
+
+Je souhaiterai que tu remplaces les textes fixes de la page que je te partage et que tu nommes correctement les lignes de traduction en ayant un sens logique, en anglais et en français.

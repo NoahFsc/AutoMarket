@@ -1,6 +1,6 @@
 @extends('layout')
 
-@section('titre', 'Profil')
+@section('titre', __('Profile'))
 
 @section('contenu')
 
@@ -31,14 +31,14 @@
                 <form action="{{ route('auth.logout') }}" method="POST">
                     @method('DELETE')
                     @csrf
-                    <button type="submit" class="w-full px-4 py-2 text-sm transition-all duration-300 border rounded-lg border-opacity-20 hover:border-opacity-80 text-error border-error">Déconnexion</button>
+                    <button type="submit" class="w-full px-4 py-2 text-sm transition-all duration-300 border rounded-lg border-opacity-20 hover:border-opacity-80 text-error border-error">{{ __('Logout') }}</button>
                 </form>
-                <a href="{{ route('user.edit', $user->id) }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">Modifier le profil</a>
+                <a href="{{ route('user.edit', $user->id) }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">{{ __('EditProfile') }}</a>
             </div>
             @else
             <div class="hidden gap-3 md:flex md:justify-end">
                 <livewire:report-user :userId="$user->id" />
-                    <a href="{{ route('chat.start', $user->id) }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">Envoyer un message</a>
+                    <a href="{{ route('chat.start', $user->id) }}" class="w-1/3 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">{{ __('SendMessage') }}</a>
             </div>
             @endif
         
@@ -46,11 +46,11 @@
             <div class="flex w-full gap-3">
                 <div class="flex flex-col w-full gap-2 p-2 rounded-lg bg-opacity-20 bg-primary md:p-4">
                     <span class="text-xl font-bold text-primary md:text-4xl"> {{ count($cars->where('status', 1)) }} </span>
-                    <span class="text-sm">Véhicules vendus</span>
+                    <span class="text-sm">{{ __('VehiclesSold') }}</span>
                 </div>
                 <div class="flex flex-col w-full gap-2 p-2 rounded-lg bg-opacity-10 bg-primary md:p-4">
                     <span class="text-xl font-bold text-primary md:text-4xl">{{ floor(\Carbon\Carbon::parse($user->created_at)->diffInYears(\Carbon\Carbon::now())) }}</span>
-                    <span class="text-sm">Années de présence</span>
+                    <span class="text-sm">{{ __('YearsOfPresence') }}</span>
                 </div>
             </div>
         </div>
@@ -59,15 +59,15 @@
     {{-- Boutons Mobile --}}
     <div class="flex gap-3 md:hidden">
         @if ($user->id == Auth::id())
-        <a href="{{ route('user.edit', $user->id) }}" class="w-full py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">Modifier le profil</a>
+        <a href="{{ route('user.edit', $user->id) }}" class="w-full py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">{{ __('EditProfile') }}</a>
         <form action="{{ route('auth.logout') }}" method="POST" class="w-full">
             @method('DELETE')
             @csrf
-            <button type="submit" class="w-full py-2 text-sm transition-all duration-300 border rounded-lg border-opacity-20 hover:border-opacity-80 text-error border-error">Déconnexion</button>
+            <button type="submit" class="w-full py-2 text-sm transition-all duration-300 border rounded-lg border-opacity-20 hover:border-opacity-80 text-error border-error">{{ __('Logout') }}</button>
         </form>
         @else
         <livewire:report-user :userId="$user->id" />
-        <a href="{{ route('chat.start', $user->id) }}" class="w-full py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">Envoyer un message</a>
+        <a href="{{ route('chat.start', $user->id) }}" class="w-full py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">{{ __('SendMessage') }}</a>
         @endif
     </div>
 
@@ -81,7 +81,7 @@
         </div>
         <div>
             <i class="text-default/50 fa-regular fa-calendar fa-sm"></i>
-            <span class="text-sm text-default/50">A rejoint le {{ \Carbon\Carbon::parse($user->created_at)->format('d M Y') }}</span>
+            <span class="text-sm text-default/50">{{ __('JoinedOn') }} {{ \Carbon\Carbon::parse($user->created_at)->format('d M Y') }}</span>
         </div>
         <div class="items-baseline hidden gap-1 md:flex">
             <i class="text-yellow-400 fa-solid fa-star"></i>
@@ -96,7 +96,7 @@
     {{-- Annonces --}}
     <div class="flex gap-3">
         <div class="flex flex-col flex-grow gap-3">
-            <span class="flex items-center gap-2 text-2xl font-medium"><i class="fa-solid fa-cart-shopping"></i>Annonces déposées <p class="text-sm opacity-50">({{ $cars->total() }})</p></span>
+            <span class="flex items-center gap-2 text-2xl font-medium"><i class="fa-solid fa-cart-shopping"></i>{{ __('PostedAds') }} <p class="text-sm opacity-50">({{ $cars->total() }})</p></span>
             <div class="grid gap-4 grid-cols-auto-fit-card">
                 @foreach ($cars as $car)
                     @if ($car->vente_enchere == 0)
@@ -110,18 +110,18 @@
                 {{ $cars->links('components.pagination') }}
             </div>
             @if (count($cars) == 0)
-                <div class="opacity-50">Aucune annonce.</div>
+                <div class="opacity-50">{{ __('NoAds') }}</div>
             @endif
         </div>
         <di class="flex flex-col w-1/4 gap-3">
-            <span class="flex items-center gap-2 text-2xl font-medium"><i class="fa-solid fa-star-sharp-half-stroke"></i>Avis <p class="text-sm opacity-50">({{ count($reviews) }})</p></span>
+            <span class="flex items-center gap-2 text-2xl font-medium"><i class="fa-solid fa-star-sharp-half-stroke"></i>{{ __('Reviews') }} <p class="text-sm opacity-50">({{ count($reviews) }})</p></span>
             <div class="flex flex-col gap-2 rounded-lg">
                 @foreach ($reviews as $review)
                     <x-review-card-profile :review="$review" />
                 @endforeach
             </div>
             @if (count($reviews) == 0)
-                <div class="opacity-50">Aucun avis.</div>
+                <div class="opacity-50">{{ __('NoReviews') }}</div>
             @endif
         </di>
     </div>
@@ -134,7 +134,7 @@
             {{ session('status') }}
         </div>
         @if (session('concerned_user_id'))
-            <a href="{{ route('user.index', ['id' => session('concerned_user_id')]) }}" class="block mt-2 text-sm text-white opacity-50 hover:opacity-75">Voir le compte</a>
+            <a href="{{ route('user.index', ['id' => session('concerned_user_id')]) }}" class="block mt-2 text-sm text-white opacity-50 hover:opacity-75">{{ __('ViewAccount') }}</a>
         @endif
     </div>
 @endif

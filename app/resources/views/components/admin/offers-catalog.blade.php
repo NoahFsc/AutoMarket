@@ -2,29 +2,29 @@
 
     {{-- Entête --}}
     <div class="flex flex-col">
-        <p class="text-2xl font-medium">Gestion des annonces</p>
-        <p class="text-lg font-medium opacity-50">Gérez les annonces postées sur AutoMarket</p>
+        <p class="text-2xl font-medium">{{ __('OfferManagement') }}</p>
+        <p class="text-lg font-medium opacity-50">{{ __('ManageOffers') }}</p>
     </div>
 
     {{-- Barre d'outils --}}
     <div class="flex items-end justify-between">
-        <p class="font-medium">Toutes les annonces <span class="font-medium opacity-50">({{ $cars->total() }})</span></p>
+        <p class="font-medium">{{ __('AllOffers') }} <span class="font-medium opacity-50">({{ $cars->total() }})</span></p>
         <div>
-            <input type="text" wire:model.live='search' placeholder="Rechercher" class="w-full h-10 mt-1 border-input-border bg-input rounded-t-md md:rounded-md md:w-96 focus:border-primary">
+            <input type="text" wire:model.live='search' placeholder="{{ __('Search') }}" class="w-full h-10 mt-1 border-input-border bg-input rounded-t-md md:rounded-md md:w-96 focus:border-primary">
         </div>
     </div>
 
     {{-- Tableau --}}
     <div class="overflow-x-auto">
         <table class="min-w-full rounded-lg bg-input-border">
-        <caption id="offersTableDescription" class="sr-only">Tableau listant toutes les annonces disponibles sur AutoMarket avec des options pour modifier ou supprimer chaque annonce.</caption>
+        <caption id="offersTableDescription" class="sr-only">{{ __('Tableau listant toutes les annonces disponibles sur AutoMarket avec des options pour modifier ou supprimer chaque annonce.') }}</caption>
             <thead>
                 <tr>
-                    <th class="px-6 py-3 font-medium text-left">Intitulé d'annonce</th>
-                    <th class="px-6 py-3 font-medium text-left">Type</th>
-                    <th class="px-6 py-3 font-medium text-left">Vendeur</th>
-                    <th class="px-6 py-3 font-medium text-left">Date de dépôt</th>
-                    <th class="px-6 py-3 font-medium text-right">Actions</th>
+                    <th class="px-6 py-3 font-medium text-left">{{ __('OfferTitle') }}</th>
+                    <th class="px-6 py-3 font-medium text-left">{{ __('Type') }}</th>
+                    <th class="px-6 py-3 font-medium text-left">{{ __('Seller') }}</th>
+                    <th class="px-6 py-3 font-medium text-left">{{ __('PostedDate') }}</th>
+                    <th class="px-6 py-3 font-medium text-right">{{ __('Actions') }}</th>
                 </tr>
             </thead>
             <tbody class="bg-reverse">
@@ -36,7 +36,7 @@
                     </td>
                     <td class="px-6 py-4">
                         <span class="inline-flex px-2 text-xs font-semibold {{ $car->vente_enchere ? 'text-blue-800 bg-blue-100' : 'text-green-800 bg-green-100' }} rounded-full">
-                            {{ $car->vente_enchere ? 'Enchère' : 'Vente' }}
+                            {{ $car->vente_enchere ? __('Auction') : __('Sale') }}
                         </span>
                     </td>
                     <td class="px-6 py-4">
@@ -52,9 +52,9 @@
                             </button>
                             <div x-cloak x-show="open" @click.away="open = false" class="absolute right-0 z-50 w-56 mt-2 rounded-md shadow-lg bg-input ring-1 ring-black ring-opacity-5" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 transform scale-95" x-transition:enter-end="opacity-100 transform scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 transform scale-100" x-transition:leave-end="opacity-0 transform scale-95">
                                 <div class="py-1" role="menu">
-                                    <a href="{{ $car->vente_enchere ? route('produit.enchere', $car->id) : route('produit.vente', $car->id) }}" class="block px-4 py-2 text-sm text-default/80 hover:bg-default/5" role="menuitem">Voir l'annonce</a>
-                                    <a href="{{ $car->vente_enchere ? route('produit.enchere', ['id' => $car->id, 'from' => 'admin']) : route('produit.vente', ['id' => $car->id, 'from' => 'admin']) }}" class="block px-4 py-2 text-sm text-default/80 hover:bg-default/5" role="menuitem">Modifier l'annonce</a>
-                                    <button wire:click="deleteOffer({{ $car->id }})" class="block w-full px-4 py-2 text-sm text-left text-red-500 hover:bg-default/5" role="menuitem">Supprimer l'annonce</button>
+                                    <a href="{{ route('produit.index', $car->id) }}" class="block px-4 py-2 text-sm text-default/80 hover:bg-default/5" role="menuitem">{{ __('ViewOffer') }}</a>
+                                    <a href="{{ route('produit.index', ['id' => $car->id, 'from' => 'admin']) }}" class="block px-4 py-2 text-sm text-default/80 hover:bg-default/5" role="menuitem">{{ __('EditOffer') }}</a>
+                                    <button wire:click="deleteOffer({{ $car->id }})" class="block w-full px-4 py-2 text-sm text-left text-red-500 hover:bg-default/5" role="menuitem">{{ __('DeleteOffer') }}</button>
                                 </div>
                             </div>
                         </div>

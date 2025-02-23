@@ -7,29 +7,29 @@
 
         {{-- Entête --}}
         <div class="flex flex-col items-center justify-between gap-4 mb-4 md:flex-row">
-            <p class="text-2xl font-bold md:w-1/2">Catalogue - <span class="text-primary">{{ $cars->total() > 1 ? $cars->total() . ' ' . "annonces" : $cars->total() . ' ' . "annonce" }}</span></p>
+            <p class="text-2xl font-bold md:w-1/2">{{ __('Catalog') }} - <span class="text-primary">{{ $cars->total() > 1 ? $cars->total() . ' ' . __('Ads') : $cars->total() . ' ' . __('Ad') }}</span></p>
             <div class="flex flex-col justify-end flex-grow w-full md:gap-4 md:flex-row">
                 @if ($type == 1)
                 <button wire:click="toggleTime" class="items-center hidden w-auto gap-2 text-default/50 md:flex focus:outline-none">
                     @if ($sortTime === 'asc')
-                        <i class="fa fa-caret-up"></i> Temps restant
+                        <i class="fa fa-caret-up"></i> {{ __('RemainingTime') }}
                     @elseif ($sortTime === 'desc')
-                        <i class="fa fa-caret-down"></i> Temps restant
+                        <i class="fa fa-caret-down"></i> {{ __('RemainingTime') }}
                     @else
-                        <i class="fa fa-minus"></i> Temps restant
+                        <i class="fa fa-minus"></i> {{ __('RemainingTime') }}
                     @endif
                 </button>
                 @endif
                 <button wire:click="togglePrice" class="items-center hidden gap-2 text-default/50 focus:outline-none md:flex">
                     @if ($sortPrice === 'asc')
-                        <i class="fa fa-caret-up"></i> Prix
+                        <i class="fa fa-caret-up"></i> {{ __('Price') }}
                     @elseif ($sortPrice === 'desc')
-                        <i class="fa fa-caret-down"></i> Prix
+                        <i class="fa fa-caret-down"></i> {{ __('Price') }}
                     @else
-                        <i class="fa fa-minus"></i> Prix
+                        <i class="fa fa-minus"></i> {{ __('Price') }}
                     @endif
                 </button>
-                <input type="text" wire:model.live='search' placeholder="Rechercher" class="w-full mt-1 border-input-border bg-input rounded-t-md md:rounded-md md:w-96 h-9 focus:border-primary focus:ring-primary">
+                <input type="text" wire:model.live='search' placeholder="{{ __('Search') }}" class="w-full mt-1 border-input-border bg-input rounded-t-md md:rounded-md md:w-96 h-9 focus:border-primary focus:ring-primary">
                 <div class="md:hidden">
                     @include('catalog.mobile-filters')
                 </div>
@@ -54,7 +54,7 @@
             </div>
         @else
             <div class="flex items-center justify-center h-64">
-                <p class="text-lg text-gray-500">Aucun résultat trouvé</p>
+                <p class="text-lg text-gray-500">{{ __('NoResults') }}</p>
             </div>
         @endif
     </div>

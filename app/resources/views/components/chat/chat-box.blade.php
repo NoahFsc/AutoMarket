@@ -17,7 +17,7 @@
         {{-- Boutons d'action --}}
         <div class="flex items-center gap-2">
             <livewire:report-user :userId="$cible->id" />
-            <a href="{{ route('user.index', $cible->id) }}" class="px-8 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">Voir le profil</a>
+            <a href="{{ route('user.index', $cible->id) }}" class="px-8 py-2 text-sm text-center text-white rounded-lg md:duration-300 md:transition-all bg-primary hover:bg-opacity-80">{{ __('ViewProfile') }}</a>
         </div>
     </div>
 
@@ -30,7 +30,7 @@
                 <div class="flex justify-end">
                     <div class="flex flex-col items-end mb-4 max-w-[50%]">
                         <div class="flex justify-between w-full mb-1 min-w-64">
-                            <span>Vous</span>
+                            <span>{{ __('You') }}</span>
                             <span class="text-sm opacity-50">{{ $message->formatted_date }}</span>
                         </div>
                         <div class="text-white rounded-lg rounded-tr-none {{ $message->offer ? '' : 'bg-primary p-4'}} min-w-64">
@@ -67,12 +67,12 @@
 
     {{-- Zone d'envoi --}}
     <div class="absolute bottom-0 flex w-full m-4">
-        <input type="text" wire:model="newMessage" wire:keydown.enter="sendMessage" class="w-11/12 p-2 border-input-border bg-input rounded-l-md focus:outline-none" placeholder="Envoyer un message">
+        <input type="text" wire:model="newMessage" wire:keydown.enter="sendMessage" class="w-11/12 p-2 border-input-border bg-input rounded-l-md focus:outline-none" placeholder="{{ __('SendMessagePlaceholder') }}">
         <button wire:click="sendMessage" class="px-4 py-2 text-white bg-primary rounded-r-md hover:bg-opacity-80"><i class="fa-regular fa-paper-plane-top"></i></button>
     </div>
 
     @else
-    <span class="flex justify-center w-full my-24 text-default/50">Sélectionnez une conversation</span>
+    <span class="flex justify-center w-full my-24 text-default/50">{{ __('SelectConversation') }}</span>
     @endif
 </div>
 
