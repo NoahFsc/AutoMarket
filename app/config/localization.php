@@ -2,7 +2,9 @@
 
 return [
     'locales' => [
-        'en' => 'English',
         'fr' => 'Français',
+        'en' => 'English',
+        'es' => 'Español',
+        'cn' => '中文',
     ],
 ];

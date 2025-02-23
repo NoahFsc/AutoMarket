@@ -75,7 +75,7 @@
                                 </a>
                                 @endif
                                 <div class="mx-4 mt-2 border-t border-gray-200"></div>
-                                <div class="px-4 py-2 text-xs text-default/40">Actions</div>
+                                <div class="px-4 py-2 text-xs text-default/40">{{ __('DropdownActions') }}</div>
                                 <a href="#" @click="darkMode = !darkMode" class="flex items-center gap-2 px-4 py-2 hover:bg-default/10" role="menuitem">
                                     <i class="fa-regular" :class="darkMode ? 'fa-moon-stars' : 'fa-sun-bright'"></i> 
                                     <p x-text="darkMode ? '{{ __('DropdownDarkMode') }}' : '{{ __('DropdownLightMode') }}'"></p>
@@ -106,29 +106,29 @@
         <div class="flex items-end justify-around pb-2 bg-input min-h-[64px]">
             <a href="{{ route('home') }}"
                 class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('home') ? 'text-primary' : 'text-default/40' }}">
-                <i class="fa-regular fa-house fa-xl"></i><span class="text-sm">Accueil</span>
+                <i class="fa-regular fa-house fa-xl"></i><span class="text-sm">{{ __('NavHome') }}</span>
             </a>
             <a href="{{ route('catalog.acheter') }}"
                 class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('catalog.acheter') ? 'text-primary' : 'text-default/40' }}">
-                <i class="fa-regular fa-car-side fa-xl"></i><span class="text-sm">Acheter</span>
+                <i class="fa-regular fa-car-side fa-xl"></i><span class="text-sm">{{ __('NavBuy') }}</span>
             </a>
             <a href="{{ route('catalog.encherir') }}"
                 class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('catalog.encherir') ? 'text-primary' : 'text-default/40' }}">
-                <i class="fa-regular fa-building-columns fa-xl"></i><span class="text-sm">Enchérir</span>
+                <i class="fa-regular fa-building-columns fa-xl"></i><span class="text-sm">{{ __('NavBid') }}</span>
             </a>
             <a href="{{ route('chat.index') }}"
                 class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('chat.index') ? 'text-primary' : 'text-default/40' }}">
-                <i class="fa-regular fa-messages fa-xl"></i><span class="text-sm">Messagerie</span>
+                <i class="fa-regular fa-messages fa-xl"></i><span class="text-sm">{{ __('DropdownMessages') }}</span>
             </a>
             @if(auth()->check())
                 <a href="{{ route('user.index', ['id' => Auth::id()]) }}"
                     class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is(['user.index', 'user.edit']) ? 'text-primary' : 'text-default/40' }}">
-                    <i class="fa-regular fa-user fa-xl"></i><span class="text-sm">Profil</span>
+                    <i class="fa-regular fa-user fa-xl"></i><span class="text-sm">{{ __('Profile') }}</span>
                 </a>
             @else
                 <a href="{{ route('auth.login') }}"
                     class="flex flex-col items-center justify-center h-full gap-3 {{ Route::is('auth.login') ? 'text-primary' : 'text-default/40' }}">
-                    <i class="fa-regular fa-user fa-xl"></i><span class="text-sm">Profil</span>
+                    <i class="fa-regular fa-user fa-xl"></i><span class="text-sm">{{ __('Profile') }}</span>
                 </a>
             @endif
         </div>
@@ -148,12 +148,12 @@
                     <img :src="darkMode ? '{{ asset('assets/logo_automarket_light.png') }}' : '{{ asset('assets/logo_automarket.webp') }}'" alt="Logo" class="h-10 mb-2">
                     <span class="text-base">AutoMarket</span>
                 </div>
-                <form action="" class="flex h-10"> {{-- A remplacer par route newsletter --}}
+                <form action="" class="flex h-10">
                     @csrf
                     <input type="email" class="w-48 px-4 py-2 text-xs border rounded-l-lg border-input-border bg-input"
-                        placeholder="Entrez votre e-mail">
+                        placeholder="{{ __("FooterEmail") }}">
                     <button type="submit"
-                        class="px-4 py-2 text-xs text-white transition-all duration-300 rounded-r-lg bg-primary hover:bg-opacity-80">S'abonner</button>
+                        class="px-4 py-2 text-xs text-white transition-all duration-300 rounded-r-lg bg-primary hover:bg-opacity-80">{{ __("FooterSubscribe") }}</button>
                 </form>
             </div>
             <div class="flex items-center justify-center gap-4 flex-col-default md:flex-row md:justify-between">

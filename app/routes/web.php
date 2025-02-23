@@ -23,8 +23,8 @@ Route::middleware('localization')->group(function () {
     // Routes d'authentification
     Route::get('/register', [AuthController::class, 'register'])->name('auth.register');
     Route::post('/register', [AuthController::class, 'doRegister']);
-    Route::get('/register/step2', [AuthController::class, 'showRegisterStep2'])->name('auth.register.step2');
-    Route::post('/register/step2', [AuthController::class, 'doRegisterStep2']);
+    Route::get('/register/complete', [AuthController::class, 'showRegisterStep2'])->name('auth.register.step2');
+    Route::post('/register/complete', [AuthController::class, 'doRegisterStep2']);
     Route::get('/login', [AuthController::class, 'login'])->name('auth.login');
     Route::post('/login', [AuthController::class, 'doLogin']);
     Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
@@ -40,8 +40,7 @@ Route::middleware('localization')->group(function () {
     // Routes du catalogue
     Route::get('/acheter', [CatalogController::class, 'acheter'])->name('catalog.acheter');
     Route::get('/encherir', [CatalogController::class, 'encherir'])->name('catalog.encherir');
-    Route::get('/produit/{id}', [ProduitController::class, 'vente'])->name('produit.vente');
-    Route::get('/enchere/{id}', [ProduitController::class, 'enchere'])->name('produit.enchere');
+    Route::get('/produit/{id}', [ProduitController::class, 'index'])->name('produit.index');
     
     // Nécessite d'être connecté pour accéder aux routes suivantes
     Route::middleware('auth')->group(function () {
@@ -57,12 +56,12 @@ Route::middleware('localization')->group(function () {
         // Routes de vente
         Route::prefix('vendre')->group(function () {
             Route::get('/', [VendreController::class, 'index'])->name('vendre.index');
-            Route::get('/step1', [VendreController::class, 'showStep1'])->name('vendre.step1');
-            Route::post('/step1', [VendreController::class, 'doStep1']);
-            Route::get('/step2', [VendreController::class, 'showStep2'])->name('vendre.step2');
-            Route::post('/step2', [VendreController::class, 'doStep2']);
-            Route::get('/step3', [VendreController::class, 'showStep3'])->name('vendre.step3');
-            Route::post('/step3', [VendreController::class, 'doStep3']);
+            Route::get('/informations', [VendreController::class, 'showStep1'])->name('vendre.step1');
+            Route::post('/informations', [VendreController::class, 'doStep1']);
+            Route::get('/documents', [VendreController::class, 'showStep2'])->name('vendre.step2');
+            Route::post('/documents', [VendreController::class, 'doStep2']);
+            Route::get('/confirmation', [VendreController::class, 'showStep3'])->name('vendre.step3');
+            Route::post('/confirmation', [VendreController::class, 'doStep3']);
             Route::post('/upload-media', [VendreController::class, 'uploadMedia'])->name('vendre.uploadMedia');
             Route::post('/upload-pdf', [VendreController::class, 'uploadPdf'])->name('vendre.uploadPDF');
             Route::get('/complete-sale/{offerId}', [VendreController::class, 'showCompleteSaleForm'])->name('vendre.complete-sale');

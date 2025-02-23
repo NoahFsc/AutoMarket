@@ -42,11 +42,11 @@ $scrollIntoViewJsSnippet = ($scrollTo !== false)
             <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                 <div>
                     <p class="text-sm leading-5 text-default">
-                        <span>{!! __('Résultats') !!}</span>
+                        <span>{!! __('Results') !!}</span>
                         <span class="font-medium">{{ $paginator->firstItem() }}</span>
-                        <span>{!! __('à') !!}</span>
+                        <span>{!! __('To') !!}</span>
                         <span class="font-medium">{{ $paginator->lastItem() }}</span>
-                        <span>{!! __('sur') !!}</span>
+                        <span>{!! __('Of') !!}</span>
                         <span class="font-medium">{{ $paginator->total() }}</span>
                     </p>
                 </div>
@@ -90,7 +90,7 @@ $scrollIntoViewJsSnippet = ($scrollTo !== false)
                                                 <span class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 border cursor-default text-default/50 bg-input/80 border-input-border">{{ $page }}</span>
                                             </span>
                                         @else
-                                            <button type="button" wire:click="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')" x-on:click="{{ $scrollIntoViewJsSnippet }}" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 transition duration-150 ease-in-out border text-default border-input-border bg-input hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:ring ring-blue-300 active:bg-input/80 active:text-default" aria-label="{{ __('Go to page :page', ['page' => $page]) }}">
+                                            <button type="button" wire:click="gotoPage({{ $page }}, '{{ $paginator->getPageName() }}')" x-on:click="{{ $scrollIntoViewJsSnippet }}" class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 transition duration-150 ease-in-out border text-default border-input-border bg-input hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:ring ring-blue-300 active:bg-input/80 active:text-default" aria-label="{{ __('GoToPage', ['page' => $page]) }}">
                                                 {{ $page }}
                                             </button>
                                         @endif
