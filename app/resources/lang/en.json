@@ -335,5 +335,19 @@
     "Segment": "Segment",
     "EditVehicleType": "Edit vehicle type",
     "DeleteVehicleType": "Delete vehicle type",
-    "AddVehicleType": "Add a vehicle type"
+    "AddVehicleType": "Add a vehicle type",
+    "OrderHistory": "Order History",
+    "AllOrders": "All your orders",
+    "OrderID": "Order ID",
+    "Product": "Product",
+    "PurchaseDate": "Purchase Date",
+    "TotalPrice": "Total Price",
+    "Delivered": "Delivered",
+    "NotDelivered": "Not Delivered",
+    "Order": "Order",
+    "MarkAsReceived": "Mark as received",
+    "ContactSeller": "Contact seller",
+    "OrderDetails": "Order details",
+    "PurchaseAmount": "Purchase amount",
+    "SellerInformation": "Seller information"
 }

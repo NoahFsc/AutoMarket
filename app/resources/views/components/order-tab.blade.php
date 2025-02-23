@@ -1,11 +1,11 @@
-<div class="container mx-auto p-6">
-    <div class="flex justify-between items-center">
+<div class="container p-6 mx-auto">
+    <div class="flex items-center justify-between">
         <div class="flex flex-col">
-            <p class="text-2xl font-medium">Historique des derniers achats</p>
-            <p class="text-gray-500">Tous vos achats ({{ $orders->total() }})</p>
+            <p class="text-2xl font-medium">{{ __('OrderHistory') }}</p>
+            <p class="text-gray-500">{{ __('AllOrders') }} ({{ $orders->total() }})</p>
         </div>
         <div class="mt-4">
-            <input type="text" wire:model.live='search' placeholder="Rechercher" class="border rounded px-3 py-2 w-64">
+            <input type="text" wire:model.live='search' placeholder="{{ __('Search') }}" class="w-64 px-3 py-2 border rounded">
         </div>
     </div>
 
@@ -13,12 +13,12 @@
         <thead class="bg-gray-100">
             <tr class="text-left">
                 <th class="p-3">#</th>
-                <th class="p-3">Identifiant</th>
-                <th class="p-3">Produit</th>
-                <th class="p-3">Vendeur</th>
-                <th class="p-3">Date de l’achat</th>
-                <th class="p-3">Total TTC</th>
-                <th class="p-3">Statut</th>
+                <th class="p-3">{{ __('OrderID') }}</th>
+                <th class="p-3">{{ __('Product') }}</th>
+                <th class="p-3">{{ __('Seller') }}</th>
+                <th class="p-3">{{ __('PurchaseDate') }}</th>
+                <th class="p-3">{{ __('TotalPrice') }}</th>
+                <th class="p-3">{{ __('Status') }}</th>
             </tr>
         </thead>
         <tbody>
@@ -29,8 +29,8 @@
                     <a href="{{ route('user.ha-view', ['orderId' => $order->id]) }}" class="text-blue-500">#CMD{{ str_pad($order->id, 5, '0', STR_PAD_LEFT) }}</a>
                 </td>
                 <td class="p-3">{{ $order->car->carModel->brand->brand_name }} {{ $order->car->carModel->model_name }}</td>
-                <td class="p-3 flex items-center">
-                    <img src="{{ $order->car->user->profile_picture ? asset('storage/' . $order->car->user->profile_picture) : asset('assets/default_pfp.png') }}" class="w-8 h-8 rounded-full mr-2">
+                <td class="flex items-center p-3">
+                    <img src="{{ $order->car->user->profile_picture ? asset('storage/' . $order->car->user->profile_picture) : asset('assets/default_pfp.png') }}" class="w-8 h-8 mr-2 rounded-full">
                     <a href="#" class="text-blue-500">{{ $order->car->user->first_name }} {{ $order->car->user->last_name }}</a>
                 </td>
                 <td class="p-3">
@@ -43,7 +43,7 @@
                 <td class="p-3">{{ number_format($order->car->selling_price, 0, ',', ' ') }}€</td>
                 <td class="p-3">
                     <span class="px-3 py-1 rounded text-white {{ $order->delivery_status == 1 ? 'bg-green-400' : 'bg-red-400' }}">
-                        {{ $order->delivery_status == 1 ? 'Livré' : 'Non livré' }}
+                        {{ $order->delivery_status == 1 ? __('Delivered') : __('NotDelivered') }}
                     </span>
                 </td>
             </tr>
@@ -51,7 +51,7 @@
         </tbody>
     </table>
 
-    <div class="mt-4 flex justify-center">
+    <div class="flex justify-center mt-4">
         {{ $orders->links('components.pagination') }}
     </div>
 </div>

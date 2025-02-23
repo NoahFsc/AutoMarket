@@ -336,5 +336,19 @@
     "Segment": "Segmento",
     "EditVehicleType": "Editar tipo de vehículo",
     "DeleteVehicleType": "Eliminar tipo de vehículo",
-    "AddVehicleType": "Agregar tipo de vehículo"
+    "AddVehicleType": "Agregar tipo de vehículo",
+    "OrderHistory": "Historial de compras",
+    "AllOrders": "Todas tus compras",
+    "OrderID": "Identificador",
+    "Product": "Producto",
+    "PurchaseDate": "Fecha de compra",
+    "TotalPrice": "Total con IVA",
+    "Delivered": "Entregado",
+    "NotDelivered": "No entregado",
+    "Order": "Pedido",
+    "MarkAsReceived": "Marcar como recibido",
+    "ContactSeller": "Contactar al vendedor",
+    "OrderDetails": "Detalles del pedido",
+    "PurchaseAmount": "Monto de la compra",
+    "SellerInformation": "Información del vendedor"
 }

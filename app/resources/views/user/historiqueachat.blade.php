@@ -3,7 +3,7 @@
 @section('titre', 'Historique des achats')
 
 @section('contenu')
-<div class="container mx-auto p-6">
+<div class="container p-6 mx-auto">
         <livewire:order-tab />
 </div>
 @endsection

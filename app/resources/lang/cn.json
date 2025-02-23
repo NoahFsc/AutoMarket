@@ -336,5 +336,19 @@
     "Segment": "段",
     "EditVehicleType": "编辑车辆类型",
     "DeleteVehicleType": "删除车辆类型",
-    "AddVehicleType": "添加车辆类型"
+    "AddVehicleType": "添加车辆类型",
+    "OrderHistory": "购买历史",
+    "AllOrders": "所有订单",
+    "OrderID": "订单编号",
+    "Product": "产品",
+    "PurchaseDate": "购买日期",
+    "TotalPrice": "总价",
+    "Delivered": "已交付",
+    "NotDelivered": "未交付",
+    "Order": "订单",
+    "MarkAsReceived": "标记为已收到",
+    "ContactSeller": "联系卖家",
+    "OrderDetails": "订单详情",
+    "PurchaseAmount": "购买金额",
+    "SellerInformation": "卖家信息"
 }
