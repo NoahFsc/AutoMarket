@@ -1,6 +1,6 @@
 <a href="{{ route('produit.index', $car->id) }}">
     <div class="flex flex-col transition-transform transform cursor-pointer hover:scale-105">
-        <img src="{{ $car->imageDocument->document_content }}" alt="Image" class="object-cover rounded-lg" style="width: 330px; height: 200px;">
+        <img src="{{ asset('storage' . $car->imageDocument->document_content) }}" alt="Image" class="object-cover rounded-lg" style="width: 330px; height: 200px;">
         <div class="flex flex-col">
             <p class="font-medium">{{ $car->carModel->brand->brand_name . ' ' . $car->carModel->model_name }}</p>
             <div class="flex justify-between max-w-card">

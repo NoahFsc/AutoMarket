@@ -1,7 +1,7 @@
 <a href="{{route('produit.index', $car->id)}}">
     <div class="flex flex-col transition-transform transform cursor-pointer hover:scale-105" wire:poll.1000ms="updateCard">
         <div class="relative max-w-card">
-            <img src="{{ $car->imageDocument->document_content }}" alt="Image" class="object-cover rounded-lg" style="width: 330px; height: 200px;">
+            <img src="{{ asset('storage' . $car->imageDocument->document_content) }}" alt="Image" class="object-cover rounded-lg" style="width: 330px; height: 200px;">
             <div class="absolute bottom-0 right-0 p-1 text-white bg-black rounded-tl-lg rounded-br-lg bg-opacity-20">
                 {{ $timeRemaining }}
             </div>
