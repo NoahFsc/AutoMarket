@@ -340,7 +340,7 @@
             photos: [
                 @foreach($car->documents as $document)
                     @if($document->document_type == 'image')
-                        { src: '{{ asset('storage/' . $document->document_content) }}', alt: 'Car Image' },
+                        { src: '{{ asset($document->document_content) }}', alt: 'Car Image' },
                     @endif
                 @endforeach
             ],
