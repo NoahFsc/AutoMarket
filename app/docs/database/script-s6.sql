@@ -1,20 +1,20 @@
 /* TABLES */
 /* TABLES DE LARAVEL */
-CREATE TABLE CACHE (
+CREATE TABLE cache (
     `key` varchar(255) NOT NULL,
     value mediumtext NOT NULL,
     expiration int NOT NULL,
     PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE CACHE_LOCKS (
+CREATE TABLE cache_locks (
     `key` varchar(255) NOT NULL,
     owner varchar(255) NOT NULL,
     expiration int NOT NULL,
     PRIMARY KEY (`key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE FAILED_JOBS (
+CREATE TABLE failed_jobs (
     id bigint unsigned NOT NULL AUTO_INCREMENT,
     uuid varchar(255) NOT NULL,
     connection text NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE FAILED_JOBS (
     UNIQUE KEY failed_jobs_uuid_unique (uuid)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE JOB_BATCHES (
+CREATE TABLE job_batches (
     id varchar(255) NOT NULL,
     name varchar(255) NOT NULL,
     total_jobs int NOT NULL,
@@ -40,7 +40,7 @@ CREATE TABLE JOB_BATCHES (
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE JOBS (
+CREATE TABLE jobs (
     id bigint unsigned NOT NULL AUTO_INCREMENT,
     queue varchar(255) NOT NULL,
     payload longtext NOT NULL,
@@ -52,21 +52,21 @@ CREATE TABLE JOBS (
     KEY jobs_queue_index (queue)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE MIGRATIONS (
+CREATE TABLE migrations (
     id int unsigned NOT NULL AUTO_INCREMENT,
     migration varchar(255) NOT NULL,
     batch int NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE PASSWORD_RESET_TOKENS (
+CREATE TABLE password_reset_tokens (
     email varchar(255) CHARACTER SET utf8mb4 NOT NULL,
     token varchar(255) CHARACTER SET utf8mb4 NOT NULL,
     created_at timestamp NULL DEFAULT NULL,
     PRIMARY KEY (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE SESSIONS (
+CREATE TABLE sessions (
     id varchar(255) CHARACTER SET utf8mb4 NOT NULL,
     user_id bigint unsigned DEFAULT NULL,
     ip_address varchar(45) CHARACTER SET utf8mb4 DEFAULT NULL,
@@ -79,7 +79,7 @@ CREATE TABLE SESSIONS (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /* TABLES DU SITE */
-CREATE TABLE USERS (
+CREATE TABLE users (
     id int NOT NULL AUTO_INCREMENT,
     last_name varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL,
     first_name varchar(50) CHARACTER SET utf8mb4 DEFAULT NULL,
@@ -100,7 +100,7 @@ CREATE TABLE USERS (
     UNIQUE KEY users_email_unique (email)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-CREATE TABLE WEBSITE_REVIEWS (
+CREATE TABLE website_reviews (
     id int NOT NULL AUTO_INCREMENT,
     nb_of_star int DEFAULT NULL,
     comment varchar(255) NOT NULL,
@@ -108,10 +108,10 @@ CREATE TABLE WEBSITE_REVIEWS (
     user_id int DEFAULT NULL,
     PRIMARY KEY (id),
     KEY user_id (user_id),
-    CONSTRAINT website_reviews_ibfk_1 FOREIGN KEY (user_id) REFERENCES USERS (id)
+    CONSTRAINT website_reviews_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE USER_REVIEWS (
+CREATE TABLE user_reviews (
     id int NOT NULL AUTO_INCREMENT,
     nb_of_star int NOT NULL,
     comment varchar(255) NOT NULL,
@@ -121,11 +121,11 @@ CREATE TABLE USER_REVIEWS (
     PRIMARY KEY (id),
     KEY user_id_writer (user_id_writer),
     KEY user_id_receiver (user_id_receiver),
-    CONSTRAINT user_reviews_ibfk_1 FOREIGN KEY (user_id_writer) REFERENCES USERS (id),
-    CONSTRAINT user_reviews_ibfk_2 FOREIGN KEY (user_id_receiver) REFERENCES USERS (id)
+    CONSTRAINT user_reviews_ibfk_1 FOREIGN KEY (user_id_writer) REFERENCES users (id),
+    CONSTRAINT user_reviews_ibfk_2 FOREIGN KEY (user_id_receiver) REFERENCES users (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE REPORTS (
+CREATE TABLE reports (
     id int NOT NULL AUTO_INCREMENT,
     reason varchar(255) NOT NULL,
     user_id_receiver int DEFAULT NULL,
@@ -136,64 +136,64 @@ CREATE TABLE REPORTS (
     PRIMARY KEY (id),
     KEY user_id_receiver (user_id_receiver),
     KEY user_id_writer (user_id_writer),
-    CONSTRAINT reports_ibfk_1 FOREIGN KEY (user_id_receiver) REFERENCES USERS (id),
-    CONSTRAINT reports_ibfk_2 FOREIGN KEY (user_id_writer) REFERENCES USERS (id)
+    CONSTRAINT reports_ibfk_1 FOREIGN KEY (user_id_receiver) REFERENCES users (id),
+    CONSTRAINT reports_ibfk_2 FOREIGN KEY (user_id_writer) REFERENCES users (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE BRANDS (
+CREATE TABLE brands (
     id int NOT NULL AUTO_INCREMENT,
     brand_name varchar(50) NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE CAR_MODELS (
+CREATE TABLE car_models (
     id int NOT NULL AUTO_INCREMENT,
     model_name varchar(50) NOT NULL,
     brand_id int DEFAULT NULL,
     PRIMARY KEY (id),
     KEY brand_id (brand_id),
-    CONSTRAINT car_models_ibfk_1 FOREIGN KEY (brand_id) REFERENCES BRANDS (id)
+    CONSTRAINT car_models_ibfk_1 FOREIGN KEY (brand_id) REFERENCES brands (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE REFERENTIELS_CRIT_AIR (
+CREATE TABLE referentiels_crit_air (
     id bigint unsigned NOT NULL AUTO_INCREMENT,
     image varchar(255) DEFAULT NULL,
     nom varchar(100) DEFAULT NULL,
     UNIQUE KEY id (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE REFERENTIELS_FUEL_TYPE (
+CREATE TABLE referentiels_fuel_type (
     id bigint unsigned NOT NULL AUTO_INCREMENT,
     nom varchar(100) DEFAULT NULL,
     UNIQUE KEY id (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE REFERENTIELS_NB_DOORS (
+CREATE TABLE referentiels_nb_doors (
     id bigint unsigned NOT NULL AUTO_INCREMENT,
     nb_doors varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
     UNIQUE KEY id (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE REFERENTIELS_GEARBOX_TYPE (
+CREATE TABLE referentiels_gearbox_type (
     id int NOT NULL AUTO_INCREMENT,
     nom varchar(100) DEFAULT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE REFERENTIELS_VEHICULE_TYPE (
+CREATE TABLE referentiels_vehicule_type (
     id int NOT NULL AUTO_INCREMENT,
     segment varchar(100) DEFAULT NULL,
     nom varchar(100) DEFAULT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE EQUIPMENTS (
+CREATE TABLE equipments (
     id int NOT NULL AUTO_INCREMENT,
     equipment_name varchar(50) NOT NULL,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE CARS (
+CREATE TABLE cars (
     id int NOT NULL AUTO_INCREMENT,
     type_of_car_id int DEFAULT NULL,
     car_year varchar(4) DEFAULT NULL,
@@ -226,38 +226,38 @@ CREATE TABLE CARS (
     KEY crit_air (crit_air_id),
     KEY type_of_car_id (type_of_car_id),
     KEY boite_vitesse_id (boite_vitesse_id),
-    CONSTRAINT cars_ibfk_2 FOREIGN KEY (model_id) REFERENCES CAR_MODELS (id),
-    CONSTRAINT cars_ibfk_3 FOREIGN KEY (nb_door_id) REFERENCES REFERENTIELS_NB_DOORS (id),
-    CONSTRAINT cars_ibfk_4 FOREIGN KEY (nb_door_id) REFERENCES REFERENTIELS_NB_DOORS (id),
-    CONSTRAINT cars_ibfk_5 FOREIGN KEY (carburant_id) REFERENCES REFERENTIELS_FUEL_TYPE (id),
-    CONSTRAINT cars_ibfk_6 FOREIGN KEY (crit_air_id) REFERENCES REFERENTIELS_CRIT_AIR (id),
-    CONSTRAINT cars_ibfk_7 FOREIGN KEY (type_of_car_id) REFERENCES REFERENTIELS_VEHICULE_TYPE (id),
-    CONSTRAINT cars_ibfk_8 FOREIGN KEY (boite_vitesse_id) REFERENCES REFERENTIELS_GEARBOX_TYPE (id),
-    CONSTRAINT cars_ibfk_9 FOREIGN KEY (user_id) REFERENCES USERS (id) ON DELETE CASCADE
+    CONSTRAINT cars_ibfk_2 FOREIGN KEY (model_id) REFERENCES car_models (id),
+    CONSTRAINT cars_ibfk_3 FOREIGN KEY (nb_door_id) REFERENCES referentiels_nb_doors (id),
+    CONSTRAINT cars_ibfk_4 FOREIGN KEY (nb_door_id) REFERENCES referentiels_nb_doors (id),
+    CONSTRAINT cars_ibfk_5 FOREIGN KEY (carburant_id) REFERENCES referentiels_fuel_type (id),
+    CONSTRAINT cars_ibfk_6 FOREIGN KEY (crit_air_id) REFERENCES referentiels_crit_air (id),
+    CONSTRAINT cars_ibfk_7 FOREIGN KEY (type_of_car_id) REFERENCES referentiels_vehicule_type (id),
+    CONSTRAINT cars_ibfk_8 FOREIGN KEY (boite_vitesse_id) REFERENCES referentiels_gearbox_type (id),
+    CONSTRAINT cars_ibfk_9 FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE DOCUMENTS (
+CREATE TABLE documents (
     id int NOT NULL AUTO_INCREMENT,
     document_type varchar(50) NOT NULL,
     document_content varchar(255) NOT NULL,
     car_id int DEFAULT NULL,
     PRIMARY KEY (id),
     KEY car_id (car_id),
-    CONSTRAINT documents_ibfk_1 FOREIGN KEY (car_id) REFERENCES CARS (id) ON DELETE CASCADE
+    CONSTRAINT documents_ibfk_1 FOREIGN KEY (car_id) REFERENCES cars (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE CARS_EQUIPMENTS (
+CREATE TABLE cars_equipments (
     id int NOT NULL AUTO_INCREMENT,
     car_id int DEFAULT NULL,
     equipment_id int DEFAULT NULL,
     PRIMARY KEY (id),
     KEY car_id (car_id),
     KEY equipment_id (equipment_id),
-    CONSTRAINT cars_equipments_ibfk_3 FOREIGN KEY (car_id) REFERENCES CARS (id) ON DELETE CASCADE,
-    CONSTRAINT cars_equipments_ibfk_4 FOREIGN KEY (equipment_id) REFERENCES EQUIPMENTS (id) ON DELETE CASCADE
+    CONSTRAINT cars_equipments_ibfk_3 FOREIGN KEY (car_id) REFERENCES cars (id) ON DELETE CASCADE,
+    CONSTRAINT cars_equipments_ibfk_4 FOREIGN KEY (equipment_id) REFERENCES equipments (id) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE BIDS (
+CREATE TABLE bids (
     id int NOT NULL AUTO_INCREMENT,
     proposed_price float NOT NULL,
     status tinyint(1) NOT NULL,
@@ -267,11 +267,11 @@ CREATE TABLE BIDS (
     PRIMARY KEY (id),
     KEY user_id (user_id),
     KEY car_id (car_id),
-    CONSTRAINT bids_ibfk_1 FOREIGN KEY (user_id) REFERENCES USERS (id),
-    CONSTRAINT bids_ibfk_2 FOREIGN KEY (car_id) REFERENCES CARS (id)
+    CONSTRAINT bids_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id),
+    CONSTRAINT bids_ibfk_2 FOREIGN KEY (car_id) REFERENCES cars (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE ORDERS (
+CREATE TABLE orders (
     id int NOT NULL AUTO_INCREMENT,
     delivery_status tinyint(1) NOT NULL DEFAULT '0',
     delivery_type tinyint(1) NOT NULL DEFAULT '0',
@@ -281,11 +281,11 @@ CREATE TABLE ORDERS (
     PRIMARY KEY (id),
     KEY user_id (user_id),
     KEY car_id (car_id),
-    CONSTRAINT orders_ibfk_1 FOREIGN KEY (user_id) REFERENCES USERS (id),
-    CONSTRAINT orders_ibfk_2 FOREIGN KEY (car_id) REFERENCES CARS (id)
+    CONSTRAINT orders_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id),
+    CONSTRAINT orders_ibfk_2 FOREIGN KEY (car_id) REFERENCES cars (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE OFFERS (
+CREATE TABLE offers (
     id int NOT NULL AUTO_INCREMENT,
     proposed_price float NOT NULL,
     accepted_declined int DEFAULT '0',
@@ -296,11 +296,11 @@ CREATE TABLE OFFERS (
     PRIMARY KEY (id),
     KEY user_id (user_id),
     KEY car_id (car_id),
-    CONSTRAINT offers_ibfk_1 FOREIGN KEY (user_id) REFERENCES USERS (id),
-    CONSTRAINT offers_ibfk_2 FOREIGN KEY (car_id) REFERENCES CARS (id)
+    CONSTRAINT offers_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id),
+    CONSTRAINT offers_ibfk_2 FOREIGN KEY (car_id) REFERENCES cars (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE CONVERSATIONS (
+CREATE TABLE conversations (
     id int NOT NULL AUTO_INCREMENT,
     created_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
     user_id_sender int NOT NULL,
@@ -308,11 +308,11 @@ CREATE TABLE CONVERSATIONS (
     PRIMARY KEY (id),
     UNIQUE KEY user_id_sender (user_id_sender, user_id_receiver),
     KEY user_id_receiver (user_id_receiver),
-    CONSTRAINT conversations_ibfk_1 FOREIGN KEY (user_id_sender) REFERENCES USERS (id),
-    CONSTRAINT conversations_ibfk_2 FOREIGN KEY (user_id_receiver) REFERENCES USERS (id)
+    CONSTRAINT conversations_ibfk_1 FOREIGN KEY (user_id_sender) REFERENCES users (id),
+    CONSTRAINT conversations_ibfk_2 FOREIGN KEY (user_id_receiver) REFERENCES users (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE CHATS (
+CREATE TABLE chats (
     id int NOT NULL AUTO_INCREMENT,
     content varchar(255) NOT NULL,
     send_at timestamp NULL DEFAULT CURRENT_TIMESTAMP,
@@ -323,12 +323,12 @@ CREATE TABLE CHATS (
     KEY conversation_id (conversation_id),
     KEY user_id (user_id),
     KEY offer_id (offer_id),
-    CONSTRAINT chats_ibfk_1 FOREIGN KEY (conversation_id) REFERENCES CONVERSATIONS (id),
-    CONSTRAINT chats_ibfk_2 FOREIGN KEY (user_id) REFERENCES USERS (id),
-    CONSTRAINT chats_ibfk_3 FOREIGN KEY (offer_id) REFERENCES OFFERS (id)
+    CONSTRAINT chats_ibfk_1 FOREIGN KEY (conversation_id) REFERENCES conversations (id),
+    CONSTRAINT chats_ibfk_2 FOREIGN KEY (user_id) REFERENCES users (id),
+    CONSTRAINT chats_ibfk_3 FOREIGN KEY (offer_id) REFERENCES offers (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-CREATE TABLE HISTORIQUE_NAVIGATION (
+CREATE TABLE historique_navigation (
     id int NOT NULL AUTO_INCREMENT,
     user_id int DEFAULT NULL,
     car_id int DEFAULT NULL,
@@ -338,15 +338,15 @@ CREATE TABLE HISTORIQUE_NAVIGATION (
     PRIMARY KEY (id),
     KEY user_id (user_id),
     KEY car_id (car_id),
-    CONSTRAINT historique_navigation_ibfk_1 FOREIGN KEY (user_id) REFERENCES USERS (id),
-    CONSTRAINT historique_navigation_ibfk_2 FOREIGN KEY (car_id) REFERENCES CARS (id),
+    CONSTRAINT historique_navigation_ibfk_1 FOREIGN KEY (user_id) REFERENCES users (id),
+    CONSTRAINT historique_navigation_ibfk_2 FOREIGN KEY (car_id) REFERENCES cars (id),
     CONSTRAINT historique_navigation_chk_1 CHECK (score BETWEEN 3 AND 5)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 /* INSERTIONS UTILISATEURS */
-/* USERS */
+/* users */
 
-INSERT INTO USERS (id, last_name, first_name, email, birth_date, identity_card, adresse, telephone, profile_picture, description, email_verified_at, password, is_admin, remember_token, created_at, updated_at) VALUES
+INSERT INTO users (id, last_name, first_name, email, birth_date, identity_card, adresse, telephone, profile_picture, description, email_verified_at, password, is_admin, remember_token, created_at, updated_at) VALUES
 (1, 'Faisca', 'Noah', 'noah.faisca@mail.com', '2004-10-04 00:00:00', 'identity_card/wwvzXlWyk3VndUnJSptNkFF4g6Dq9KqaWnGklcz5.pdf', '14 Rue de Fougères, 80090 Amiens', '0622861975', 'profile_pictures/QARpLyvOIHDevlypuVLc6NDrfzgbGV7XMdPl7ofy.jpg', "Un vendeur lambda venu d\'Amiens.", '2004-10-04 00:00:00', '$2y$12$9GYr0ERy1.qrHeOcpPiWsOBjDGqwwF0.PAoZcQ3X3IZ/R3374pVSW', 1, 'fLLoeYMeGzFurftONQ16fszhT1jRZlaZLd9I2vbm9a609Zx57c82VULkO8Xn', '2025-02-24 16:20:48', '2025-02-24 16:25:02'),
 (2, 'Dupont', 'Alice', 'alice.dupont@mail.com', '1988-05-12 00:00:00', '', '12 Avenue des Champs, Paris', '0601020304', '', NULL, NULL, '$2y$10$prqZ06bloKXe.ehmqw9tE.O4kibcsI6sGznOomw400qhU5nQnJOt.', 0, '', '2025-02-24 00:00:00', '2025-02-24 16:20:48'),
 (3, 'Martin', 'Lucas', 'lucas.martin@mail.com', '1992-09-30 00:00:00', '', '33 Boulevard Haussmann, Paris', '0612345678', '', NULL, NULL, '$2y$10$prqZ06bloKXe.ehmqw9tE.O4kibcsI6sGznOomw400qhU5nQnJOt.', 0, '', '2025-02-24 00:00:00', '2025-02-24 16:20:48'),
@@ -368,7 +368,7 @@ INSERT INTO USERS (id, last_name, first_name, email, birth_date, identity_card, 
 (19, 'Lopez', 'Pierre', 'pierre.lopez@mail.com', '1983-12-19 00:00:00', '', '18 Rue des Arts, Bordeaux', '0778901234', '', NULL, NULL, '$2y$10$prqZ06bloKXe.ehmqw9tE.O4kibcsI6sGznOomw400qhU5nQnJOt.', 0, '', '2025-02-24 00:00:00', '2025-02-24 16:20:48');
 
 /* WEBSITE REVIEWS */
-INSERT INTO WEBSITE_REVIEWS (comment, user_id, nb_of_star) VALUES
+INSERT INTO website_reviews (comment, user_id, nb_of_star) VALUES
 ('Super site, très facile à utiliser et interface agreable.', 3, 5),
 ('Bonne experience d achat, service client reactif.', 5, 4),
 ('Les enchères sont interessantes, mais il faudrait plus de filtres.', 7, 3),
@@ -376,15 +376,15 @@ INSERT INTO WEBSITE_REVIEWS (comment, user_id, nb_of_star) VALUES
 ('Quelques bugs sur mobile, mais sinon très bon site.', 2, 3);
 
 /* USER REVIEWS */
-INSERT INTO USER_REVIEWS (comment, nb_of_star, user_id_writer, user_id_receiver, created_at) VALUES
+INSERT INTO user_reviews (comment, nb_of_star, user_id_writer, user_id_receiver, created_at) VALUES
 ('Vendeur sérieux, voiture en bon état, je recommande.', 5, 2, 1, '2025-02-24 00:00:00'),
 ('Achat rapide et efficace, vendeur très professionnel.', 4, 3, 1, '2025-02-24 00:00:00'),
 ('Vendeur très sympa, voiture conforme à la description.', 5, 6, 2, '2025-02-24 00:00:00'),
 ('Vendeur réactif, voiture en bon état, je recommande.', 4, 8, 2, '2025-02-24 00:00:00'),
 ('Vendeur sérieux, voiture en bon état, je recommande.', 5, 9, 2, '2025-02-24 00:00:00');
 
-/* REPORTS */
-INSERT INTO REPORTS (reason, user_id_receiver, user_id_writer, status, created_at, updated_at) VALUES
+/* reports */
+INSERT INTO reports (reason, user_id_receiver, user_id_writer, status, created_at, updated_at) VALUES
 ('Contenu inapproprié', 1, 2, 0, '2025-02-24 00:00:00', '2025-02-24 00:00:00'),
 ('Contenu inapproprié', 1, 3, 0, '2025-02-24 00:00:00', '2025-02-24 00:00:00'),
 ('Contenu inapproprié', 2, 6, 0, '2025-02-24 00:00:00', '2025-02-24 00:00:00'),
@@ -392,8 +392,8 @@ INSERT INTO REPORTS (reason, user_id_receiver, user_id_writer, status, created_a
 ('Contenu inapproprié', 2, 9, 0, '2025-02-24 00:00:00', '2025-02-24 00:00:00');
 
 /* INSERTIONS REFERENTIELS */
-/* BRANDS */
-INSERT INTO BRANDS (brand_name) VALUES
+/* brands */
+INSERT INTO brands (brand_name) VALUES
 ('Peugeot'),
 ('Renault'),
 ('BMW'),
@@ -405,8 +405,8 @@ INSERT INTO BRANDS (brand_name) VALUES
 ('Tesla'),
 ('Honda');
 
-/* CAR_MODELS */
-INSERT INTO CAR_MODELS (model_name, brand_id) VALUES
+/* car_models */
+INSERT INTO car_models (model_name, brand_id) VALUES
 ('208', 1),
 ('308', 1),
 ('3008', 1),
@@ -448,8 +448,8 @@ INSERT INTO CAR_MODELS (model_name, brand_id) VALUES
 ('CR-V', 10),
 ('e', 10);
 
-/* REFERENTIELS_CRIT_AIR */
-INSERT INTO REFERENTIELS_CRIT_AIR (image, nom) VALUES
+/* referentiels_crit_air */
+INSERT INTO referentiels_crit_air (image, nom) VALUES
 ('images/critair-electrique.png', "Crit'Air Electrique"),
 ('images/critair-1.png', "Crit'Air 1"),
 ('images/critair-2.png', "Crit'Air 2"),
@@ -457,25 +457,25 @@ INSERT INTO REFERENTIELS_CRIT_AIR (image, nom) VALUES
 ('images/critair-4.png', "Crit'Air 4"),
 ('images/critair-5.png', "Crit'Air 5");
 
-/* REFERENTIELS_FUEL_TYPE */
-INSERT INTO REFERENTIELS_FUEL_TYPE (nom) VALUES
+/* referentiels_fuel_type */
+INSERT INTO referentiels_fuel_type (nom) VALUES
 ('Diesel'),
 ('Essence'),
 ('Électrique'),
 ('Hybride');
 
-/* REFERENTIELS_NB_DOORS */
-INSERT INTO REFERENTIELS_NB_DOORS (nb_doors) VALUES
+/* referentiels_nb_doors */
+INSERT INTO referentiels_nb_doors (nb_doors) VALUES
 ('3'),
 ('5');
 
-/* REFERENTIELS_GEARBOX_TYPE */
-INSERT INTO REFERENTIELS_GEARBOX_TYPE (nom) VALUES
+/* referentiels_gearbox_type */
+INSERT INTO referentiels_gearbox_type (nom) VALUES
 ('Manuelle'),
 ('Automatique');
 
-/* REFERENTIELS_VEHICULE_TYPE */
-INSERT INTO REFERENTIELS_VEHICULE_TYPE (segment, nom) VALUES
+/* referentiels_vehicule_type */
+INSERT INTO referentiels_vehicule_type (segment, nom) VALUES
 ('Segment A', 'Minis Citadines'),
 ('Segment B', 'Citadines Polyvalentes'),
 ('Segment C ou M1', 'Compactes'),
@@ -486,8 +486,8 @@ INSERT INTO REFERENTIELS_VEHICULE_TYPE (segment, nom) VALUES
 ('Segment M', 'Monospaces'),
 ('Segment J', 'SUV et Tout-Terrains');
 
-/* EQUIPMENTS */
-INSERT INTO EQUIPMENTS (equipment_name) VALUES
+/* equipments */
+INSERT INTO equipments (equipment_name) VALUES
 ('Climatisation'),
 ('Régulateur de vitesse'),
 ('GPS'),
@@ -500,8 +500,8 @@ INSERT INTO EQUIPMENTS (equipment_name) VALUES
 ('Jantes alliage');
 
 /* INSERTIONS ANNONCES */
-/* CARS */
-INSERT INTO CARS (type_of_car_id, car_year, mileage, postal_code, consommation, nb_door_id, provenance, puissance_fiscale, puissance_din, boite_vitesse_id, carburant_id, vente_enchere, minimum_price, selling_price, deadline, crit_air_id, co2_emission, created_at, user_id, model_id, status, status_ct, commentaire_vendeur) VALUES
+/* cars */
+INSERT INTO cars (type_of_car_id, car_year, mileage, postal_code, consommation, nb_door_id, provenance, puissance_fiscale, puissance_din, boite_vitesse_id, carburant_id, vente_enchere, minimum_price, selling_price, deadline, crit_air_id, co2_emission, created_at, user_id, model_id, status, status_ct, commentaire_vendeur) VALUES
 (2, '2016', 102000, '59000', 6, 2, 'France', 7, 130, 1, 2, 0, 14000, 14000, '2025-03-20', 1, 118, '2025-02-24 00:00:00', 1, 2, 0, 1, 'Bonne occasion, CT OK.'),
 (4, '2018', 85000, '75001', 5.2, 2, 'France', 7, 130, 1, 2, 0, 15000, 15000, '2025-03-15', 1, 110, '2025-02-24 00:00:00', 1, 3, 0, 1, 'Très bon état, entretien régulier.'),
 (4, '2018', 72000, '76000', 5, 2, 'France', 6, 125, 1, 2, 1, 16000, 16000, '2025-06-30', 1, 108, '2025-02-24 00:00:00', 3, 3, 0, 1, 'Compacte et économique.'),
@@ -533,8 +533,8 @@ INSERT INTO CARS (type_of_car_id, car_year, mileage, postal_code, consommation, 
 (6, '2013', 155000, '68000', 8.1, 2, 'Italie', 12, 280, 1, 3, 1, 41000, 41000, '2025-07-25', 2, 220, '2025-02-24 00:00:00', 3, 15, 0, 0, 'Un classique des sportives, toujours impressionnante.'),
 (6, '2013', 170000, '68000', 8.5, 2, 'Italie', 12, 290, 1, 3, 1, 40000, 40000, '2025-09-12', 2, 220, '2025-02-24 00:00:00', 1, 15, 0, 0, 'Un classique des sportives, état impeccable.');
 
-/* DOCUMENTS */
-INSERT INTO DOCUMENTS (document_type, document_content, car_id) VALUES
+/* documents */
+INSERT INTO documents (document_type, document_content, car_id) VALUES
 ('image', '/document_content/308-1.jpg', 1),
 ('image', '/document_content/3008-1.jpg', 2),
 ('image', '/document_content/3008-2.jpg', 3),
@@ -569,8 +569,8 @@ INSERT INTO DOCUMENTS (document_type, document_content, car_id) VALUES
 ('image', '/document_content/serie3-2p3.jpg', 17),
 ('image', '/document_content/serie3-2p4.jpg', 17);
 
-/* CARS_EQUIPMENTS */
-INSERT INTO CARS_EQUIPMENTS (car_id, equipment_id) VALUES
+/* cars_equipments */
+INSERT INTO cars_equipments (car_id, equipment_id) VALUES
 (17, 1),
 (17, 2),
 (17, 3),
@@ -583,18 +583,18 @@ INSERT INTO CARS_EQUIPMENTS (car_id, equipment_id) VALUES
 (17, 10);
 
 /* INSERTIONS TCHAT */
-/* CONVERSATIONS */
-INSERT INTO CONVERSATIONS (created_at, user_id_sender, user_id_receiver) VALUES
+/* conversations */
+INSERT INTO conversations (created_at, user_id_sender, user_id_receiver) VALUES
 ('2025-02-24 18:59:02', 1, 2),
 ('2025-02-24 19:03:39', 1, 9);
 
-/* OFFERS */
-INSERT INTO OFFERS (proposed_price, accepted_declined, status, user_id, car_id, created_at) VALUES
+/* offers */
+INSERT INTO offers (proposed_price, accepted_declined, status, user_id, car_id, created_at) VALUES
 (20000, 1, 1, 1, 17, '2025-02-24 19:01:34'),
 (12000, 1, 0, 9, 1, '2025-02-24 19:04:34');
 
-/* CHATS */
-INSERT INTO CHATS (content, send_at, conversation_id, user_id, offer_id) VALUES
+/* chats */
+INSERT INTO chats (content, send_at, conversation_id, user_id, offer_id) VALUES
 ("Bonjour ! J\'ai vu que vous vendiez votre BMW Série 3, est-elle toujours disponible ?", '2025-02-24 19:00:39', 1, 1, NULL),
 ('Bonjour ! Oui, elle est toujours disponible. Elle est en excellent état et a toujours été bien entretenue. Vous êtes intéressé ?', '2025-02-24 19:00:54', 1, 2, NULL),
 ("Oui, elle m\'intéresse beaucoup ! Je vais vous faire une offre !", '2025-02-24 19:01:13', 1, 1, NULL),
@@ -603,6 +603,6 @@ INSERT INTO CHATS (content, send_at, conversation_id, user_id, offer_id) VALUES
 ('Bonjour, je suis intéressé par cette voiture, je vous fais une offre.', '2025-02-24 19:03:50', 2, 9, NULL),
 ('Nouvelle offre de  : 12000€', '2025-02-24 19:04:34', 2, 9, 2);
 
-/* ORDERS */
-INSERT INTO ORDERS (delivery_status, delivery_type, delivery_date, user_id, car_id) VALUES
+/* orders */
+INSERT INTO orders (delivery_status, delivery_type, delivery_date, user_id, car_id) VALUES
 (0, 0, '2025-03-12 00:00:00', 1, 17);
