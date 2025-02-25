@@ -240,6 +240,7 @@
     "SeePhoneNumber": "查看电话号码",
     "YourRecommendations": "您的推荐",
     "Administration": "管理",
+    "Dashboard": "仪表板",
     "Users": "用户",
     "Offers": "广告",
     "Reports": "报告",
@@ -350,5 +351,15 @@
     "ContactSeller": "联系卖家",
     "OrderDetails": "订单详情",
     "PurchaseAmount": "购买金额",
-    "SellerInformation": "卖家信息"
+    "SellerInformation": "卖家信息",
+    "ManageStats": "管理AutoMarket统计数据",
+    "NumberStats": "一些数字...",
+    "CurrentVisitors": "当前访客",
+    "AllVisitors": "所有访客",
+    "AllAccounts": "所有账户",
+    "AllOrdersMade": "所有订单",
+    "MoneyMade": "生成的收入",
+    "UserSatisfaction": "用户满意度",
+    "NumberOrders": "本年度订单数量",
+    "NumberOffers": "本年度广告数量"
 }

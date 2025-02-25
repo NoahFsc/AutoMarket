@@ -14,6 +14,13 @@
         <p class="py-4 text-sm opacity-50">{{ __('Administration') }}</p>
 
         <div class="flex flex-col gap-2">
+
+            {{-- Tableau de bord --}}
+            <a href="{{ route('admin.dashboard') }}" class="text-lg flex items-center gap-3 py-2 px-4 font-medium rounded-lg {{ Route::is('admin.dashboard') ? 'bg-gray-500 bg-opacity-20 text-default' : 'hover:text-default/80 hover:bg-opacity-20 text-default/50' }}">
+                <i class="text-lg fa-chart-simple {{ Route::is('admin.dashboard') ? 'text-default fa-solid' : 'fa-regular text-default/50' }}"></i>
+                {{ __('Dashboard') }}
+            </a>
+
             {{-- Utilisateurs --}}
             <a href="{{ route('admin.users-list') }}" class="text-lg flex items-center gap-3 py-2 px-4 font-medium rounded-lg {{ Route::is('admin.users-list') ? 'bg-gray-500 bg-opacity-20 text-default' : 'hover:text-default/80 hover:bg-opacity-20 text-default/50' }}">
                 <i class="text-lg fa-users-gear {{ Route::is('admin.users-list') ? 'text-default fa-solid' : 'fa-regular text-default/50' }}"></i>

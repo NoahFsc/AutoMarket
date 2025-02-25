@@ -240,6 +240,7 @@
     "SeePhoneNumber": "Voir le numéro de téléphone",
     "YourRecommendations": "Vos Recommandations",
     "Administration": "ADMINISTRATION",
+    "Dashboard": "Tableau de bord",
     "Users": "Utilisateurs",
     "Offers": "Annonces",
     "Reports": "Signalements",
@@ -350,5 +351,15 @@
     "ContactSeller": "Contacter le vendeur",
     "OrderDetails": "Détails de la commande",
     "PurchaseAmount": "Montant de l'achat",
-    "SellerInformation": "Informations du vendeur"
+    "SellerInformation": "Informations du vendeur",
+    "ManageStats": "Gestion des statistiques d'Automarket",
+    "NumberStats": "Quelques chiffres...",
+    "CurrentVisitors": "Visiteurs actuels",
+    "AllVisitors": "Tous les visiteurs",
+    "AllAccounts": "Tous les comptes",
+    "AllOrdersMade": "Toutes les commandes",
+    "MoneyMade": "Argent généré",
+    "UserSatisfaction": "Satisfaction utilisateurs",
+    "NumberOrders": "Nombre de commandes sur l'année en cours",
+    "NumberOffers": "Nombre d'annonces sur l'année en cours"
 }

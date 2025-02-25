@@ -79,6 +79,7 @@ Route::get('/localization/{locale}', LocalizationController::class)->name('local
         Route::middleware(['auth', 'admin'])->prefix('admin')->group(function () {
         
             // Pages du panel admin
+            Route::get('/dashboard', [HomeController::class, 'dashboard'])->name('admin.dashboard');
             Route::get('/users', [UsersController::class, 'index'])->name('admin.users-list');
             Route::get('/offers', [OffersController::class, 'index'])->name('admin.offers-list');
             Route::get('/reports', [ReportsController::class, 'index'])->name('admin.reports-list');

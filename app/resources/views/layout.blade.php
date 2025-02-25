@@ -70,7 +70,7 @@
                                     <i class="fa-regular fa-clock-rotate-left"></i> <p>{{ __('DropdownHistory') }}</p>
                                 </a>
                                 @if (Auth::user()->is_admin)
-                                <a href="{{ route('admin.users-list') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-default/10" role="menuitem">
+                                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-2 px-4 py-2 hover:bg-default/10" role="menuitem">
                                     <i class="fa-regular fa-gear"></i> <p>{{ __('DropdownAdmin') }}</p>
                                 </a>
                                 @endif

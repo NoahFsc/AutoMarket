@@ -113,7 +113,7 @@
                 <div class="opacity-50">{{ __('NoAds') }}</div>
             @endif
         </div>
-        <di class="flex flex-col w-1/4 gap-3">
+        {{-- <div class="flex flex-col w-1/4 gap-3">
             <span class="flex items-center gap-2 text-2xl font-medium"><i class="fa-solid fa-star-sharp-half-stroke"></i>{{ __('Reviews') }} <p class="text-sm opacity-50">({{ count($reviews) }})</p></span>
             <div class="flex flex-col gap-2 rounded-lg">
                 @foreach ($reviews as $review)
@@ -123,7 +123,7 @@
             @if (count($reviews) == 0)
                 <div class="opacity-50">{{ __('NoReviews') }}</div>
             @endif
-        </di>
+        </div> --}}
     </div>
 </div>
 
